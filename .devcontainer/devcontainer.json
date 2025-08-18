@@ -1,0 +1,24 @@
+{
+	"name": "Hugo Deployer Container Development",
+	"build": {
+		"dockerfile": "Dockerfile"
+	},
+	"privileged": true,
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"redhat.vscode-yaml",
+				"davidanson.vscode-markdownlint",
+				"exiasr.hadolint",
+				"github.vscode-github-actions",
+				"ms-vscode.vscode-github-issues-prs",
+				"timonwong.shellcheck",
+				"ms-vscode.remote-containers",
+				"matthewpi.caddyfile-support",
+				"chrischinchilla.vale-vscode"
+			]
+		}
+	},
+	"postCreateCommand": "git config --global --add safe.directory ${containerWorkspaceFolder}",
+	"remoteUser": "devcontaineruser"
+}

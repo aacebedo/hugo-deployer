@@ -1,0 +1,26 @@
+branches:
+  - main
+
+plugins:
+  - "@semantic-release/commit-analyzer"
+  - "@semantic-release/release-notes-generator"
+  - - "@semantic-release/changelog"
+    - changelogFile: "CHANGELOG.md"
+#  - - "@codedependant/semantic-release-docker"
+#    - dockerTags:
+#        - latest
+#        - {{version}}
+#      dockerProject: aacebedo
+#      dockerImage: hugo-deployer
+#      dockerRegistry: "ghcr.io"
+#      network: null
+  - "@semantic-release/github"
+  - - "@semantic-release/git"
+    - message: "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+  - - "@semantic-release-plus/docker"
+    - name:
+        registry: ghcr.io
+        namespace: aacebedo
+        repository: hugo-deployer
+        tag: latest
+      publishChannelTag: true

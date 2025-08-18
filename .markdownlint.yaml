@@ -1,0 +1,10 @@
+---
+# markdownlint configuration
+default: true
+
+# Rule customizations
+MD029:
+  style: one_or_ordered
+
+MD013:
+  line_length: 120

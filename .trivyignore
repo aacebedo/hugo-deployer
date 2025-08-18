@@ -1,0 +1,21 @@
+# For devcontainer image
+## wait for trivy update
+CVE-2025-8959
+
+## wait for npm package update
+CVE-2021-23358
+
+## wait for podman update
+GHSA-wwq9-3cpr-mm53
+
+# For image
+## wait for hugo update
+CVE-2025-22874
+CVE-2025-47907
+CVE-2025-0913
+CVE-2025-22871
+CVE-2025-4673
+
+## wait for caddy update
+GHSA-vrw8-fxc6-2r93
+CVE-2025-8556

@@ -1,0 +1,50 @@
+---
+name: Release
+
+# yamllint disable-line rule:truthy
+on:
+  workflow_dispatch:
+  #push:
+  #  branches:
+  #    - main
+
+jobs:
+  prepare:
+    uses: ./.github/workflows/prepare-devcontainer-image.yaml
+    permissions:
+      contents: read
+      packages: write
+  release:
+    needs: prepare
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
+      actions: read
+      security-events: write
+    container:
+      image: ghcr.io/${{ github.repository }}-devcontainer:${{ github.sha }}-${{github.run_id}}
+      options: --user root --privileged
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      DOCKER_USERNAME: ${{ github.actor }}
+      DOCKER_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Configure git
+        run: |
+          git config --global --add safe.directory '*'
+          git config --global user.email "${{ github.actor }}@users.noreply.github.com"
+          git config --global user.name "${{ github.actor }}"
+      - name: Perform release
+        run: |
+          just release
+  cleanup:
+    uses: ./.github/workflows/cleanup-devcontainer-image.yaml
+    needs:
+      - prepare
+      - release
+    if: always()
+    permissions:
+      packages: write
