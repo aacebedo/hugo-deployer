@@ -7,7 +7,7 @@ FROM golang:${GO_VERSION} AS builder
 # Build arguments for other versions
 ARG HUGO_VERSION=0.148.2
 ARG CADDY_VERSION=v2.10.0
-ARG XCADDY_VERSION=v0.4.4
+ARG XCADDY_VERSION=v0.4.5
 ARG CADDY_EXEC_VERSION=latest
 ARG DART_SASS_VERSION=1.90.0
 ARG PAGEFIND_VERSION=1.3.0
@@ -64,6 +64,7 @@ RUN apk add --no-cache \
 		libc6-compat \
 		libstdc++ \
 		libgcc \
+		libcap-setcap \
 		&& update-ca-certificates
 
 # Copy Hugo, Caddy, Go, Dart Sass, and Pagefind from builder
@@ -74,6 +75,8 @@ COPY --from=builder /usr/local/bin/pagefind /usr/local/bin/pagefind
 COPY --from=builder /usr/local/go/bin/go /usr/local/bin/go
 COPY --from=builder /usr/local/go /usr/local/go
 
+RUN setcap 'cap_net_bind_service=+ep' /usr/local/bin/caddy
+
 # Test that Hugo works
 RUN hugo version
 
@@ -82,7 +85,8 @@ RUN addgroup -g 1000 appuser && \
 		adduser -u 1000 -G appuser -s /bin/bash -D appuser
 
 # Create directories
-RUN mkdir -p /app/site /app/config /app/builds /home/appuser/.ssh /go
+RUN mkdir -p /app/site /app/config /app/builds /home/appuser/.ssh /go && \
+		chown -R appuser:appuser /app/site /app/builds
 
 # Set ownership of directories to appuser
 RUN chown -R appuser:appuser /app /go /home/appuser
@@ -107,11 +111,6 @@ USER appuser
 WORKDIR /app
 
 # Environment variables for runtime configuration
-ENV GIT_REPO_URL=""
-ENV GIT_USERNAME=""
-ENV GIT_BRANCH="main"
-ENV DOMAIN="localhost"
-ENV PORT="80"
 ENV GOROOT="/usr/local/go"
 ENV GOPATH="/go"
 ENV PATH="$GOROOT/bin:$GOPATH/bin:$PATH"
@@ -124,7 +123,7 @@ EXPOSE 80
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-		CMD curl -f http://localhost:${PORT} || exit 1
+		CMD curl -f http://localhost:80 || exit 1
 
 # Start with startup script that then runs Caddy
 ENTRYPOINT ["/usr/local/bin/startup.sh"]

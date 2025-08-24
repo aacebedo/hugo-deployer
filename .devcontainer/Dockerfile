@@ -16,6 +16,7 @@ ARG SEMANTIC_RELEASE_EXEC_VERSION="7.1.0"
 ARG SEMANTIC_RELEASE_GIT_VERSION="10.0.1"
 ARG VALE_VERSION="3.12.0"
 ARG SEMANTIC_RELEASE_PLUS_DOCKER="v3.1.3"
+ARG PODMAN_COMPOSE_VERSION="1.5.0"
 
 ARG USERNAME="devcontaineruser"
 ARG USERUID="1000"
@@ -33,6 +34,7 @@ ARG EDITORCONFIG_CHECKER_VERSION
 ARG JUST_VERSION
 ARG TRIVY_VERSION
 ARG VALE_VERSION
+ARG PODMAN_COMPOSE_VERSION
 
 # Install base packages
 RUN apk add --no-cache \
@@ -102,7 +104,8 @@ ENV UV_TOOL_BIN_DIR=/usr/local/bin
 ENV UV_TOOL_DIR=/opt/uv/venv
 
 RUN uv tool install "pre-commit==${PRECOMMIT_VERSION}" && \
-	uv tool install "yamllint==${YAMLLINT_VERSION}"
+	uv tool install "yamllint==${YAMLLINT_VERSION}" && \
+	uv tool install "podman-compose==${PODMAN_COMPOSE_VERSION}"
 
 # Stage 2: Final image
 FROM alpine:${ALPINE_VERSION} AS final
@@ -134,6 +137,7 @@ RUN apk add --no-cache \
 		podman \
 		podman-docker \
 		fuse-overlayfs \
+		iptables \
 		make \
 		g++ \
 		openssh \
@@ -154,6 +158,9 @@ COPY --from=installer /usr/local/bin/vale /usr/local/bin/vale
 COPY --from=installer /opt/uv /opt/uv
 COPY --from=installer /usr/local/bin/pre-commit /usr/local/bin/pre-commit
 COPY --from=installer /usr/local/bin/yamllint /usr/local/bin/yamllint
+COPY --from=installer /usr/local/bin/podman-compose /usr/local/bin/podman-compose
+
+COPY containers.conf /etc/containers/containers.conf
 
 # Set up UV environment
 ENV UV_PYTHON_INSTALL_DIR=/opt/uv/python
@@ -161,6 +168,7 @@ ENV UV_TOOL_BIN_DIR=/usr/local/bin
 ENV UV_TOOL_DIR=/opt/uv/venv
 
 # Install Node.js tools
+# hadolint ignore=DL3016
 RUN npm install -g \
 		"jsonlint@${JSONLINT_VERSION}" \
 		"markdownlint-cli2@${MARKDOWNLINT_VERSION}" \

@@ -27,6 +27,18 @@ build:
 				--label "org.opencontainers.image.title={{repo_name}}" \
 				--label "org.opencontainers.image.vendor={{repo_owner}}" .
 
+test: build
+	#!/usr/bin/env sh
+	trap 'podman-compose down' EXIT
+	export GIT_REPO_URL="https://github.com/aacebedo/hugo-deployer-example.git"
+	export GIT_USERNAME=johndoe
+	export GIT_TOKEN=secret_token
+	export GIT_BRANCH=main
+	export API_KEY=secret_api_key
+	export PORT=8080
+	podman-compose up --build -d
+	curl --retry 5 --retry-delay 5 --retry-all-errors localhost:8080 > /dev/null
+
 # Run security scan using trivy
 security-scan: build
 	#!/usr/bin/env bash
