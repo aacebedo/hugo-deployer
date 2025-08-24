@@ -1,6 +1,23 @@
 {
 	"$schema": "https://docs.renovatebot.com/renovate-schema.json",
 	"extends": [
-		"config:recommended"
+		"config:recommended",
+		":enablePreCommit"
+	],
+	"baseBranches": [
+		"main"
+	],
+	"customManagers": [
+		{
+			"customType": "regex",
+			"managerFilePatterns": [
+				"**/Dockerfile*"
+			],
+			"matchStrings": [
+				// editorconfig-checker-disable-next-line
+				"# renovate: datasource=(?<datasource>[^\\s]+) depName=(?<depName>[^\\s]+)(?:\\s+extractVersion=(?<extractVersion>[^\\s]+))?\\s*\\n(?:ARG|ENV)\\s+[^=]+_VERSION=(?<currentValue>[^\\s]+)"
+			],
+			"datasourceTemplate": "{{datasource}}"
+		}
 	]
 }

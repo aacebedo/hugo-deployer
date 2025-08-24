@@ -1,22 +1,42 @@
 ARG ALPINE_VERSION=3.21
 
 # Build arguments for tool versions
-ARG HADOLINT_VERSION="2.12.0"
-ARG YAMLLINT_VERSION="1.37.1"
-ARG MARKDOWNLINT_VERSION="0.18.1"
-ARG PRECOMMIT_VERSION="4.3.0"
-ARG UV_VERSION="0.8.11"
-ARG JSONLINT_VERSION="1.6.0"
-ARG EDITORCONFIG_CHECKER_VERSION="3.4.0"
-ARG JUST_VERSION="1.42.4"
-ARG TRIVY_VERSION="0.65.0"
-ARG SEMANTIC_RELEASE_VERSION="24.2.7"
-ARG SEMANTIC_RELEASE_CHANGELOG_VERSION="6.0.3"
-ARG SEMANTIC_RELEASE_EXEC_VERSION="7.1.0"
-ARG SEMANTIC_RELEASE_GIT_VERSION="10.0.1"
-ARG VALE_VERSION="3.12.0"
-ARG SEMANTIC_RELEASE_PLUS_DOCKER="v3.1.3"
-ARG PODMAN_COMPOSE_VERSION="1.5.0"
+
+# renovate: datasource=github-releases depName=hadolint/hadolint extractVersion=^v(?<version>.*)$
+ARG HADOLINT_VERSION=2.12.0
+# renovate: datasource=pypi depName=yamllint extractVersion=^v(?<version>.*)$ extractVersion=^v(?<version>.*)$
+ARG YAMLLINT_VERSION=1.37.1
+# renovate: datasource=npm depName=markdownlint-cli2 extractVersion=^(?<version>.*)$
+ARG MARKDOWNLINT_CLI2_VERSION=0.18.1
+# renovate: datasource=pypi depName=pre-commit extractVersion=^(?<version>.*)$
+ARG PRECOMMIT_VERSION=4.3.0
+# renovate: datasource=github-tags depName=astral-sh/uv extractVersion=^(?<version>.*)$
+ARG UV_VERSION=0.8.11
+# renovate: datasource=npm depName=@prantlf/jsonlint extractVersion=^(?<version>.*)$
+ARG JSONLINT_VERSION=16.0.0
+# editorconfig-checker-disable-next-line
+# renovate: datasource=github-releases depName=editorconfig-checker/editorconfig-checker extractVersion=^v(?<version>.*)$
+ARG EDITORCONFIG_CHECKER_VERSION=3.4.0
+# renovate: datasource=github-releases depName=casey/just extractVersion=^v(?<version>.*)$
+ARG JUST_VERSION=1.42.4
+# renovate: datasource=github-releases depName=aquasecurity/trivy extractVersion=^v(?<version>.*)$
+ARG TRIVY_VERSION=0.65.0
+# renovate: datasource=npm depName=semantic-release extractVersion=^(?<version>.*)$
+ARG SEMANTIC_RELEASE_VERSION=24.2.7
+# renovate: datasource=npm depName=@semantic-release/changelog extractVersion=^(?<version>.*)$
+ARG SEMANTIC_RELEASE_CHANGELOG_VERSION=6.0.3
+# renovate: datasource=npm depName=@semantic-release/exec extractVersion=^(?<version>.*)$
+ARG SEMANTIC_RELEASE_EXEC_VERSION=7.1.0
+# renovate: datasource=npm depName=@semantic-release/git extractVersion=^(?<version>.*)$
+ARG SEMANTIC_RELEASE_GIT_VERSION=10.0.1
+# renovate: datasource=github-releases depName=errata-ai/vale extractVersion=^v(?<version>.*)$
+ARG VALE_VERSION=3.12.0
+# renovate: datasource=npm depName=@semantic-release-plus/docker extractVersion=^(?<version>.*)$
+ARG SEMANTIC_RELEASE_PLUS_DOCKER_VERSION=v3.1.3
+# renovate: datasource=pypi depName=podman-compose extractVersion=^(?<version>.*)$
+ARG PODMAN_COMPOSE_VERSION=1.5.0
+# renovate: datasource=npm depName=renovate extractVersion=^(?<version>.*)$
+ARG RENOVATE_VERSION=41.82.9
 
 ARG USERNAME="devcontaineruser"
 ARG USERUID="1000"
@@ -119,7 +139,8 @@ ARG SEMANTIC_RELEASE_VERSION
 ARG SEMANTIC_RELEASE_CHANGELOG_VERSION
 ARG SEMANTIC_RELEASE_EXEC_VERSION
 ARG SEMANTIC_RELEASE_GIT_VERSION
-ARG SEMANTIC_RELEASE_PLUS_DOCKER
+ARG SEMANTIC_RELEASE_PLUS_DOCKER_VERSION
+ARG RENOVATE_VERSION
 
 # Install base packages (including runtime environments)
 RUN apk add --no-cache \
@@ -170,13 +191,14 @@ ENV UV_TOOL_DIR=/opt/uv/venv
 # Install Node.js tools
 # hadolint ignore=DL3016
 RUN npm install -g \
-		"jsonlint@${JSONLINT_VERSION}" \
-		"markdownlint-cli2@${MARKDOWNLINT_VERSION}" \
+		"@prantlf/jsonlint@${JSONLINT_VERSION}" \
+		"markdownlint-cli2@${MARKDOWNLINT_CLI2_VERSION}" \
 		"semantic-release@${SEMANTIC_RELEASE_VERSION}" \
 		"@semantic-release/changelog@${SEMANTIC_RELEASE_CHANGELOG_VERSION}" \
 		"@semantic-release/exec@${SEMANTIC_RELEASE_EXEC_VERSION}" \
 		"@semantic-release/git@${SEMANTIC_RELEASE_GIT_VERSION}" \
-		"@semantic-release-plus/docker@${SEMANTIC_RELEASE_PLUS_DOCKER}" && \
+		"@semantic-release-plus/docker@${SEMANTIC_RELEASE_PLUS_DOCKER_VERSION}" \
+		"renovate@${RENOVATE_VERSION}" && \
 	npm cache clean --force
 
 # Create/configure non-root user

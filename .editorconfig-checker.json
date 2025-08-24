@@ -6,7 +6,9 @@
 	"IgnoreDefaults": false,
 	"SpacesAfterTabs": false,
 	"NoColor": false,
-	"Exclude": [],
+	"Exclude": [
+		"CHANGELOG\\.md"
+	],
 	"AllowedContentTypes": [],
 	"PassedFiles": [],
 	"Disable": {

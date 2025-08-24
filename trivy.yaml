@@ -10,7 +10,10 @@ scan:
   skip-files:
     - "/usr/local/go/src/**/Dockerfile"
 license:
+  forbidden: []
+
   notice:
+    - AGPL-3.0
     - AFL-1.1
     - AFL-1.2
     - AFL-2.0
