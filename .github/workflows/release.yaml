@@ -4,9 +4,9 @@ name: Release
 # yamllint disable-line rule:truthy
 on:
   workflow_dispatch:
-  #push:
-  #  branches:
-  #    - main
+  push:
+    branches:
+      - main
 
 jobs:
   prepare:
@@ -14,6 +14,7 @@ jobs:
     permissions:
       contents: read
       packages: write
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
   release:
     needs: prepare
     runs-on: ubuntu-latest
@@ -37,9 +38,21 @@ jobs:
           git config --global --add safe.directory '*'
           git config --global user.email "${{ github.actor }}@users.noreply.github.com"
           git config --global user.name "${{ github.actor }}"
+      - name: Perform test
+        run: |
+          just test
+      - name: Run securiy scan
+        id: security-scan
+        run: |
+          just security-scan
+          echo "sarif=/tmp/trivy-results.sarif" >> $GITHUB_OUTPUT
       - name: Perform release
         run: |
           just release
+      - name: Upload Anchore Scan SARIF Report
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: ${{ steps.security-scan.outputs.sarif }}
   cleanup:
     uses: ./.github/workflows/cleanup-devcontainer-image.yaml
     needs:

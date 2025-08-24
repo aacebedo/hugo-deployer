@@ -4,7 +4,7 @@ name: PR
 # yamllint disable-line rule:truthy
 on:
   workflow_dispatch:
-  push:
+  pull_request:
     branches:
       - main
 
@@ -52,16 +52,12 @@ jobs:
       - name: Build
         run: |
           just build
+      - name: Perform test
+        run: |
+          just test
       - name: Run securiy scan
-        id: security-scan
         run: |
           just security-scan
-          echo "sarif=/tmp/trivy-results.sarif" >> $GITHUB_OUTPUT
-      - name: Upload Anchore Scan SARIF Report
-        uses: github/codeql-action/upload-sarif@v3
-        with:
-          sarif_file: ${{ steps.security-scan.outputs.sarif }}
-
   cleanup:
     uses: ./.github/workflows/cleanup-devcontainer-image.yaml
     needs:
