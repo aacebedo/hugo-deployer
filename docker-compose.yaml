@@ -4,42 +4,12 @@ version: '3.8'
 services:
   hugo-site:
     build:
-      context: .
       dockerfile: Dockerfile
-      args:
-        GO_VERSION: "1.24-alpine"
-        HUGO_VERSION: "0.148.1"
-        CADDY_VERSION: "2.8.4"
-        XCADDY_VERSION: "v0.4.4"
-        CADDY_EXEC_VERSION: "v0.5.5"
-        DART_SASS_VERSION: "1.77.8"
     ports:
-      - "80:80"
+      - "${PORT}:80"
     environment:
-      # Git repository configuration
       - GIT_REPO_URL=${GIT_REPO_URL}
       - GIT_USERNAME=${GIT_USERNAME}
       - GIT_TOKEN=${GIT_TOKEN}
-      - GIT_BRANCH=${GIT_BRANCH:-main}
-
-      # Security
-      - API_KEY=${API_KEY}
-
-      # Server configuration
-      - DOMAIN=${DOMAIN:-localhost}
-      - PORT=${PORT:-80}
-    volumes:
-      # Persist the site data
-      - site_data:/app/site
-      # Optional: Mount custom Caddyfile
-      # - ./Caddyfile:/app/config/Caddyfile:ro
+      - GIT_BRANCH=${GIT_BRANCH}
     restart: unless-stopped
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost/health"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 40s
-
-volumes:
-  site_data:

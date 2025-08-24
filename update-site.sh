@@ -15,7 +15,7 @@ if [ -z "$GIT_USERNAME" ] || [ -z "$GIT_TOKEN" ]; then
 fi
 
 # Create credentials for HTTPS authentication
-echo "https://${GIT_USERNAME}:${GIT_TOKEN}@github.com" > /root/.git-credentials
+echo "https://${GIT_USERNAME}:${GIT_TOKEN}@github.com" > "${HOME}/.git-credentials"
 git config --global credential.helper store
 
 # Set branch (default to main)
@@ -24,7 +24,7 @@ BRANCH=${GIT_BRANCH:-main}
 # Check if site directory exists
 if [ ! -d "/app/site/.git" ]; then
 		echo "Cloning repository..."
-		git clone "$GIT_REPO_URL" /app/site
+		git clone --recurse-submodules "$GIT_REPO_URL" /app/site
 		cd /app/site
 		git checkout "$BRANCH"
 else
@@ -105,6 +105,6 @@ else
 fi
 
 # Clean up credentials
-rm -f /root/.git-credentials
+rm -f "${HOME}/.git-credentials"
 
 echo "Site update completed successfully!"

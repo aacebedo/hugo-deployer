@@ -33,4 +33,4 @@ jobs:
         with:
           scan-type: image
           scan-ref: ghcr.io/${{ github.repository }}-devcontainer:${{ github.sha }}-${{github.run_id}}
-          trivy-config: trivy.yam
+          trivy-config: trivy.yaml
