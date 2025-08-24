@@ -8,6 +8,14 @@ CVE-2021-23358
 ## wait for podman update
 GHSA-wwq9-3cpr-mm53
 
+## wait for npm updates
+CVE-2024-29415
+CVE-2022-21680
+CVE-2022-21681
+CVE-2022-21680
+CVE-2022-21681
+CVE-2022-25883
+
 # For image
 ## wait for hugo update
 CVE-2025-22874
@@ -19,3 +27,4 @@ CVE-2025-4673
 ## wait for caddy update
 GHSA-vrw8-fxc6-2r93
 CVE-2025-8556
+
