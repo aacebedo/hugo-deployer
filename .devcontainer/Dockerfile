@@ -13,7 +13,6 @@ ARG TRIVY_VERSION="0.65.0"
 ARG SEMANTIC_RELEASE_VERSION="24.2.7"
 ARG SEMANTIC_RELEASE_CHANGELOG_VERSION="6.0.3"
 ARG SEMANTIC_RELEASE_EXEC_VERSION="7.1.0"
-ARG SEMANTIC_RELEASE_DOCKER_VERSION="5.1.1"
 ARG SEMANTIC_RELEASE_GIT_VERSION="10.0.1"
 ARG VALE_VERSION="3.12.0"
 ARG SEMANTIC_RELEASE_PLUS_DOCKER="v3.1.3"
@@ -116,8 +115,8 @@ ARG MARKDOWNLINT_VERSION
 ARG SEMANTIC_RELEASE_VERSION
 ARG SEMANTIC_RELEASE_CHANGELOG_VERSION
 ARG SEMANTIC_RELEASE_EXEC_VERSION
-ARG SEMANTIC_RELEASE_DOCKER_VERSION
 ARG SEMANTIC_RELEASE_GIT_VERSION
+ARG SEMANTIC_RELEASE_PLUS_DOCKER
 
 # Install base packages (including runtime environments)
 RUN apk add --no-cache \
@@ -141,7 +140,6 @@ RUN apk add --no-cache \
 		libc6-compat \
 		libstdc++ \
 		libgcc \
-		patch \
 		&& update-ca-certificates
 
 # Copy installed binary tools from installer stage
@@ -170,14 +168,8 @@ RUN npm install -g \
 		"@semantic-release/changelog@${SEMANTIC_RELEASE_CHANGELOG_VERSION}" \
 		"@semantic-release/exec@${SEMANTIC_RELEASE_EXEC_VERSION}" \
 		"@semantic-release/git@${SEMANTIC_RELEASE_GIT_VERSION}" \
-		"@semantic-release-plus/docker@${SEMANTIC_RELEASE_PLUS_DOCKER}" \
-		"@codedependant/semantic-release-docker@${SEMANTIC_RELEASE_DOCKER_VERSION}" && \
+		"@semantic-release-plus/docker@${SEMANTIC_RELEASE_PLUS_DOCKER}" && \
 	npm cache clean --force
-
-COPY patches/001-no-network.patch /tmp
-RUN patch -p1 -d "/usr/local/lib/node_modules/@codedependant/semantic-release-docker/" \
-		< /tmp/001-no-network.patch \
-		&& rm -f /tmp/001-no-network.patch
 
 # Create/configure non-root user
 RUN addgroup -g "$USERGID" "$USERNAME" && \
