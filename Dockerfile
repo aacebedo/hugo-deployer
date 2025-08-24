@@ -5,11 +5,17 @@ ARG GO_VERSION=1.25-alpine
 FROM golang:${GO_VERSION} AS builder
 
 # Build arguments for other versions
+# renovate: datasource=github-releases depName=gohugoio/hugo extractVersion=^v(?<version>.*)$
 ARG HUGO_VERSION=0.148.2
+# renovate: datasource=github-releases depName=caddyserver/caddy extractVersion=^v(?<version>.*)$
 ARG CADDY_VERSION=v2.10.0
+# renovate: datasource=github-releases depName=caddyserver/xcaddy extractVersion=^v(?<version>.*)$
 ARG XCADDY_VERSION=v0.4.5
-ARG CADDY_EXEC_VERSION=latest
+# renovate: datasource=git-refs depName=https://github.com/abiosoft/caddy-exec extractVersion=^(?<version>.*)$
+ARG CADDY_EXEC_VERSION=main
+# renovate: datasource=github-tags depName=sass/dart-sass extractVersion=^(?<version>.*)$
 ARG DART_SASS_VERSION=1.90.0
+# renovate: datasource=github-releases depName=cloudcannon/pagefind extractVersion=^v(?<version>.*)$
 ARG PAGEFIND_VERSION=1.3.0
 
 # Install build dependencies
@@ -38,7 +44,7 @@ RUN wget --progress=dot:giga -O dart-sass.tar.gz \
 # Install Pagefind
 RUN wget --progress=dot:giga -O pagefind.tar.gz \
 		# editorconfig-checker-disable-next-line
-		"https://github.com/CloudCannon/pagefind/releases/download/v${PAGEFIND_VERSION}/pagefind-v${PAGEFIND_VERSION}-x86_64-unknown-linux-musl.tar.gz" \
+		"https://github.com/cloudcannon/pagefind/releases/download/v${PAGEFIND_VERSION}/pagefind-v${PAGEFIND_VERSION}-x86_64-unknown-linux-musl.tar.gz" \
 		&& tar -xzf pagefind.tar.gz \
 		&& mv pagefind /usr/local/bin/ \
 		&& rm pagefind.tar.gz

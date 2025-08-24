@@ -25,11 +25,6 @@ repos:
     hooks:
       - id: editorconfig-checker
 
-  - repo: https://github.com/zaach/jsonlint
-    rev: 4844247e39deb5358fbc412e1bf76b93cf52b1a8
-    hooks:
-      - id: jsonlint
-
   - repo: local
     hooks:
       - id: trivy-fs
@@ -48,3 +43,16 @@ repos:
     rev: v3.12.0
     hooks:
       - id: vale
+
+  - repo: local
+    hooks:
+      - id: jsonlint
+        name: JSON Lint
+        entry: jsonlint -M json5
+        language: system
+        files: \.json$
+
+#  - repo: https://github.com/renovatebot/pre-commit-hooks
+#    rev: 41.82.9
+#    hooks:
+#      - id: renovate-config-validator
