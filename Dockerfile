@@ -8,11 +8,11 @@ FROM golang:${GO_VERSION} AS builder
 # renovate: datasource=github-releases depName=gohugoio/hugo extractVersion=^v(?<version>.*)$
 ARG HUGO_VERSION=0.148.2
 # renovate: datasource=github-releases depName=caddyserver/caddy extractVersion=^v(?<version>.*)$
-ARG CADDY_VERSION=v2.10.0
+ARG CADDY_VERSION=2.10.0
 # renovate: datasource=github-releases depName=caddyserver/xcaddy extractVersion=^v(?<version>.*)$
 ARG XCADDY_VERSION=v0.4.5
 # renovate: datasource=git-refs depName=https://github.com/abiosoft/caddy-exec extractVersion=^(?<version>.*)$
-ARG CADDY_EXEC_VERSION=main
+ARG CADDY_EXEC_VERSION=master
 # renovate: datasource=github-tags depName=sass/dart-sass extractVersion=^(?<version>.*)$
 ARG DART_SASS_VERSION=1.90.0
 # renovate: datasource=github-releases depName=cloudcannon/pagefind extractVersion=^v(?<version>.*)$
@@ -54,7 +54,7 @@ RUN go install github.com/caddyserver/xcaddy/cmd/xcaddy@${XCADDY_VERSION}
 
 # Build Caddy with caddy-exec plugin using xcaddy
 WORKDIR /caddy-build
-RUN xcaddy build \
+RUN CADDY_VERSION=v${CADDY_VERSION} xcaddy build \
 		--with github.com/abiosoft/caddy-exec@${CADDY_EXEC_VERSION}
 
 # Final runtime image
