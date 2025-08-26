@@ -14,7 +14,7 @@ ARG XCADDY_VERSION=v0.4.5
 # renovate: datasource=git-refs depName=https://github.com/abiosoft/caddy-exec extractVersion=^(?<version>.*)$
 ARG CADDY_EXEC_VERSION=master
 # renovate: datasource=github-tags depName=sass/dart-sass extractVersion=^(?<version>.*)$
-ARG DART_SASS_VERSION=1.90.0
+ARG DART_SASS_VERSION=1.91.0
 # renovate: datasource=github-releases depName=cloudcannon/pagefind extractVersion=^v(?<version>.*)$
 ARG PAGEFIND_VERSION=1.3.0
 
