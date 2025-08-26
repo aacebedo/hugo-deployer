@@ -1,3 +1,20 @@
+# [2.0.0](https://github.com/aacebedo/hugo-deployer/compare/v1.1.0...v2.0.0) (2025-08-26)
+
+
+### Bug Fixes
+
+* fix version handling ([c49c382](https://github.com/aacebedo/hugo-deployer/commit/c49c38279fa03813515caa5699ae4dc7e5fbcdae))
+
+
+### Continuous Integration
+
+* add renovate ([9a13205](https://github.com/aacebedo/hugo-deployer/commit/9a13205dd958fa6147fd5ebc462388449ab44bde))
+
+
+### BREAKING CHANGES
+
+*
+
 # [1.1.0](https://github.com/aacebedo/hugo-deployer/compare/v1.0.0...v1.1.0) (2025-08-24)
 
 
