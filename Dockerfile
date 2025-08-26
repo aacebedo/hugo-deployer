@@ -58,7 +58,7 @@ RUN CADDY_VERSION=v${CADDY_VERSION} xcaddy build \
 		--with github.com/abiosoft/caddy-exec@${CADDY_EXEC_VERSION}
 
 # Final runtime image
-FROM alpine:3.21
+FROM alpine:3.22
 
 # Install runtime dependencies including full glibc for Hugo
 RUN apk add --no-cache \

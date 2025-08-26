@@ -4,7 +4,10 @@ name: Prepare devcontainer image
 # yamllint disable-line rule:truthy
 on:
   workflow_call:
-
+    secrets:
+      PACKAGE_MANAGEMENT_TOKEN:
+        description: 'A token to manage packages'
+        required: true
 jobs:
   prepare-devcontainer-image:
     runs-on: ubuntu-latest
@@ -28,6 +31,8 @@ jobs:
           context: .devcontainer
           push: true
           tags: ghcr.io/${{ github.repository }}-devcontainer:${{ github.sha }}-${{github.run_id}}
+          secrets: |
+            GIT_AUTH_TOKEN=${{ secrets.PACKAGE_MANAGEMENT_TOKEN }}
       - name: Run Trivy
         uses: aquasecurity/trivy-action@0.28.0
         with:
