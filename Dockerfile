@@ -6,7 +6,7 @@ FROM golang:${GO_VERSION} AS builder
 
 # Build arguments for other versions
 # renovate: datasource=github-releases depName=gohugoio/hugo extractVersion=^v(?<version>.*)$
-ARG HUGO_VERSION=0.148.2
+ARG HUGO_VERSION=0.149.0
 # renovate: datasource=github-releases depName=caddyserver/caddy extractVersion=^v(?<version>.*)$
 ARG CADDY_VERSION=2.10.2
 # renovate: datasource=github-releases depName=caddyserver/xcaddy extractVersion=^v(?<version>.*)$
