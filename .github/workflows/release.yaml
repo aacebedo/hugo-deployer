@@ -7,15 +7,12 @@ on:
   push:
     branches:
       - main
-
 jobs:
   prepare:
     uses: ./.github/workflows/prepare-devcontainer-image.yaml
     permissions:
       contents: read
       packages: write
-    secrets:
-        PACKAGE_MANAGEMENT_TOKEN: ${{ secrets.PACKAGE_MANAGEMENT_TOKEN }}
     if: "!contains(github.event.head_commit.message, '[skip ci]')"
   release:
     needs: prepare
@@ -57,7 +54,9 @@ jobs:
           sarif_file: ${{ steps.security-scan.outputs.sarif }}
   cleanup:
     uses: ./.github/workflows/cleanup-devcontainer-image.yaml
+    needs:
+      - prepare
+      - release
+    permissions:
+      packages: write
     if: always()
-    secrets:
-      PACKAGE_MANAGEMENT_TOKEN: ${{ secrets.PACKAGE_MANAGEMENT_TOKEN }}
-

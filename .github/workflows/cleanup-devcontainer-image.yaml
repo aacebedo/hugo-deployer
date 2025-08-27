@@ -4,20 +4,17 @@ name: Cleanup devcontainer image
 # yamllint disable-line rule:truthy
 on:
   workflow_call:
-    secrets:
-      PACKAGE_MANAGEMENT_TOKEN:
-        description: 'A token to manage packages'
-        required: true
 jobs:
   cleanup-devcontainer-image:
     runs-on: ubuntu-latest
+    permissions:
+      packages: write
     steps:
       - name: Delete devcontainer image
         uses: smartsquaregmbh/delete-old-packages@v0.8.1
         with:
           type: container
           keep: 0
-          user: ${{ github.actor }}
+          user: ${{ github.repository_owner }}
           names: ${{ github.event.repository.name }}-devcontainer
           version-pattern: ${{ github.sha }}-${{github.run_id}}
-          token: ${{ secrets.PACKAGE_MANAGEMENT_TOKEN }}
