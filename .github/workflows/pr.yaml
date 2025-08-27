@@ -14,9 +14,6 @@ jobs:
     permissions:
       contents: read
       packages: write
-    secrets:
-      PACKAGE_MANAGEMENT_TOKEN: ${{ secrets.PACKAGE_MANAGEMENT_TOKEN }}
-
   lint:
     needs: prepare
     runs-on: ubuntu-latest
@@ -63,10 +60,10 @@ jobs:
           just security-scan
   cleanup:
     uses: ./.github/workflows/cleanup-devcontainer-image.yaml
+    permissions:
+      packages: write
     needs:
       - prepare
       - lint
       - build
     if: always()
-    secrets:
-      PACKAGE_MANAGEMENT_TOKEN: ${{ secrets.PACKAGE_MANAGEMENT_TOKEN }}
