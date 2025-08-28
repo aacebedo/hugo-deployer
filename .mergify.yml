@@ -6,7 +6,16 @@ queue_rules:
     branch_protection_injection_mode: merge
     merge_conditions:
       - and:
+          - label = valid
           - check-success = cleanup
           - check-success = build
           - check-success = prepare
           - check-success = lint
+merge_protections:
+  - name: Only merge with validation label
+    description: Make sure PR has a validation label
+    if:
+      - base = main
+    success_conditions:
+      - or:
+          - label = valid
