@@ -1,0 +1,5 @@
+queue_rules:
+  - merge_method: rebase
+    name: default
+    autoqueue: true
+    autosquash: true

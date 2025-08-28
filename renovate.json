@@ -2,8 +2,11 @@
 	"$schema": "https://docs.renovatebot.com/renovate-schema.json",
 	"extends": [
 		"config:recommended",
-		":enablePreCommit"
+		":enablePreCommit",
+		"schedule:automergeDaily",
+		":dependencyDashboard"
 	],
+	"configMigration": true,
 	"baseBranches": [
 		"main"
 	],
