@@ -7,9 +7,9 @@ queue_rules:
     merge_conditions:
       - and:
           - label = valid
-          - check-success = cleanup
+          - check-success = cleanup / cleanup-devcontainer-image
           - check-success = build
-          - check-success = prepare
+          - check-success = prepare / prepare-devcontainer-image
           - check-success = lint
 merge_protections:
   - name: Only merge with validation label
