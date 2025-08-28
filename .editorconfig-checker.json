@@ -7,7 +7,9 @@
 	"SpacesAfterTabs": false,
 	"NoColor": false,
 	"Exclude": [
-		"CHANGELOG\\.md"
+		"CHANGELOG\\.md",
+		"renovate\\.json",
+		"\\.mergify\\.yaml"
 	],
 	"AllowedContentTypes": [],
 	"PassedFiles": [],
