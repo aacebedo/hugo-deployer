@@ -7,7 +7,7 @@
 		":dependencyDashboard"
 	],
 	"configMigration": true,
-	"baseBranches": [
+	"baseBranchPatterns": [
 		"main"
 	],
 	"customManagers": [
@@ -17,7 +17,6 @@
 				"**/Dockerfile*"
 			],
 			"matchStrings": [
-				// editorconfig-checker-disable-next-line
 				"# renovate: datasource=(?<datasource>[^\\s]+) depName=(?<depName>[^\\s]+)(?:\\s+extractVersion=(?<extractVersion>[^\\s]+))?\\s*\\n(?:ARG|ENV)\\s+[^=]+_VERSION=(?<currentValue>[^\\s]+)"
 			],
 			"datasourceTemplate": "{{datasource}}"
