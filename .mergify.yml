@@ -3,3 +3,10 @@ queue_rules:
     name: default
     autoqueue: true
     autosquash: true
+    branch_protection_injection_mode: merge
+    merge_conditions:
+      - and:
+          - check-success = cleanup
+          - check-success = build
+          - check-success = prepare
+          - check-success = lint
