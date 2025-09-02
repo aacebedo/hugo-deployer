@@ -3,7 +3,7 @@ ARG ALPINE_VERSION=3.22
 # Build arguments for tool versions
 
 # renovate: datasource=github-releases depName=hadolint/hadolint extractVersion=^v(?<version>.*)$
-ARG HADOLINT_VERSION=2.12.0
+ARG HADOLINT_VERSION=2.13.1
 # renovate: datasource=pypi depName=yamllint extractVersion=^v(?<version>.*)$ extractVersion=^v(?<version>.*)$
 ARG YAMLLINT_VERSION=1.37.1
 # renovate: datasource=npm depName=markdownlint-cli2 extractVersion=^(?<version>.*)$
