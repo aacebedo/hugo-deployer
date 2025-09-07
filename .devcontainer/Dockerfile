@@ -36,7 +36,7 @@ ARG SEMANTIC_RELEASE_PLUS_DOCKER_VERSION=v3.1.3
 # renovate: datasource=pypi depName=podman-compose extractVersion=^(?<version>.*)$
 ARG PODMAN_COMPOSE_VERSION=1.5.0
 # renovate: datasource=npm depName=renovate extractVersion=^(?<version>.*)$
-ARG RENOVATE_VERSION=41.89.0
+ARG RENOVATE_VERSION=41.97.9
 
 ARG USERNAME="devcontaineruser"
 ARG USERUID="1000"
