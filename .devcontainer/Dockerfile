@@ -11,7 +11,7 @@ ARG MARKDOWNLINT_CLI2_VERSION=0.18.1
 # renovate: datasource=pypi depName=pre-commit extractVersion=^(?<version>.*)$
 ARG PRECOMMIT_VERSION=4.3.0
 # renovate: datasource=github-tags depName=astral-sh/uv extractVersion=^(?<version>.*)$
-ARG UV_VERSION=0.8.15
+ARG UV_VERSION=0.8.17
 # renovate: datasource=npm depName=@prantlf/jsonlint extractVersion=^(?<version>.*)$
 ARG JSONLINT_VERSION=16.0.0
 # editorconfig-checker-disable-next-line
