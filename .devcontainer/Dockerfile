@@ -22,7 +22,7 @@ ARG JUST_VERSION=1.42.4
 # renovate: datasource=github-releases depName=aquasecurity/trivy extractVersion=^v(?<version>.*)$
 ARG TRIVY_VERSION=0.66.0
 # renovate: datasource=npm depName=semantic-release extractVersion=^(?<version>.*)$
-ARG SEMANTIC_RELEASE_VERSION=24.2.8
+ARG SEMANTIC_RELEASE_VERSION=24.2.9
 # renovate: datasource=npm depName=@semantic-release/changelog extractVersion=^(?<version>.*)$
 ARG SEMANTIC_RELEASE_CHANGELOG_VERSION=6.0.3
 # renovate: datasource=npm depName=@semantic-release/exec extractVersion=^(?<version>.*)$
