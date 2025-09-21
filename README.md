@@ -15,7 +15,7 @@ automatic update when calling a specific endpoint.
 
     ```bash
     # Edit .env with your values
-    GIT_REPO_URL=https://github.com/yourusername/your-hugo-site.git
+    GIT_REPO_URL=github.com/yourusername/your-hugo-site.git
     GIT_USERNAME=yourusername
     GIT_TOKEN=your_github_token
     API_KEY=your_api_key
@@ -25,7 +25,7 @@ automatic update when calling a specific endpoint.
 3. **Run with Docker Compose:**
 
     ```bash
-    docker-compose up -d
+    docker-compose up -d --env ./example/.env
     ```
 
 4. **Initial site update:**
