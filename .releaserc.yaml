@@ -7,9 +7,15 @@ plugins:
   - "@semantic-release/release-notes-generator"
   - - "@semantic-release/changelog"
     - changelogFile: "CHANGELOG.md"
+  - - "@semantic-release/exec"
+    - publishCmd: |
+        sed -i 's/tag: .*/tag: ${nextRelease.version}/' charts/hugo-deployer/values.yaml
   - "@semantic-release/github"
   - - "@semantic-release/git"
     - message: "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+      assets:
+        - "CHANGELOG.md"
+        - "charts/hugo-deployer/values.yaml"
   - - "@semantic-release-plus/docker"
     - name:
         registry: ghcr.io
