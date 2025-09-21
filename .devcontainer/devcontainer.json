@@ -10,12 +10,19 @@
 				"redhat.vscode-yaml",
 				"davidanson.vscode-markdownlint",
 				"exiasr.hadolint",
+				"formulahendry.github-actions",
 				"github.vscode-github-actions",
 				"ms-vscode.vscode-github-issues-prs",
 				"timonwong.shellcheck",
 				"ms-vscode.remote-containers",
 				"matthewpi.caddyfile-support",
-				"chrischinchilla.vale-vscode"
+				"chrischinchilla.vale-vscode",
+				"jjk.jjk",
+				"streetsidesoftware.code-spell-checker",
+				"EditorConfig.EditorConfig",
+				"tberman.json-schema-validator",
+				"skellock.just",
+				"rioj7.vscode-json-validate"
 			]
 		}
 	},

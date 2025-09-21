@@ -12,4 +12,7 @@ services:
       - GIT_USERNAME=${GIT_USERNAME}
       - GIT_TOKEN=${GIT_TOKEN}
       - GIT_BRANCH=${GIT_BRANCH}
+      - UPDATE_API_KEY=${UPDATE_API_KEY}
+    volumes:
+      - ${HOOKS_DIR}:/app/config/hooks
     restart: unless-stopped

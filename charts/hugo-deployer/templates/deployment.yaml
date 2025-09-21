@@ -1,0 +1,137 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: '{{ .Release.Name }}'
+spec:
+  selector:
+    matchLabels:
+      {{- include "selectorLabels" . | nindent 6 }}
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        {{- include "selectorLabels" . | nindent 8 }}
+    spec:
+      initContainers:
+        - name: set-permissions
+          image: busybox:1.36
+          command: ['sh', '-c']
+          args:
+            - |
+              set -e
+              chown -R 1000:1000 /app/builds /app/site
+          securityContext:
+            runAsUser: 0
+            readOnlyRootFilesystem: true
+          volumeMounts:
+            - mountPath: /app/builds
+              name: app-volume
+              subPath: builds
+            - mountPath: /app/site
+              name: app-volume
+              subPath: site
+      containers:
+        - envFrom:
+          - configMapRef:
+              name: '{{ .Release.Name }}-siteconfig'
+          - secretRef:
+              name: '{{ .Release.Name }}-siteconfig'
+          image: '{{ .Values.image.repository }}:{{ .Values.image.tag }}'
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          name: hugo-deployer
+          securityContext:
+            readOnlyRootFilesystem: true
+            allowPrivilegeEscalation: false
+            runAsNonRoot: true
+            runAsUser: 1000
+            runAsGroup: 1000
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+              scheme: HTTP
+            initialDelaySeconds: 12
+            timeoutSeconds: 5
+            periodSeconds: 15
+            successThreshold: 1
+            failureThreshold: 5
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+              scheme: HTTP
+          resources:
+            limits:
+              cpu: 1500m
+              memory: 2400Mi
+            requests:
+              cpu: 75m
+              memory: 200Mi
+          ports:
+            - containerPort: 80
+              name: http
+          {{- if .Values.resources }}
+          resources:
+            {{ .Values.resources | toYaml | nindent 10 }}
+          {{- end }}
+          volumeMounts:
+            - mountPath: /tmp
+              name: tmp-volume
+            - mountPath: /app/builds
+              name: app-volume
+              subPath: builds
+            - mountPath: /app/site
+              name: app-volume
+              subPath: site
+            - mountPath: /home/appuser
+              name: user-home
+            - mountPath: /app/config/hooks/pre-build
+              name: pre-build-hooks
+            - mountPath: /app/config/hooks/post-build
+              name: post-build-hooks
+      {{- if .Values.nodeSelector }}
+      nodeSelector:
+        {{- .Values.nodeSelector | toYaml | nindent 8 }}
+      {{- end }}
+      {{- if .Values.dnsConfig.dnsPolicy }}
+      dnsPolicy: {{ .Values.dnsConfig.dnsPolicy }}
+      {{- end }}
+      dnsConfig:
+      {{- if .Values.dnsConfig.nameservers }}
+        nameservers:
+        {{- range .Values.dnsConfig.nameservers }}
+        - {{ . | quote }}
+        {{- end }}
+      {{- end }}
+      {{- if .Values.dnsConfig.searches }}
+        searches:
+        {{- range .Values.dnsConfig.searches }}
+        - {{ . | quote }}
+        {{- end }}
+      {{- end }}
+      {{- if .Values.dnsConfig.options }}
+        options:
+        {{- range .Values.dnsConfig.options }}
+        - name: {{ .name | quote }}
+          {{- if .value }}
+          value: {{ .value | quote }}
+          {{- end }}
+        {{- end }}
+      {{- end }}
+      volumes:
+        - name: tmp-volume
+          emptyDir: {}
+        - name: app-volume
+          emptyDir: {}
+        - name: user-home
+          emptyDir: {}
+        - name: pre-build-hooks
+          configMap:
+            name: {{ .Release.Name }}-pre-build-hooks
+            defaultMode: 0755
+        - name: post-build-hooks
+          configMap:
+            name: {{ .Release.Name }}-post-build-hooks
+            defaultMode: 0755
+

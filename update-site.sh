@@ -1,9 +1,63 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -e
 
-echo "Starting site update..."
+echo "Starting site update.."
+echo "Building Hugo site..."
 
-# Check if required environment variables are set
+# Create timestamp for this build
+BUILD_DATE=$(date +"%Y%m%d_%H%M%S")
+BUILD_DIR="/app/builds/${BUILD_DATE}"
+
+echo "Creating build directory: ${BUILD_DIR}"
+mkdir -p "$BUILD_DIR"
+
+echo "Running pre-build hooks..."
+
+# Execute all pre-build hooks
+PRE_BUILD_HOOKS_DIR="/app/config/hooks/pre-build"
+if [ -d "$PRE_BUILD_HOOKS_DIR" ]; then
+	echo "Found pre-build hooks directory: $PRE_BUILD_HOOKS_DIR"
+
+	# Check if directory has any files
+	if [ "$(find "$PRE_BUILD_HOOKS_DIR" -maxdepth 1 -type f | wc -l)" -gt 0 ]; then
+		# Export useful variables for hooks
+		export BUILD_DIR
+		export BUILD_DATE
+		export SITE_SOURCE_DIR="/app/site"
+		export GIT_REPO_URL
+		export BRANCH
+
+		# Iterate through all files in pre-build hooks directory
+		for hook_file in "$PRE_BUILD_HOOKS_DIR"/*; do
+			if [ -f "$hook_file" ]; then
+				echo "Executing pre-build hook: $(basename "$hook_file")"
+
+				# Check if file is executable
+				if [ -x "$hook_file" ]; then
+					# Execute the hook
+					if "$hook_file"; then
+						echo "Hook $(basename "$hook_file") completed successfully"
+					else
+						echo "Error: Hook $(basename "$hook_file") failed with exit code $?"
+						echo "Aborting build due to pre-build hook failure"
+						rm -rf "$BUILD_DIR"
+						exit 1
+					fi
+				else
+					echo "Warning: Hook $(basename "$hook_file") is not executable, skipping"
+				fi
+			fi
+		done
+
+		echo "All pre-build hooks completed successfully"
+	else
+		echo "No pre-build hooks found in $PRE_BUILD_HOOKS_DIR"
+	fi
+else
+	echo "Pre-build hooks directory not found: $PRE_BUILD_HOOKS_DIR"
+fi
+
+# check if required environment variables are set
 if [ -z "$GIT_REPO_URL" ]; then
 		echo "Error: GIT_REPO_URL environment variable is not set"
 		exit 1
@@ -13,18 +67,22 @@ if [ -z "$GIT_USERNAME" ] || [ -z "$GIT_TOKEN" ]; then
 		echo "Error: GIT_USERNAME and GIT_TOKEN environment variables must be set"
 		exit 1
 fi
-
-# Create credentials for HTTPS authentication
-echo "https://${GIT_USERNAME}:${GIT_TOKEN}@github.com" > "${HOME}/.git-credentials"
-git config --global credential.helper store
+if [ -z "$UPDATE_API_KEY" ]; then
+		echo "Error: UPDATE_API_KEY environment variable is not set"
+		exit 1
+fi
 
 # Set branch (default to main)
 BRANCH=${GIT_BRANCH:-main}
 
 # Check if site directory exists
 if [ ! -d "/app/site/.git" ]; then
+		# Create credentials for HTTPS authentication
+		GIT_DOMAIN=$(echo "$GIT_REPO_URL" | sed -n 's|.*://\([^/]*\).*|\1|p')
+		echo "https://${GIT_USERNAME}:${GIT_TOKEN}@${GIT_DOMAIN}" > "${HOME}/.git-credentials"
+		git config --global credential.helper store
 		echo "Cloning repository..."
-		git clone --recurse-submodules "$GIT_REPO_URL" /app/site
+		git clone --recurse-submodules "https://$GIT_REPO_URL" /app/site
 		cd /app/site
 		git checkout "$BRANCH"
 else
@@ -95,6 +153,42 @@ if [ $? -eq 0 ]; then
 		# shellcheck disable=SC2012
 		ls -t | tail -n +6 | xargs -r rm -rf
 		echo "Cleanup completed - kept last 5 builds"
+
+		echo "Running post-build hooks..."
+
+		# Execute all post-build hooks
+		POST_BUILD_HOOKS_DIR="/app/config/hooks/post-build"
+		if [ -d "$POST_BUILD_HOOKS_DIR" ]; then
+			# Check if directory has any files
+			if [ "$(find "$POST_BUILD_HOOKS_DIR" -maxdepth 1 -type f | wc -l)" -gt 0 ]; then
+				# Export useful variables for hooks
+				export BUILD_DIR
+				export BUILD_DATE
+
+				# Iterate through all files in post-build hooks directory
+				for hook_file in "$POST_BUILD_HOOKS_DIR"/*; do
+					if [ -f "$hook_file" ]; then
+						echo "Executing post-build hook: $(basename "$hook_file")"
+
+						# Check if file is executable
+						if [ -x "$hook_file" ]; then
+							# Execute the hook
+							if "$hook_file"; then
+								echo "Hook $(basename "$hook_file") completed successfully"
+							else
+								echo "Warning: Hook $(basename "$hook_file") failed with exit code $?"
+							fi
+						else
+							echo "Warning: Hook $(basename "$hook_file") is not executable, skipping"
+						fi
+					fi
+				done
+
+				echo "All post-build hooks completed"
+			else
+				echo "No post-build hooks found in $POST_BUILD_HOOKS_DIR"
+			fi
+		fi
 
 		echo "Build completed at: $(date)"
 else

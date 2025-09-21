@@ -30,12 +30,13 @@ build:
 test: build
 	#!/usr/bin/env sh
 	trap 'podman-compose down' EXIT
-	export GIT_REPO_URL="https://github.com/aacebedo/hugo-deployer-example.git"
+	export GIT_REPO_URL="github.com/aacebedo/hugo-deployer-example.git"
 	export GIT_USERNAME=johndoe
 	export GIT_TOKEN=secret_token
 	export GIT_BRANCH=main
-	export API_KEY=secret_api_key
+	export UPDATE_API_KEY=secret_api_key
 	export PORT=8080
+	export HOOKS_DIR=./example/hooks
 	podman-compose up --build -d
 	curl --retry 5 --retry-delay 5 --retry-all-errors localhost:8080 > /dev/null
 

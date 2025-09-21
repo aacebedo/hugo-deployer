@@ -1,3 +1,4 @@
+---
 queue_rules:
   - merge_method: rebase
     name: default
@@ -6,7 +7,7 @@ queue_rules:
     branch_protection_injection_mode: merge
     merge_conditions:
       - and:
-          - label = valid
+          - label = reviewed
           - check-success = cleanup / cleanup-devcontainer-image
           - check-success = build
           - check-success = prepare / prepare-devcontainer-image
@@ -18,4 +19,4 @@ merge_protections:
       - base = main
     success_conditions:
       - or:
-          - label = valid
+          - label = reviewed
