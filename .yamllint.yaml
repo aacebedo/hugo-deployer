@@ -1,5 +1,24 @@
 ---
 
+# yamllint configuration for Helm charts
+extends: default
+
 rules:
   line-length:
     max: 120
+
+  # Allow truthy values in YAML (common in Helm)
+  truthy:
+    allowed-values: ["true", "false", "yes", "no"]
+
+  # Disable indentation rule for Helm templates
+  indentation:
+    spaces: 2
+    indent-sequences: true
+
+  # Allow document start for multi-document YAML files
+  document-start: enable
+
+  # Allow comments at the end of lines
+  comments:
+    min-spaces-from-content: 1
