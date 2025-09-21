@@ -45,7 +45,7 @@ ARG KUBE_LINTER_VERSION=0.7.6
 # renovate: datasource=pypi depName=checkov extractVersion=^(?<version>.*)$
 ARG CHECKOV_VERSION=3.2.471
 # renovate: datasource=github-releases depName=yannh/kubeconform extractVersion=^v(?<version>.*)$
-ARG KUBECONFORM_VERSION=0.4.13
+ARG KUBECONFORM_VERSION=0.7.0
 # renovate: datasource=github-releases depName=jj-vcs/jj extractVersion=^v(?<version>.*)$
 ARG JJ_VERSION=0.33.0
 # renovate: datasource=github-releases depName=koalaman/shellcheck extractVersion=^v(?<version>.*)$
