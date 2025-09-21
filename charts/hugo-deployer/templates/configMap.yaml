@@ -1,0 +1,33 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: '{{ .Release.Name }}-siteconfig'
+data:
+  GIT_REPO_URL: "{{ .Values.siteConfig.gitRepoURL }}"
+  GIT_BRANCH: {{ .Values.siteConfig.gitBranch | quote }}
+  {{- if .Values.env }}
+{{- toYaml .Values.env | nindent 2 }}
+  {{- end }}
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: '{{ .Release.Name }}-pre-build-hooks'
+data:
+  {{- range $name, $content := .Values.hooks.preBuild }}
+  {{ $name }}: |
+{{ $content | indent 4 }}
+  {{- end }}
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: '{{ .Release.Name }}-post-build-hooks'
+data:
+  {{- range $name, $content := .Values.hooks.postBuild }}
+  {{ $name }}: |
+{{ $content | indent 4 }}
+  {{- end }}

@@ -1,0 +1,40 @@
+---
+pullSecrets: []
+
+image:
+  repository: ghcr.io/aacebedo/hugo-deployer
+  tag: 2.0.0
+  pullPolicy: IfNotPresent
+
+ingress:
+  annotations: {}
+  labels: {}
+  host: ""
+  path: /
+  tls:
+    enabled: false
+
+nodeSelector: {}
+resources: {}
+env: {}
+
+dnsConfig: {}
+
+persistence:
+  userCaddyConfig:
+    enabled: false
+    size: ""
+    storageClass: ""
+    annotations: {}
+    labels: {}
+
+siteConfig:
+  updateAPIKey: ""
+  gitRepoURL: ""
+  gitBranch: ""
+  gitUsername: ""
+  gitToken: ""
+
+hooks:
+  preBuild: {}
+  postBuild: {}
