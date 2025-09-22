@@ -13,11 +13,10 @@ queue_rules:
           - check-success = prepare / prepare-devcontainer-image
           - check-success = lint
 merge_protections:
-  - name: Accept push from semantic-release bot
-    description: Accept pushes from the semantic-release bot
+  - name: Merge only if reviewed
+    description: Merge only if the PR has been reviewed
     if:
       - base = main
     success_conditions:
       - or:
-          - author = semantic-release-bot
-          - author = renoate[bot]
+          - label = reviewed
