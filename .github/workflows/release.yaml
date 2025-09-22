@@ -26,32 +26,36 @@ jobs:
       image: ghcr.io/${{ github.repository }}-devcontainer:${{ github.sha }}-${{github.run_id}}
       options: --user root --privileged
     env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       DOCKER_USERNAME: ${{ github.actor }}
       DOCKER_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
     steps:
+      - name: Generate a token
+        id: generate-token
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ secrets.APP_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
       - name: Checkout repository
         uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+          token: ${{ steps.generate-token.outputs.token }}
       - name: Configure git
         run: |
           git config --global --add safe.directory '*'
           git config --global user.email "${{ github.actor }}@users.noreply.github.com"
           git config --global user.name "${{ github.actor }}"
-      - name: Perform test
-        run: |
-          just test
-      - name: Run securiy scan
-        id: security-scan
-        run: |
-          just security-scan
-          echo "sarif=/tmp/trivy-results.sarif" >> $GITHUB_OUTPUT
       - name: Perform release
+        id: release
         run: |
           just release
+          echo "sarif=/tmp/trivy-results.sarif" >> $GITHUB_OUTPUT
+        env:
+          GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}
       - name: Upload Anchore Scan SARIF Report
         uses: github/codeql-action/upload-sarif@v3
         with:
-          sarif_file: ${{ steps.security-scan.outputs.sarif }}
+          sarif_file: ${{ steps.release.outputs.sarif }}
   cleanup:
     uses: ./.github/workflows/cleanup-devcontainer-image.yaml
     needs:

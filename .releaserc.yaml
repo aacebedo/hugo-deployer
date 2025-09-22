@@ -8,7 +8,7 @@ plugins:
   - - "@semantic-release/changelog"
     - changelogFile: "CHANGELOG.md"
   - - "@semantic-release/exec"
-    - publishCmd: |
+    - prepareCmd: |
         sed -i 's/tag: .*/tag: ${nextRelease.version}/' charts/hugo-deployer/values.yaml
   - "@semantic-release/github"
   - - "@semantic-release/git"

@@ -18,5 +18,4 @@ merge_protections:
     if:
       - base = main
     success_conditions:
-      - or:
-          - label = reviewed
+      - label = reviewed

@@ -49,5 +49,5 @@ security-scan: build
 	trivy image --input "$TEMP_DIR/image.tar.gz" --format sarif --output /tmp/trivy-results.sarif
 	rm -rf "$TEMP_DIR"
 
-release: lint security-scan
+release: lint test security-scan
 	semantic-release
