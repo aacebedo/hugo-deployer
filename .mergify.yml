@@ -1,6 +1,6 @@
 ---
 queue_rules:
-  - merge_method: rebase
+  - merge_method: fast-forward
     name: default
     autoqueue: true
     autosquash: true
@@ -13,10 +13,11 @@ queue_rules:
           - check-success = prepare / prepare-devcontainer-image
           - check-success = lint
 merge_protections:
-  - name: Only merge with validation label
-    description: Make sure PR has a validation label
+  - name: Accept push from semantic-release bot
+    description: Accept pushes from the semantic-release bot
     if:
       - base = main
     success_conditions:
       - or:
-          - label = reviewed
+          - author = semantic-release-bot
+          - author = renoate[bot]
