@@ -1,3 +1,17 @@
+# [2.1.0](https://github.com/aacebedo/hugo-deployer/compare/v2.0.0...v2.1.0) (2025-09-23)
+
+
+### Features
+
+* add extensions to devcontainer ([de3052d](https://github.com/aacebedo/hugo-deployer/commit/de3052d06c8b0a628563f2e30fb21a4aaf894ce9))
+* add helm chart ([1d1ea43](https://github.com/aacebedo/hugo-deployer/commit/1d1ea4375caa54afa61e1d9eaac987990081b84f))
+* add post and pre build script ([2041b8a](https://github.com/aacebedo/hugo-deployer/commit/2041b8a332a2d9025826e97fec6dd9947f596f44))
+* add version change in values.yaml ([5bb0255](https://github.com/aacebedo/hugo-deployer/commit/5bb0255e0a4f5e4aacbbef54300a6f99f143a93a))
+* change release token to use app token instead ([8b983ae](https://github.com/aacebedo/hugo-deployer/commit/8b983ae5664c25f749f5debca708145c3b41c32a))
+* correct mergify config ([e26ccbf](https://github.com/aacebedo/hugo-deployer/commit/e26ccbf8148d8a80c82eb08a39a3c30b65bef3f6))
+* revert mergify protection rule to label ([5d1bef9](https://github.com/aacebedo/hugo-deployer/commit/5d1bef93f2a08148a598095f220ab44e5e355d6c))
+* update trivy config ([4c5591d](https://github.com/aacebedo/hugo-deployer/commit/4c5591d9807d7f99dec1adc4a62b85305476893a))
+
 # [2.0.0](https://github.com/aacebedo/hugo-deployer/compare/v1.1.0...v2.0.0) (2025-08-26)
 
 
