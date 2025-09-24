@@ -1,9 +1,8 @@
 ---
 queue_rules:
-  - merge_method: fast-forward
+  - merge_method: merge
     name: default
     autoqueue: true
-    autosquash: true
     branch_protection_injection_mode: merge
     merge_conditions:
       - and:

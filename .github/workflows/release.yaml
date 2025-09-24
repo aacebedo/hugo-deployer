@@ -42,7 +42,6 @@ jobs:
           token: ${{ steps.generate-token.outputs.token }}
       - name: Configure git
         run: |
-          git config --global --add safe.directory '*'
           git config --global user.email "${{ github.actor }}@users.noreply.github.com"
           git config --global user.name "${{ github.actor }}"
       - name: Perform release
