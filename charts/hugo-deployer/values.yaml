@@ -20,13 +20,6 @@ env: {}
 
 dnsConfig: {}
 
-persistence:
-  userCaddyConfig:
-    enabled: false
-    size: ""
-    storageClass: ""
-    annotations: {}
-    labels: {}
 
 siteConfig:
   updateAPIKey: ""
