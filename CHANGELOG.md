@@ -1,3 +1,20 @@
+# [2.2.0](https://github.com/aacebedo/hugo-deployer/compare/v2.1.0...v2.2.0) (2025-10-01)
+
+
+### Bug Fixes
+
+* activate renovate config validation hook ([617ad2d](https://github.com/aacebedo/hugo-deployer/commit/617ad2d33f8085eb5caa697013f4024befeeaa97))
+* cleanup values.yaml ([147d6fc](https://github.com/aacebedo/hugo-deployer/commit/147d6fc0c7e07c09b39c8687a044b6126a78525e))
+* fix domain extraction in update-site script ([846fd75](https://github.com/aacebedo/hugo-deployer/commit/846fd759279619a424d6aa15dab49e38c0c19e4b))
+* fix github checkout action ([26aa122](https://github.com/aacebedo/hugo-deployer/commit/26aa1228325b20ce7ca5e4760c425eb35f09d4eb))
+* remove CHANGELOG from vale validation ([befdb51](https://github.com/aacebedo/hugo-deployer/commit/befdb51998ed76440c207d154109246650c44ddf))
+
+
+### Features
+
+* cleanup justfile ([eb59921](https://github.com/aacebedo/hugo-deployer/commit/eb59921d9b321034d23b350aef760705572568bc))
+* remove persistence ([9fc77ba](https://github.com/aacebedo/hugo-deployer/commit/9fc77ba5bc3de4837244b62ce46c44db99a375a4))
+
 # [2.1.0](https://github.com/aacebedo/hugo-deployer/compare/v2.0.0...v2.1.0) (2025-09-23)
 
 
