@@ -1,6 +1,4 @@
 ---
-pullSecrets: []
-
 image:
   repository: ghcr.io/aacebedo/hugo-deployer
   tag: 2.1.0
@@ -16,17 +14,12 @@ ingress:
 
 nodeSelector: {}
 resources: {}
-env: {}
 
-dnsConfig: {}
-
-persistence:
-  userCaddyConfig:
-    enabled: false
-    size: ""
-    storageClass: ""
-    annotations: {}
-    labels: {}
+dnsConfig:
+  dnsPolicy: ""
+  nameservers: []
+  searches: []
+  options: []
 
 siteConfig:
   updateAPIKey: ""
