@@ -78,7 +78,7 @@ BRANCH=${GIT_BRANCH:-main}
 # Check if site directory exists
 if [ ! -d "/app/site/.git" ]; then
 		# Create credentials for HTTPS authentication
-		GIT_DOMAIN=$(echo "$GIT_REPO_URL" | sed -n 's|.*://\([^/]*\).*|\1|p')
+		GIT_DOMAIN=$(echo "$GIT_REPO_URL" | sed -n 's|\([^/]*\).*|\1|p')
 		echo "https://${GIT_USERNAME}:${GIT_TOKEN}@${GIT_DOMAIN}" > "${HOME}/.git-credentials"
 		git config --global credential.helper store
 		echo "Cloning repository..."

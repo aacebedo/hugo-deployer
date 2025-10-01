@@ -23,3 +23,7 @@ indent_style = space
 [*.md]
 trim_trailing_whitespace = false
 indent_style = space
+
+[Justfile]
+indent_style = space
+indent_size = 2
