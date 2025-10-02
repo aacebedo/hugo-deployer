@@ -1,3 +1,10 @@
+# [2.3.0](https://github.com/aacebedo/hugo-deployer/compare/v2.2.0...v2.3.0) (2025-10-02)
+
+
+### Features
+
+* add chromium to image ([e51826d](https://github.com/aacebedo/hugo-deployer/commit/e51826d61f89c3c8e8be90a84083d83edaaae301))
+
 # [2.2.0](https://github.com/aacebedo/hugo-deployer/compare/v2.1.0...v2.2.0) (2025-10-01)
 
 
