@@ -198,7 +198,4 @@ else
 		exit 1
 fi
 
-# Clean up credentials
-rm -f "${HOME}/.git-credentials"
-
 echo "Site update completed successfully!"
