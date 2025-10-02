@@ -1,3 +1,10 @@
+## [2.3.1](https://github.com/aacebedo/hugo-deployer/compare/v2.3.0...v2.3.1) (2025-10-02)
+
+
+### Bug Fixes
+
+* remove credentials removal ([5b8b938](https://github.com/aacebedo/hugo-deployer/commit/5b8b9388320824084008093ed36515fa1c3d9150))
+
 # [2.3.0](https://github.com/aacebedo/hugo-deployer/compare/v2.2.0...v2.3.0) (2025-10-02)
 
 
