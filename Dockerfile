@@ -84,6 +84,7 @@ RUN apk add --no-cache \
 	libstdc++ \
 	libgcc \
 	libcap-setcap \
+	chromium \
 	&& update-ca-certificates
 
 # Copy Hugo, Caddy, Go, Dart Sass, and Pagefind from builder
