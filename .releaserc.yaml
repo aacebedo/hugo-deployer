@@ -10,12 +10,14 @@ plugins:
   - - "@semantic-release/exec"
     - prepareCmd: |
         sed -i 's/tag: .*/tag: ${nextRelease.version}/' charts/hugo-deployer/values.yaml
+        sed -i 's/appVersion: .*/appVersion: ${nextRelease.version}/' charts/hugo-deployer/Chart.yaml
   - "@semantic-release/github"
   - - "@semantic-release/git"
     - message: "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
       assets:
         - "CHANGELOG.md"
         - "charts/hugo-deployer/values.yaml"
+        - "charts/hugo-deployer/Chart.yaml"
   - - "@semantic-release-plus/docker"
     - name:
         registry: ghcr.io
