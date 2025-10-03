@@ -1,3 +1,10 @@
+## [2.4.1](https://github.com/aacebedo/hugo-deployer/compare/v2.4.0...v2.4.1) (2025-10-03)
+
+
+### Bug Fixes
+
+* fix looking for pre and post hooks ([f0c3511](https://github.com/aacebedo/hugo-deployer/commit/f0c35116c63ebed2a00ac5b2446707cadc092143))
+
 # [2.4.0](https://github.com/aacebedo/hugo-deployer/compare/v2.3.1...v2.4.0) (2025-10-03)
 
 
