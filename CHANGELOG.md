@@ -1,3 +1,10 @@
+# [2.4.0](https://github.com/aacebedo/hugo-deployer/compare/v2.3.1...v2.4.0) (2025-10-03)
+
+
+### Features
+
+* fix version on helm chart ([3bee257](https://github.com/aacebedo/hugo-deployer/commit/3bee2572175fcbf34b02018c6a1c30e9f45e6acb))
+
 ## [2.3.1](https://github.com/aacebedo/hugo-deployer/compare/v2.3.0...v2.3.1) (2025-10-02)
 
 
