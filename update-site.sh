@@ -19,7 +19,7 @@ if [ -d "$PRE_BUILD_HOOKS_DIR" ]; then
 	echo "Found pre-build hooks directory: $PRE_BUILD_HOOKS_DIR"
 
 	# Check if directory has any files
-	if [ "$(find "$PRE_BUILD_HOOKS_DIR" -maxdepth 1 -type f | wc -l)" -gt 0 ]; then
+	if [ "$(find "$PRE_BUILD_HOOKS_DIR" -maxdepth 1 \( -type f -o -type l \) -name "*.sh" | wc -l)" -gt 0 ]; then
 		# Export useful variables for hooks
 		export BUILD_DIR
 		export BUILD_DATE
@@ -160,7 +160,7 @@ if [ $? -eq 0 ]; then
 		POST_BUILD_HOOKS_DIR="/app/config/hooks/post-build"
 		if [ -d "$POST_BUILD_HOOKS_DIR" ]; then
 			# Check if directory has any files
-			if [ "$(find "$POST_BUILD_HOOKS_DIR" -maxdepth 1 -type f | wc -l)" -gt 0 ]; then
+			if [ "$(find "$POST_BUILD_HOOKS_DIR" -maxdepth 1 \( -type f -o -type l \) -name "*.sh" | wc -l)" -gt 0 ]; then
 				# Export useful variables for hooks
 				export BUILD_DIR
 				export BUILD_DATE
