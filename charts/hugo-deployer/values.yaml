@@ -27,6 +27,7 @@ siteConfig:
   gitBranch: ""
   gitUsername: ""
   gitToken: ""
+  pathPrefix: ""
 
 hooks:
   preBuild: {}

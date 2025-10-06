@@ -7,6 +7,8 @@ echo "Building Hugo site..."
 # Create timestamp for this build
 BUILD_DATE=$(date +"%Y%m%d_%H%M%S")
 BUILD_DIR="/app/builds/${BUILD_DATE}"
+SITE_SOURCE_DIR="/app/site"
+PATH_PREFIX=${PATH_PREFIX:-""}
 
 echo "Creating build directory: ${BUILD_DIR}"
 mkdir -p "$BUILD_DIR"
@@ -23,7 +25,8 @@ if [ -d "$PRE_BUILD_HOOKS_DIR" ]; then
 		# Export useful variables for hooks
 		export BUILD_DIR
 		export BUILD_DATE
-		export SITE_SOURCE_DIR="/app/site"
+		export SITE_SOURCE_DIR
+		export PATH_PREFIX
 		export GIT_REPO_URL
 		export BRANCH
 
@@ -95,18 +98,28 @@ else
 fi
 
 echo "Repository updated successfully"
+HUGO_PROJECT_DIR="/app/site"
+
+if [ -n "$PATH_PREFIX" ]; then
+		HUGO_PROJECT_DIR="/app/site/${PATH_PREFIX}"
+fi
+
+if [ ! -d "$HUGO_PROJECT_DIR" ]; then
+		echo "Error: Path '${HUGO_PROJECT_DIR}' does not exist "
+		exit 1
+fi
 
 # Check if it's a Hugo site
-if [ ! -f "/app/site/hugo.toml" ] && \
-		[ ! -f "/app/site/config.toml" ] && \
-		[ ! -f "/app/site/config.yaml" ] && \
-		[ ! -f "/app/site/config.yml" ]; then
-		echo "Warning: No Hugo configuration file found"
+if [ ! -f "${HUGO_PROJECT_DIR}/hugo.toml" ] && \
+		[ ! -f "${HUGO_PROJECT_DIR}/config.toml" ] && \
+		[ ! -f "${HUGO_PROJECT_DIR}/config.yaml" ] && \
+		[ ! -f "${HUGO_PROJECT_DIR}/config.yml" ]; then
+		echo "Warning: No Hugo configuration file found in ${HUGO_PROJECT_DIR}"
 fi
 
 # Build the Hugo site with versioned directory
 echo "Building Hugo site..."
-cd /app/site
+cd "$HUGO_PROJECT_DIR"
 
 # Create timestamp for this build
 BUILD_DATE=$(date +"%Y%m%d_%H%M%S")
@@ -164,6 +177,10 @@ if [ $? -eq 0 ]; then
 				# Export useful variables for hooks
 				export BUILD_DIR
 				export BUILD_DATE
+				export SITE_SOURCE_DIR
+				export PATH_PREFIX
+				export GIT_REPO_URL
+				export BRANCH
 
 				# Iterate through all files in post-build hooks directory
 				for hook_file in "$POST_BUILD_HOOKS_DIR"/*; do

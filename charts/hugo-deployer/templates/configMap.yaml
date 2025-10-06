@@ -6,6 +6,9 @@ metadata:
 data:
   GIT_REPO_URL: "{{ .Values.siteConfig.gitRepoURL }}"
   GIT_BRANCH: {{ .Values.siteConfig.gitBranch | quote }}
+  {{- if .Values.siteConfig.pathPrefix }}
+  PATH_PREFIX: {{ .Values.siteConfig.pathPrefix | quote }}
+  {{- end }}
   {{- if .Values.env }}
 {{- toYaml .Values.env | nindent 2 }}
   {{- end }}

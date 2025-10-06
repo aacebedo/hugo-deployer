@@ -48,6 +48,8 @@ automatic update when calling a specific endpoint.
 
 - `PORT` - Port to serve on (default: random)
 - `GIT_BRANCH` - Git branch to use (default: main)
+- `PATH_PREFIX` - Subdirectory path within the repository where the Hugo project is located
+(for example "docs" or "website"). If not set, the Hugo project is expected at the repository root.
 
 ## Build arguments
 
