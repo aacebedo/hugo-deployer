@@ -43,7 +43,7 @@ ARG HELM_VERSION=3.19.0
 # renovate: datasource=github-releases depName=stackrox/kube-linter extractVersion=^v(?<version>.*)$
 ARG KUBE_LINTER_VERSION=0.7.6
 # renovate: datasource=pypi depName=checkov extractVersion=^(?<version>.*)$
-ARG CHECKOV_VERSION=3.2.473
+ARG CHECKOV_VERSION=3.2.474
 # renovate: datasource=github-releases depName=yannh/kubeconform extractVersion=^v(?<version>.*)$
 ARG KUBECONFORM_VERSION=0.7.0
 # renovate: datasource=github-releases depName=jj-vcs/jj extractVersion=^v(?<version>.*)$
