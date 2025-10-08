@@ -51,6 +51,62 @@ automatic update when calling a specific endpoint.
 - `PATH_PREFIX` - Subdirectory path within the repository where the Hugo project is located
 (for example "docs" or "website"). If not set, the Hugo project is expected at the repository root.
 
+## Hooks
+
+You can add custom hooks that run before and after the Hugo build by creating a `hooks` directory in
+your Hugo project (or at the repository root if `PATH_PREFIX` is not set):
+
+```bash
+your-hugo-site/
+├── hooks/
+│   ├── pre-build/
+│   │   └── 01-prepare.sh
+│   └── post-build/
+│       └── 01-notify.sh
+├── content/
+├── themes/
+└── hugo.toml
+```
+
+### Pre-build hooks
+
+Scripts in `hooks/pre-build/` run after the repository is cloned/updated but before the Hugo build.
+These hooks have access to the following environment variables:
+
+- `BUILD_DIR` - Directory where the build output will be stored
+- `BUILD_DATE` - Timestamp of the current build
+- `SITE_SOURCE_DIR` - Path to the repository root
+- `HUGO_PROJECT_DIR` - Path to the Hugo project directory
+- `PATH_PREFIX` - The configured path prefix
+- `GIT_REPO_URL` - Git repository URL
+- `BRANCH` - Git branch being built
+
+Hook scripts must have a `.sh` extension and will be executed using bash (no need to set executable
+permissions). If a pre-build hook fails, the build is aborted.
+
+### Post-build hooks
+
+Scripts in `hooks/post-build/` run after the Hugo build completes successfully. They have access to
+the same environment variables as pre-build hooks. Post-build hook failures are logged as warnings
+but do not abort the build.
+
+### Example hook
+
+```bash
+#!/bin/bash
+# hooks/pre-build/01-prepare.sh
+
+echo "Running custom preparation steps..."
+cd "$HUGO_PROJECT_DIR"
+
+# Install npm dependencies if package.json exists
+if [ -f "package.json" ]; then
+    npm install
+fi
+
+echo "Preparation complete!"
+```
+
 ## Build arguments
 
 You can customize versions during build:

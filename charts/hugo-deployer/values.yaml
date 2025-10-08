@@ -28,7 +28,3 @@ siteConfig:
   gitUsername: ""
   gitToken: ""
   pathPrefix: ""
-
-hooks:
-  preBuild: {}
-  postBuild: {}

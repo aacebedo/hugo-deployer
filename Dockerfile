@@ -80,6 +80,8 @@ RUN apk add --no-cache \
 	ca-certificates \
 	curl \
 	bash \
+	nodejs \
+	npm \
 	libc6-compat \
 	libstdc++ \
 	libgcc \

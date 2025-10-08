@@ -86,10 +86,6 @@ spec:
               subPath: site
             - mountPath: /home/appuser
               name: user-home
-            - mountPath: /app/config/hooks/pre-build
-              name: pre-build-hooks
-            - mountPath: /app/config/hooks/post-build
-              name: post-build-hooks
       {{- if .Values.nodeSelector }}
       nodeSelector:
         {{- .Values.nodeSelector | toYaml | nindent 8 }}
@@ -126,12 +122,4 @@ spec:
           emptyDir: {}
         - name: user-home
           emptyDir: {}
-        - name: pre-build-hooks
-          configMap:
-            name: {{ .Release.Name }}-pre-build-hooks
-            defaultMode: 0755
-        - name: post-build-hooks
-          configMap:
-            name: {{ .Release.Name }}-post-build-hooks
-            defaultMode: 0755
 
