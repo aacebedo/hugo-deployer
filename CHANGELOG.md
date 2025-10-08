@@ -1,3 +1,10 @@
+# [2.6.0](https://github.com/aacebedo/hugo-deployer/compare/v2.5.0...v2.6.0) (2025-10-08)
+
+
+### Features
+
+* move hooks to put them in the repo ([52684ce](https://github.com/aacebedo/hugo-deployer/commit/52684cee275366d035b22b4eb6848f95cee73967))
+
 # [2.5.0](https://github.com/aacebedo/hugo-deployer/compare/v2.4.1...v2.5.0) (2025-10-06)
 
 
