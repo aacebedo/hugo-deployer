@@ -13,53 +13,6 @@ PATH_PREFIX=${PATH_PREFIX:-""}
 echo "Creating build directory: ${BUILD_DIR}"
 mkdir -p "$BUILD_DIR"
 
-echo "Running pre-build hooks..."
-
-# Execute all pre-build hooks
-PRE_BUILD_HOOKS_DIR="/app/config/hooks/pre-build"
-if [ -d "$PRE_BUILD_HOOKS_DIR" ]; then
-	echo "Found pre-build hooks directory: $PRE_BUILD_HOOKS_DIR"
-
-	# Check if directory has any files
-	if [ "$(find "$PRE_BUILD_HOOKS_DIR" -maxdepth 1 \( -type f -o -type l \) -name "*.sh" | wc -l)" -gt 0 ]; then
-		# Export useful variables for hooks
-		export BUILD_DIR
-		export BUILD_DATE
-		export SITE_SOURCE_DIR
-		export PATH_PREFIX
-		export GIT_REPO_URL
-		export BRANCH
-
-		# Iterate through all files in pre-build hooks directory
-		for hook_file in "$PRE_BUILD_HOOKS_DIR"/*; do
-			if [ -f "$hook_file" ]; then
-				echo "Executing pre-build hook: $(basename "$hook_file")"
-
-				# Check if file is executable
-				if [ -x "$hook_file" ]; then
-					# Execute the hook
-					if "$hook_file"; then
-						echo "Hook $(basename "$hook_file") completed successfully"
-					else
-						echo "Error: Hook $(basename "$hook_file") failed with exit code $?"
-						echo "Aborting build due to pre-build hook failure"
-						rm -rf "$BUILD_DIR"
-						exit 1
-					fi
-				else
-					echo "Warning: Hook $(basename "$hook_file") is not executable, skipping"
-				fi
-			fi
-		done
-
-		echo "All pre-build hooks completed successfully"
-	else
-		echo "No pre-build hooks found in $PRE_BUILD_HOOKS_DIR"
-	fi
-else
-	echo "Pre-build hooks directory not found: $PRE_BUILD_HOOKS_DIR"
-fi
-
 # check if required environment variables are set
 if [ -z "$GIT_REPO_URL" ]; then
 		echo "Error: GIT_REPO_URL environment variable is not set"
@@ -107,6 +60,49 @@ fi
 if [ ! -d "$HUGO_PROJECT_DIR" ]; then
 		echo "Error: Path '${HUGO_PROJECT_DIR}' does not exist "
 		exit 1
+fi
+
+echo "Running pre-build hooks..."
+
+# Execute all pre-build hooks from repository
+PRE_BUILD_HOOKS_DIR="${HUGO_PROJECT_DIR}/hooks/pre-build"
+if [ -d "$PRE_BUILD_HOOKS_DIR" ]; then
+	echo "Found pre-build hooks directory: $PRE_BUILD_HOOKS_DIR"
+
+	# Check if directory has any files
+	if [ "$(find "$PRE_BUILD_HOOKS_DIR" -maxdepth 1 \( -type f -o -type l \) -name "*.sh" | wc -l)" -gt 0 ]; then
+		# Export useful variables for hooks
+		export BUILD_DIR
+		export BUILD_DATE
+		export SITE_SOURCE_DIR
+		export PATH_PREFIX
+		export GIT_REPO_URL
+		export BRANCH
+		export HUGO_PROJECT_DIR
+
+		# Iterate through all files in pre-build hooks directory
+		for hook_file in "$PRE_BUILD_HOOKS_DIR"/*.sh; do
+			if [ -f "$hook_file" ] || [ -L "$hook_file" ]; then
+				echo "Executing pre-build hook: $(basename "$hook_file")"
+
+				# Execute the hook using bash
+				if bash "$hook_file"; then
+					echo "Hook $(basename "$hook_file") completed successfully"
+				else
+					echo "Error: Hook $(basename "$hook_file") failed with exit code $?"
+					echo "Aborting build due to pre-build hook failure"
+					rm -rf "$BUILD_DIR"
+					exit 1
+				fi
+			fi
+		done
+
+		echo "All pre-build hooks completed successfully"
+	else
+		echo "No pre-build hooks found in $PRE_BUILD_HOOKS_DIR"
+	fi
+else
+	echo "Pre-build hooks directory not found: $PRE_BUILD_HOOKS_DIR (skipping)"
 fi
 
 # Check if it's a Hugo site
@@ -169,9 +165,11 @@ if [ $? -eq 0 ]; then
 
 		echo "Running post-build hooks..."
 
-		# Execute all post-build hooks
-		POST_BUILD_HOOKS_DIR="/app/config/hooks/post-build"
+		# Execute all post-build hooks from repository
+		POST_BUILD_HOOKS_DIR="${HUGO_PROJECT_DIR}/hooks/post-build"
 		if [ -d "$POST_BUILD_HOOKS_DIR" ]; then
+			echo "Found post-build hooks directory: $POST_BUILD_HOOKS_DIR"
+
 			# Check if directory has any files
 			if [ "$(find "$POST_BUILD_HOOKS_DIR" -maxdepth 1 \( -type f -o -type l \) -name "*.sh" | wc -l)" -gt 0 ]; then
 				# Export useful variables for hooks
@@ -181,22 +179,18 @@ if [ $? -eq 0 ]; then
 				export PATH_PREFIX
 				export GIT_REPO_URL
 				export BRANCH
+				export HUGO_PROJECT_DIR
 
 				# Iterate through all files in post-build hooks directory
-				for hook_file in "$POST_BUILD_HOOKS_DIR"/*; do
-					if [ -f "$hook_file" ]; then
+				for hook_file in "$POST_BUILD_HOOKS_DIR"/*.sh; do
+					if [ -f "$hook_file" ] || [ -L "$hook_file" ]; then
 						echo "Executing post-build hook: $(basename "$hook_file")"
 
-						# Check if file is executable
-						if [ -x "$hook_file" ]; then
-							# Execute the hook
-							if "$hook_file"; then
-								echo "Hook $(basename "$hook_file") completed successfully"
-							else
-								echo "Warning: Hook $(basename "$hook_file") failed with exit code $?"
-							fi
+						# Execute the hook using bash
+						if bash "$hook_file"; then
+							echo "Hook $(basename "$hook_file") completed successfully"
 						else
-							echo "Warning: Hook $(basename "$hook_file") is not executable, skipping"
+							echo "Warning: Hook $(basename "$hook_file") failed with exit code $?"
 						fi
 					fi
 				done
@@ -205,6 +199,8 @@ if [ $? -eq 0 ]; then
 			else
 				echo "No post-build hooks found in $POST_BUILD_HOOKS_DIR"
 			fi
+		else
+			echo "Post-build hooks directory not found: $POST_BUILD_HOOKS_DIR (skipping)"
 		fi
 
 		echo "Build completed at: $(date)"
