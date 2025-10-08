@@ -18,6 +18,12 @@ ARG CADDY_EXEC_VERSION=master
 ARG DART_SASS_VERSION=1.93.2
 # renovate: datasource=github-releases depName=cloudcannon/pagefind extractVersion=^v(?<version>.*)$
 ARG PAGEFIND_VERSION=1.4.0
+# renovate: datasource=npm depName=postcss-cli extractVersion=^(?<version>.*)$
+ARG POSTCSS_CLI_VERSION=11.0.1
+# renovate: datasource=npm depName=postcss extractVersion=^(?<version>.*)$
+ARG POSTCSS_VERSION=8.5.6
+# renovate: datasource=npm depName=@fullhuman/postcss-purgecss extractVersion=^(?<version>.*)$
+ARG POSTCSS_PURGECSS_VERSION=7.0.2
 
 # Install build dependencies
 RUN apk add --no-cache \
@@ -80,6 +86,8 @@ RUN apk add --no-cache \
 	ca-certificates \
 	curl \
 	bash \
+	nodejs \
+	npm \
 	libc6-compat \
 	libstdc++ \
 	libgcc \
@@ -94,6 +102,14 @@ COPY --from=builder /usr/local/bin/sass /usr/local/bin/sass
 COPY --from=builder /usr/local/bin/pagefind /usr/local/bin/pagefind
 
 RUN setcap 'cap_net_bind_service=+ep' /usr/local/bin/caddy
+
+# Install Node.js tools
+# hadolint ignore=DL3016
+RUN npm install -g \
+	"postcss@${POSTCSS_VERSION}" \
+	"postcss-cli@${POSTCSS_CLI_VERSION}" \
+	"@fullhuman/postcss-purgecss@${POSTCSS_PURGECSS_VERSION}" && \
+	npm cache clean --force
 
 # Test that Hugo works
 RUN hugo version
