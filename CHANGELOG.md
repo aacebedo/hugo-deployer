@@ -1,3 +1,10 @@
+# [2.7.0](https://github.com/aacebedo/hugo-deployer/compare/v2.6.0...v2.7.0) (2025-10-09)
+
+
+### Features
+
+* change cache times ([4eb8411](https://github.com/aacebedo/hugo-deployer/commit/4eb84112852c269c9be09e155c95bc8cb4dfa86e))
+
 # [2.6.0](https://github.com/aacebedo/hugo-deployer/compare/v2.5.0...v2.6.0) (2025-10-08)
 
 
