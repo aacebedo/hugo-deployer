@@ -1,3 +1,10 @@
+# [2.8.0](https://github.com/aacebedo/hugo-deployer/compare/v2.7.0...v2.8.0) (2025-10-10)
+
+
+### Features
+
+* fix checksum on deployment ([c26e4ba](https://github.com/aacebedo/hugo-deployer/commit/c26e4ba3120d684b9f8811aea514d2bf3770c79a))
+
 # [2.7.0](https://github.com/aacebedo/hugo-deployer/compare/v2.6.0...v2.7.0) (2025-10-09)
 
 
