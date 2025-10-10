@@ -12,6 +12,8 @@ spec:
     metadata:
       labels:
         {{- include "selectorLabels" . | nindent 8 }}
+      annotations:
+        checksum/image: {{ printf "%s:%s" .Values.image.repository .Values.image.tag | sha256sum }}
     spec:
       initContainers:
         - name: set-permissions
