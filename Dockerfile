@@ -7,7 +7,7 @@ FROM alpine:${ALPINE_VERSION} AS builder
 # renovate: datasource=github-releases depName=golang/go extractVersion=^go(?<version>.*)$
 ARG GO_VERSION=1.23.2
 # renovate: datasource=github-releases depName=gohugoio/hugo extractVersion=^v(?<version>.*)$
-ARG HUGO_VERSION=0.151.0
+ARG HUGO_VERSION=0.151.1
 # renovate: datasource=github-releases depName=caddyserver/caddy extractVersion=^v(?<version>.*)$
 ARG CADDY_VERSION=2.10.2
 # renovate: datasource=github-releases depName=caddyserver/xcaddy extractVersion=^v(?<version>.*)$
