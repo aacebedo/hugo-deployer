@@ -13,9 +13,9 @@ scan:
     - license
   skip-files:
     - "/usr/local/go/src/**/Dockerfile"
+    - "/usr/local/bin/caddy"
 license:
   forbidden: []
-
   notice:
     - AGPL-3.0
     - AFL-1.1
