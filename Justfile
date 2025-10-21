@@ -44,7 +44,8 @@ security-scan: build
     set -euxo pipefail
     TEMP_DIR=$(mktemp -d)
     docker save {{ docker_tag }} | gzip > "$TEMP_DIR/image.tar.gz"
-    trivy image --input "$TEMP_DIR/image.tar.gz" --format sarif --output /tmp/trivy-results.sarif
+    trivy image --input "$TEMP_DIR/image.tar.gz" --format sarif \
+      --skip-version-check --output /tmp/trivy-results.sarif
     rm -rf "$TEMP_DIR"
 
 release: lint test security-scan
