@@ -31,7 +31,7 @@ ARG SEMANTIC_RELEASE_EXEC_VERSION=7.1.0
 # renovate: datasource=npm depName=@semantic-release/git extractVersion=^(?<version>.*)$
 ARG SEMANTIC_RELEASE_GIT_VERSION=10.0.1
 # renovate: datasource=github-releases depName=errata-ai/vale extractVersion=^v(?<version>.*)$
-ARG VALE_VERSION=3.12.0
+ARG VALE_VERSION=3.13.0
 # renovate: datasource=npm depName=@semantic-release-plus/docker extractVersion=^(?<version>.*)$
 ARG SEMANTIC_RELEASE_PLUS_DOCKER_VERSION=v3.1.3
 # renovate: datasource=pypi depName=podman-compose extractVersion=^(?<version>.*)$
