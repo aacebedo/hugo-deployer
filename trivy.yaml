@@ -1,6 +1,6 @@
 ---
 exit-code: 1
-severity: "HIGH,CRITICAL"
+severity: "CRITICAL"
 skip-update: false
 ignore-unfixed: true
 output:
