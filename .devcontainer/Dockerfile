@@ -39,7 +39,7 @@ ARG PODMAN_COMPOSE_VERSION=1.5.0
 # renovate: datasource=npm depName=renovate extractVersion=^(?<version>.*)$
 ARG RENOVATE_VERSION=41.173.1
 # renovate: datasource=github-releases depName=helm/helm extractVersion=^v(?<version>.*)$
-ARG HELM_VERSION=3.19.0
+ARG HELM_VERSION=3.19.2
 # renovate: datasource=github-releases depName=stackrox/kube-linter extractVersion=^v(?<version>.*)$
 ARG KUBE_LINTER_VERSION=0.7.6
 # renovate: datasource=pypi depName=checkov extractVersion=^(?<version>.*)$
