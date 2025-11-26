@@ -10,7 +10,7 @@ ARG YAMLLINT_VERSION=1.37.1
 # renovate: datasource=npm depName=markdownlint-cli2 extractVersion=^(?<version>.*)$
 ARG MARKDOWNLINT_CLI2_VERSION=0.18.1
 # renovate: datasource=pypi depName=pre-commit extractVersion=^(?<version>.*)$
-ARG PRECOMMIT_VERSION=4.3.0
+ARG PRECOMMIT_VERSION=4.5.0
 # renovate: datasource=github-tags depName=astral-sh/uv extractVersion=^(?<version>.*)$
 ARG UV_VERSION=0.9.13
 # renovate: datasource=npm depName=@prantlf/jsonlint extractVersion=^(?<version>.*)$
