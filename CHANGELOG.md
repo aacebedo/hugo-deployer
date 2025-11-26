@@ -1,3 +1,10 @@
+## [2.8.1](https://github.com/aacebedo/hugo-deployer/compare/v2.8.0...v2.8.1) (2025-11-26)
+
+
+### Bug Fixes
+
+* changed severity for trivy to CRITICAL ([e64cc79](https://github.com/aacebedo/hugo-deployer/commit/e64cc79729041d1fc457111ff46cacc70857ce36))
+
 # [2.8.0](https://github.com/aacebedo/hugo-deployer/compare/v2.7.0...v2.8.0) (2025-10-10)
 
 
