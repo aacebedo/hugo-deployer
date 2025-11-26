@@ -8,7 +8,7 @@ ARG HADOLINT_VERSION=2.14.0
 # renovate: datasource=pypi depName=yamllint extractVersion=^v(?<version>.*)$ extractVersion=^v(?<version>.*)$
 ARG YAMLLINT_VERSION=1.37.1
 # renovate: datasource=npm depName=markdownlint-cli2 extractVersion=^(?<version>.*)$
-ARG MARKDOWNLINT_CLI2_VERSION=0.18.1
+ARG MARKDOWNLINT_CLI2_VERSION=0.19.1
 # renovate: datasource=pypi depName=pre-commit extractVersion=^(?<version>.*)$
 ARG PRECOMMIT_VERSION=4.5.0
 # renovate: datasource=github-tags depName=astral-sh/uv extractVersion=^(?<version>.*)$
