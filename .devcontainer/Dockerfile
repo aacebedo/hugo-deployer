@@ -17,7 +17,7 @@ ARG UV_VERSION=0.9.5
 ARG JSONLINT_VERSION=16.0.0
 # editorconfig-checker-disable-next-line
 # renovate: datasource=github-releases depName=editorconfig-checker/editorconfig-checker extractVersion=^v(?<version>.*)$
-ARG EDITORCONFIG_CHECKER_VERSION=3.4.1
+ARG EDITORCONFIG_CHECKER_VERSION=3.6.0
 # renovate: datasource=github-releases depName=casey/just extractVersion=^v(?<version>.*)$
 ARG JUST_VERSION=1.42.4
 # renovate: datasource=github-releases depName=aquasecurity/trivy extractVersion=^v(?<version>.*)$
