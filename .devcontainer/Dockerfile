@@ -215,7 +215,9 @@ ARG USERUID="1000"
 ARG USERGID="1000"
 
 # Install base packages (including runtime environments)
-RUN apk add --no-cache \
+RUN apk update && \
+		apk upgrade && \
+		apk add --no-cache \
 		curl \
 		git \
 		ca-certificates \

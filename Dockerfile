@@ -20,11 +20,13 @@ ARG DART_SASS_VERSION=1.93.2
 ARG PAGEFIND_VERSION=1.4.0
 
 # Install build dependencies
-RUN apk add --no-cache \
-	git \
-	ca-certificates \
-	wget \
-	&& update-ca-certificates
+RUN apk update && \
+		apk upgrade && \
+		apk add --no-cache \
+		git \
+		ca-certificates \
+		wget \
+		&& update-ca-certificates
 
 # Install Go manually
 RUN wget --progress=dot:giga -O go.tar.gz \
@@ -74,19 +76,21 @@ RUN CADDY_VERSION=v${CADDY_VERSION} xcaddy build \
 FROM alpine:${ALPINE_VERSION}
 
 # Install runtime dependencies including full glibc for Hugo
-RUN apk add --no-cache \
-	git \
-	openssh-client \
-	ca-certificates \
-	curl \
-	bash \
-	nodejs \
-	npm \
-	libc6-compat \
-	libstdc++ \
-	libgcc \
-	libcap-setcap \
-	&& update-ca-certificates
+RUN apk update && \
+		apk upgrade && \
+		apk add --no-cache \
+		git \
+		openssh-client \
+		ca-certificates \
+		curl \
+		bash \
+		nodejs \
+		npm \
+		libc6-compat \
+		libstdc++ \
+		libgcc \
+		libcap-setcap \
+		&& update-ca-certificates
 
 # Copy Hugo, Caddy, Go, Dart Sass, and Pagefind from builder
 COPY --from=builder /usr/local/go /usr/local/go
