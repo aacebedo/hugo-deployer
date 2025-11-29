@@ -37,7 +37,7 @@ ARG SEMANTIC_RELEASE_PLUS_DOCKER_VERSION=v3.1.3
 # renovate: datasource=pypi depName=podman-compose extractVersion=^(?<version>.*)$
 ARG PODMAN_COMPOSE_VERSION=1.5.0
 # renovate: datasource=npm depName=renovate extractVersion=^(?<version>.*)$
-ARG RENOVATE_VERSION=42.24.0
+ARG RENOVATE_VERSION=42.26.11
 # renovate: datasource=github-releases depName=helm/helm extractVersion=^v(?<version>.*)$
 ARG HELM_VERSION=4.0.1
 # renovate: datasource=github-releases depName=stackrox/kube-linter extractVersion=^v(?<version>.*)$
