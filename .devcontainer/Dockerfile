@@ -1,5 +1,5 @@
 # renovate: datasource=docker depName=alpine versioning=docker
-ARG ALPINE_VERSION=3.22
+ARG ALPINE_VERSION=3.23
 
 # Build arguments for tool versions
 
