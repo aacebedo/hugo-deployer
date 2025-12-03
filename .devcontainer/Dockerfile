@@ -21,7 +21,7 @@ ARG EDITORCONFIG_CHECKER_VERSION=3.6.0
 # renovate: datasource=github-releases depName=casey/just extractVersion=^v(?<version>.*)$
 ARG JUST_VERSION=1.42.4
 # renovate: datasource=github-releases depName=aquasecurity/trivy extractVersion=^v(?<version>.*)$
-ARG TRIVY_VERSION=0.67.2
+ARG TRIVY_VERSION=0.68.1
 # renovate: datasource=npm depName=semantic-release extractVersion=^(?<version>.*)$
 ARG SEMANTIC_RELEASE_VERSION=25.0.2
 # renovate: datasource=npm depName=@semantic-release/changelog extractVersion=^(?<version>.*)$
