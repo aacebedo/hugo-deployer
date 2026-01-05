@@ -14,7 +14,7 @@ ARG PRECOMMIT_VERSION=4.5.1
 # renovate: datasource=github-tags depName=astral-sh/uv extractVersion=^(?<version>.*)$
 ARG UV_VERSION=0.9.21
 # renovate: datasource=npm depName=@prantlf/jsonlint extractVersion=^(?<version>.*)$
-ARG JSONLINT_VERSION=16.1.0
+ARG JSONLINT_VERSION=17.0.0
 # editorconfig-checker-disable-next-line
 # renovate: datasource=github-releases depName=editorconfig-checker/editorconfig-checker extractVersion=^v(?<version>.*)$
 ARG EDITORCONFIG_CHECKER_VERSION=3.6.0
