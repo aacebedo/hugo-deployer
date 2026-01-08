@@ -47,7 +47,7 @@ ARG CHECKOV_VERSION=3.2.497
 # renovate: datasource=github-releases depName=yannh/kubeconform extractVersion=^v(?<version>.*)$
 ARG KUBECONFORM_VERSION=0.7.0
 # renovate: datasource=github-releases depName=jj-vcs/jj extractVersion=^v(?<version>.*)$
-ARG JJ_VERSION=0.36.0
+ARG JJ_VERSION=0.37.0
 # renovate: datasource=github-releases depName=koalaman/shellcheck extractVersion=^v(?<version>.*)$
 ARG SHELLCHECK_VERSION=0.11.0
 
