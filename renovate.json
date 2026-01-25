@@ -7,6 +7,14 @@
 		":dependencyDashboard"
 	],
 	"configMigration": true,
+	"packageRules": [
+		{
+			"matchUpdateTypes": [
+				"patch"
+			],
+			"enabled": false
+		}
+	],
 	"baseBranchPatterns": [
 		"main"
 	],
