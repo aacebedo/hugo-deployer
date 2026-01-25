@@ -18,7 +18,7 @@ ARG DART_SASS_VERSION=1.97.2
 # renovate: datasource=github-releases depName=cloudcannon/pagefind extractVersion=^v(?<version>.*)$
 ARG PAGEFIND_VERSION=1.4.0
 ## renovate: datasource=node depName=nodejs/node
-ARG NODE_VERSION=24.11.1
+ARG NODE_VERSION=24.13.0
 
 # Install build dependencies
 RUN apk update && \
