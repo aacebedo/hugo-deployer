@@ -1,7 +1,11 @@
 {
 	"name": "Hugo Deployer Container Development",
 	"build": {
-		"dockerfile": "Dockerfile"
+		"dockerfile": "Dockerfile",
+		"options": [
+			"--build-context=workspace=${localWorkspaceFolder}",
+			"--secret=id=MISE_GITHUB_TOKEN"
+		]
 	},
 	"privileged": true,
 	"customizations": {
@@ -25,6 +29,9 @@
 				"rioj7.vscode-json-validate"
 			]
 		}
+	},
+	"containerEnv": {
+		"MISE_TRUSTED_CONFIG_PATHS": "${containerWorkspaceFolder}"
 	},
 	"postCreateCommand": "git config --global --add safe.directory ${containerWorkspaceFolder}",
 	"remoteUser": "devcontaineruser"

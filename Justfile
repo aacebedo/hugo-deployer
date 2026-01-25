@@ -16,11 +16,10 @@ default:
     just --list
 
 lint:
-    vale sync
     pre-commit run --all-files
 
 build:
-    docker build -t {{ docker_tag }} \
+    podman build -t {{ docker_tag }} \
       --label "org.opencontainers.image.source={{ repo_url }}" \
       --label "org.opencontainers.image.description=Hugo deployer development container" \
       --label "org.opencontainers.image.licenses=MIT" \
@@ -50,3 +49,6 @@ security-scan: build
 
 release: lint test security-scan
     semantic-release
+
+clean:
+    rm -rf .vale/.vale-config .vale/Google
