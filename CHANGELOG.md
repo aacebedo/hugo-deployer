@@ -1,3 +1,10 @@
+# [2.9.0](https://github.com/aacebedo/hugo-deployer/compare/v2.8.1...v2.9.0) (2026-01-25)
+
+
+### Features
+
+* switch to mise ([9a5895c](https://github.com/aacebedo/hugo-deployer/commit/9a5895ce49109dcca15513308919d4361de986e5))
+
 ## [2.8.1](https://github.com/aacebedo/hugo-deployer/compare/v2.8.0...v2.8.1) (2025-11-26)
 
 
