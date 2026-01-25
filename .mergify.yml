@@ -8,9 +8,8 @@ queue_rules:
       - and:
           - label = reviewed
           - check-success = cleanup / cleanup-devcontainer-image
-          - check-success = build
+          - check-success = pr-checks
           - check-success = prepare / prepare-devcontainer-image
-          - check-success = lint
 merge_protections:
   - name: Merge only if reviewed
     description: Merge only if the PR has been reviewed

@@ -1,0 +1,53 @@
+[settings]
+experimental = true
+npm.package_manager = "pnpm"
+
+[[env]]
+CGO_ENABLED = 1
+_.source = [
+		".mise/set_node_path_var.sh",
+		".mise/set_helm_plugins_var.sh"
+	]
+
+[tools]
+jq = "1.8.1"
+uv = "0.9.26"
+shellcheck = "0.11.0"
+"pipx:podman-compose" = "1.5.0"
+kube-linter = "0.7.6"
+kubeconform = "0.7.0"
+pnpm = "10.28.0"
+helm = "4.0.1"
+"pipx:checkov" = "3.2.495"
+editorconfig-checker = "3.4.0"
+"github:sass/dart-sass" = "1.92.1"
+hadolint = "2.12.0"
+hugo-extended = "0.150.0"
+jujutsu = "0.33.0"
+just = "1.42.4"
+pre-commit = "4.5.0"
+trivy = "0.67.2"
+vale = "3.13.0"
+yamllint = "1.37.1"
+node = "24.11.0"
+go = "1.23.4"
+python = "3.12"
+"npm:@prantlf/jsonlint" = "17.0.0"
+"npm:renovate" = "42.83.2"
+"npm:semantic-release" = "25.0.2"
+"npm:@semantic-release-plus/docker" = "3.1.3"
+"npm:@semantic-release/changelog" = "6.0.3"
+"npm:@semantic-release/exec" = "7.1.0"
+"npm:@semantic-release/git" = "10.0.1"
+
+[tools."http:helm-kubeconform"]
+version = "0.2.0"
+url = "https://github.com/jtyr/kubeconform-helm/archive/refs/tags/v{{version}}.tar.gz"
+
+[hooks]
+preinstall = '''
+export MISE_NO_ENV=1
+export MISE_NO_HOOKS=1
+mise install python uv node pnpm go jq
+'''
+

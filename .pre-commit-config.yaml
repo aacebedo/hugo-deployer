@@ -20,6 +20,7 @@ repos:
     rev: v0.20.0
     hooks:
       - id: markdownlint-cli2
+        language_version: system
 
   - repo: https://github.com/editorconfig-checker/editorconfig-checker
     rev: v3.6.0
@@ -39,6 +40,24 @@ repos:
     rev: v4.12.0
     hooks:
       - id: commitizen
+
+  - repo: local
+    hooks:
+      - id: vale sync
+        name: Vale sync
+        entry: |
+          bash -c '
+          lock=.vale/.sync.lock
+          [ -d .vale/Google ] && exit 0
+          mkdir -p .vale
+          (flock -n 200 || exit 0) 200>"$lock"
+          rm -rf .vale/Google 2>/dev/null || true
+          vale sync
+          rm -f "$lock"
+          '
+        language: system
+        pass_filenames: false
+        always_run: true
 
   - repo: https://github.com/errata-ai/vale
     rev: v3.13.0
