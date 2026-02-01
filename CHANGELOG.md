@@ -1,3 +1,10 @@
+## [2.9.1](https://github.com/aacebedo/hugo-deployer/compare/v2.9.0...v2.9.1) (2026-02-01)
+
+
+### Bug Fixes
+
+* fix trivy errors ([6b23ee5](https://github.com/aacebedo/hugo-deployer/commit/6b23ee562c673feb490b9c16990a762910928ade))
+
 # [2.9.0](https://github.com/aacebedo/hugo-deployer/compare/v2.8.1...v2.9.0) (2026-01-25)
 
 

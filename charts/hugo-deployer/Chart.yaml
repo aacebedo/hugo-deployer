@@ -4,5 +4,5 @@ apiVersion: v2
 
 version: 0.1.0
 
-appVersion: 2.9.0
+appVersion: 2.9.1
 description: A Helm chart for hugo-deployer
