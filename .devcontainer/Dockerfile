@@ -1,5 +1,5 @@
 # renovate: datasource=docker depName=aacebedo/devcontainer-base versioning=docker
-ARG DEVCONTAINER_BASE_VERSION=1.6.1
+ARG DEVCONTAINER_BASE_VERSION=1.6.2
 
 # Stage 2: Final image
 FROM ghcr.io/aacebedo/devcontainer-base:${DEVCONTAINER_BASE_VERSION} AS final
@@ -8,6 +8,7 @@ USER root
 
 # Install base packages (including runtime environments)
 RUN apk update && \
+		apk upgrade && \
 		apk add --no-cache \
 		shadow \
 		podman \
