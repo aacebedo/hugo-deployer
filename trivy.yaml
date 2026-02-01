@@ -15,6 +15,7 @@ scan:
     - "/usr/local/go/src/**/Dockerfile"
     - "/opt/go/pkg/mod/**/Dockerfile"
     - "/usr/local/bin/caddy"
+    - "/home/devcontaineruser/.local/share/pnpm/store/**"
 license:
   forbidden: []
   notice:
