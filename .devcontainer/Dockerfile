@@ -1,5 +1,5 @@
 # renovate: datasource=docker depName=aacebedo/devcontainer-base versioning=docker
-ARG DEVCONTAINER_BASE_VERSION=1.6.2
+ARG DEVCONTAINER_BASE_VERSION=1.7.0
 
 # Stage 2: Final image
 FROM ghcr.io/aacebedo/devcontainer-base:${DEVCONTAINER_BASE_VERSION} AS final
