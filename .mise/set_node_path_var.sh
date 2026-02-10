@@ -2,9 +2,6 @@
 set -e
 
 NODE_PATH_VALUE=$(
-	export MISE_NO_ENV=1 MISE_NO_HOOKS=1
-	eval "$(mise activate bash)"
-
 	JQ_FILTER='to_entries | .[] | select(.key | startswith("npm:")) |
 		.value[] | select(.active == true) | .install_path'
 
