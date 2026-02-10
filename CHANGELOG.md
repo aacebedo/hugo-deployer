@@ -1,3 +1,10 @@
+# [2.10.0](https://github.com/aacebedo/hugo-deployer/compare/v2.9.1...v2.10.0) (2026-02-10)
+
+
+### Features
+
+* cleanup mise ([a6da711](https://github.com/aacebedo/hugo-deployer/commit/a6da71173c6ddc40dae471c90d873f9336735109))
+
 ## [2.9.1](https://github.com/aacebedo/hugo-deployer/compare/v2.9.0...v2.9.1) (2026-02-01)
 
 
