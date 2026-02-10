@@ -2,9 +2,6 @@
 set -e
 
 HELM_PLUGINS_VALUE=$(
-	export MISE_NO_ENV=1 MISE_NO_HOOKS=1
-	eval "$(mise activate bash)"
-
 	JQ_FILTER='.[] | select(.active == true) | .install_path'
 
 	result=""
