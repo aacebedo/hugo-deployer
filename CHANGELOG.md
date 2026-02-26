@@ -1,3 +1,10 @@
+## [2.10.1](https://github.com/aacebedo/hugo-deployer/compare/v2.10.0...v2.10.1) (2026-02-26)
+
+
+### Bug Fixes
+
+* ignore CVE-2025-68121 ([74f229a](https://github.com/aacebedo/hugo-deployer/commit/74f229adeccde1f66b57f6e81ffe6defb1026ef4))
+
 # [2.10.0](https://github.com/aacebedo/hugo-deployer/compare/v2.9.1...v2.10.0) (2026-02-10)
 
 
