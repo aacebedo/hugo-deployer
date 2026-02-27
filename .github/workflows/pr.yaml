@@ -40,11 +40,11 @@ jobs:
       - name: Setup mise
         uses: jdx/mise-action@v3
       - name: Lint
-        run: just lint
+        run: mise lint
       - name: Test
-        run: just test
+        run: mise test
       - name: Security scan
-        run: just security-scan
+        run: mise security-scan
   cleanup:
     uses: ./.github/workflows/cleanup-devcontainer-image.yaml
     permissions:

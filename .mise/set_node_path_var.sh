@@ -1,5 +1,5 @@
 #!/bin/sh
-set -e
+set -euo
 
 NODE_PATH_VALUE=$(
 	JQ_FILTER='to_entries | .[] | select(.key | startswith("npm:")) |

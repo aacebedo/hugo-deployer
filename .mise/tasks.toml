@@ -1,0 +1,53 @@
+[lint]
+description = "Run pre-commit on all files"
+run = "pre-commit run --all-files"
+
+[build]
+description = "Build the container image"
+run = """
+podman build -t "{{vars.docker_tag}}" \
+	--label "org.opencontainers.image.source={{vars.repo_url}}" \
+	--label "org.opencontainers.image.description=Hugo deployer development container" \
+	--label "org.opencontainers.image.licenses=MIT" \
+	--label "org.opencontainers.image.title={{vars.repo_name}}" \
+	--label "org.opencontainers.image.vendor={{vars.repo_owner}}" .
+"""
+
+[test]
+description = "Run integration tests"
+depends = ["build"]
+run = """
+#!/usr/bin/env sh
+set -euo
+trap 'podman-compose down' EXIT
+export GIT_REPO_URL="github.com/aacebedo/hugo-deployer-example.git"
+export GIT_USERNAME=johndoe
+export GIT_TOKEN=secret_token
+export GIT_BRANCH=main
+export UPDATE_API_KEY=secret_api_key
+export PORT=8080
+podman-compose up --build -d
+curl --retry 5 --retry-delay 5 --retry-all-errors localhost:8080 > /dev/null
+"""
+
+[security-scan]
+description = "Run security scan with trivy"
+depends = ["build"]
+run = """
+#!/usr/bin/env bash
+set -euo
+TEMP_DIR=$(mktemp -d)
+docker save "{{vars.docker_tag}}" | gzip > "$TEMP_DIR/image.tar.gz"
+trivy image --input "$TEMP_DIR/image.tar.gz" --format sarif \
+	--skip-version-check --output /tmp/trivy-results.sarif
+rm -rf "$TEMP_DIR"
+"""
+
+[release]
+description = "Run semantic-release"
+depends = ["lint", "test", "security-scan"]
+run = "semantic-release"
+
+[clean]
+description = "Clean generated files"
+run = "rm -rf .vale/.vale-config .vale/Google"

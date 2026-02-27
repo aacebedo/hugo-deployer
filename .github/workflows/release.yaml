@@ -54,7 +54,7 @@ jobs:
       - name: Perform release
         id: release
         run: |
-          just release
+          mise release
           echo "sarif=/tmp/trivy-results.sarif" >> $GITHUB_OUTPUT
         env:
           GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}

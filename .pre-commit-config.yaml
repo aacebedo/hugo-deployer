@@ -89,8 +89,3 @@ repos:
         entry: renovate-config-validator
         language: system
         files: '(^|/).?renovate(?:rc)?(?:\.json5?)?$'
-
-  - repo: https://github.com/instrumentl/pre-commit-just
-    rev: v0.1
-    hooks:
-      - id: format-justfile
