@@ -8,7 +8,7 @@ ARG GO_VERSION=1.23.2
 # renovate: datasource=github-releases depName=gohugoio/hugo extractVersion=^v(?<version>.*)$
 ARG HUGO_VERSION=0.155.1
 # renovate: datasource=github-releases depName=caddyserver/caddy extractVersion=^v(?<version>.*)$
-ARG CADDY_VERSION=2.10.2
+ARG CADDY_VERSION=2.11.1
 # renovate: datasource=github-releases depName=caddyserver/xcaddy extractVersion=^v(?<version>.*)$
 ARG XCADDY_VERSION=v0.4.5
 # renovate: datasource=git-refs depName=https://github.com/abiosoft/caddy-exec extractVersion=^(?<version>.*)$
