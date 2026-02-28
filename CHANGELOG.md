@@ -1,3 +1,10 @@
+## [2.11.1](https://github.com/aacebedo/hugo-deployer/compare/v2.11.0...v2.11.1) (2026-02-28)
+
+
+### Bug Fixes
+
+* small fixes on build tool files ([ad2513d](https://github.com/aacebedo/hugo-deployer/commit/ad2513dba84e7f4abc8dd0d9283a483a392a0221))
+
 # [2.11.0](https://github.com/aacebedo/hugo-deployer/compare/v2.10.1...v2.11.0) (2026-02-28)
 
 
