@@ -1,5 +1,5 @@
-#!/bin/sh
-set -euo
+#!/usr/bin/env sh
+set -eu
 
 HELM_PLUGINS_VALUE=$(
 	JQ_FILTER='.[] | select(.active == true) | .install_path'

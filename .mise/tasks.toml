@@ -1,11 +1,18 @@
 [lint]
 description = "Run pre-commit on all files"
-run = "pre-commit run --all-files"
+run = """
+#!/usr/bin/env sh
+set -eu
+pre-commit run --all-files
+"""
 
 [build]
 description = "Build the container image"
 run = """
+#!/usr/bin/env sh
+set -eu
 podman build -t "{{vars.docker_tag}}" \
+	--format docker \
 	--label "org.opencontainers.image.source={{vars.repo_url}}" \
 	--label "org.opencontainers.image.description=Hugo deployer development container" \
 	--label "org.opencontainers.image.licenses=MIT" \
@@ -18,7 +25,7 @@ description = "Run integration tests"
 depends = ["build"]
 run = """
 #!/usr/bin/env sh
-set -euo
+set -eu
 trap 'podman-compose down' EXIT
 export GIT_REPO_URL="github.com/aacebedo/hugo-deployer-example.git"
 export GIT_USERNAME=johndoe
@@ -34,8 +41,8 @@ curl --retry 5 --retry-delay 5 --retry-all-errors localhost:8080 > /dev/null
 description = "Run security scan with trivy"
 depends = ["build"]
 run = """
-#!/usr/bin/env bash
-set -euo
+#!/usr/bin/env sh
+set -eu
 TEMP_DIR=$(mktemp -d)
 docker save "{{vars.docker_tag}}" | gzip > "$TEMP_DIR/image.tar.gz"
 trivy image --input "$TEMP_DIR/image.tar.gz" --format sarif \
@@ -46,8 +53,17 @@ rm -rf "$TEMP_DIR"
 [release]
 description = "Run semantic-release"
 depends = ["lint", "test", "security-scan"]
-run = "semantic-release"
+env = { GITHUB_TOKEN = { required = true, redact = true } }
+run = """
+#!/usr/bin/env sh
+set -eu
+semantic-release
+"""
 
 [clean]
 description = "Clean generated files"
-run = "rm -rf .vale/.vale-config .vale/Google"
+run = """
+#!/usr/bin/env sh
+set -eu
+rm -rf .vale/.vale-config .vale/Google
+"""

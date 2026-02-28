@@ -6,7 +6,9 @@ npm.package_manager = "pnpm"
 _.source = { path = ".mise/set_node_path_var.sh", tools = true }
 [[env]]
 _.source = { path = ".mise/set_helm_plugins_var.sh", tools = true }
+[[env]]
 CGO_ENABLED = 1
+MISE_GITHUB_TOKEN = { required = true, secret = true }
 
 [tools]
 jq = "1.8.1"
