@@ -1,3 +1,10 @@
+# [2.11.0](https://github.com/aacebedo/hugo-deployer/compare/v2.10.1...v2.11.0) (2026-02-28)
+
+
+### Features
+
+* remove just ([6a3c819](https://github.com/aacebedo/hugo-deployer/commit/6a3c819a3447534bb56e7324b4ee1711171d6d0f))
+
 ## [2.10.1](https://github.com/aacebedo/hugo-deployer/compare/v2.10.0...v2.10.1) (2026-02-26)
 
 
