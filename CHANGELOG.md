@@ -1,3 +1,14 @@
+## [2.12.3](https://github.com/aacebedo/hugo-deployer/compare/v2.12.2...v2.12.3) (2026-03-25)
+
+
+### Bug Fixes
+
+* **deps:** update dependency pnpm to v10.33.0 ([06cf1b1](https://github.com/aacebedo/hugo-deployer/commit/06cf1b1ca35b65bb77182f1c7033dda7cadf659f))
+* **deps:** update dependency uv to v0.11.1 ([c80a866](https://github.com/aacebedo/hugo-deployer/commit/c80a866e8162d62203fdc0a7637b8c9927361bcb))
+* **deps:** update docker/build-push-action action to v7 ([1109339](https://github.com/aacebedo/hugo-deployer/commit/110933918319efcbeab3ad7ba7e484379f128923))
+* **deps:** update docker/login-action action to v4 ([397ebcc](https://github.com/aacebedo/hugo-deployer/commit/397ebccd4356bb762b95d96422be47a6a2de707a))
+* **deps:** update docker/setup-buildx-action action to v4 ([c9889af](https://github.com/aacebedo/hugo-deployer/commit/c9889af4e95c9b6739ba5503eb88aa64189e8e0d))
+
 ## [2.12.2](https://github.com/aacebedo/hugo-deployer/compare/v2.12.1...v2.12.2) (2026-03-25)
 
 
