@@ -1,3 +1,10 @@
+# [2.12.0](https://github.com/aacebedo/hugo-deployer/compare/v2.11.1...v2.12.0) (2026-03-25)
+
+
+### Features
+
+* fix broken trivy version ([e224bd2](https://github.com/aacebedo/hugo-deployer/commit/e224bd24d9be3247bc7c426634d7c6857cb46f76))
+
 ## [2.11.1](https://github.com/aacebedo/hugo-deployer/compare/v2.11.0...v2.11.1) (2026-02-28)
 
 
