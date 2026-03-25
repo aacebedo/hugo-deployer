@@ -1,3 +1,10 @@
+## [2.12.1](https://github.com/aacebedo/hugo-deployer/compare/v2.12.0...v2.12.1) (2026-03-25)
+
+
+### Bug Fixes
+
+* **deps:** update dependency npm:renovate to v43.91.0 ([d2be622](https://github.com/aacebedo/hugo-deployer/commit/d2be6222a2ca7fb7a12c25a49b8ee80ce11e6ad2))
+
 # [2.12.0](https://github.com/aacebedo/hugo-deployer/compare/v2.11.1...v2.12.0) (2026-03-25)
 
 
