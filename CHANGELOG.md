@@ -1,3 +1,11 @@
+## [2.12.2](https://github.com/aacebedo/hugo-deployer/compare/v2.12.1...v2.12.2) (2026-03-25)
+
+
+### Bug Fixes
+
+* **deps:** update dependency gohugoio/hugo to v0.159.0 ([92025d8](https://github.com/aacebedo/hugo-deployer/commit/92025d86c6561793d379f366b9ab250b56b14a1b))
+* **deps:** update pre-commit hook davidanson/markdownlint-cli2 to v0.22.0 ([ac867f2](https://github.com/aacebedo/hugo-deployer/commit/ac867f23b815e9ebf9d5bc202ad06199f4ae2edc))
+
 ## [2.12.1](https://github.com/aacebedo/hugo-deployer/compare/v2.12.0...v2.12.1) (2026-03-25)
 
 
