@@ -4,7 +4,8 @@
 		"config:recommended",
 		":enablePreCommit",
 		"schedule:automergeDaily",
-		":dependencyDashboard"
+		":dependencyDashboard",
+		":semanticCommitTypeAll(fix)"
 	],
 	"configMigration": true,
 	"packageRules": [
