@@ -1,3 +1,15 @@
+## [2.12.5](https://github.com/aacebedo/hugo-deployer/compare/v2.12.4...v2.12.5) (2026-04-04)
+
+
+### Bug Fixes
+
+* **deps:** update actions/create-github-app-token action to v3 ([fe463a1](https://github.com/aacebedo/hugo-deployer/commit/fe463a17f75248812aaebff78f99ec91f16be6fe))
+* **deps:** update dependency github:sass/dart-sass to v1.99.0 ([f1c5781](https://github.com/aacebedo/hugo-deployer/commit/f1c57816b79a9b037349c0b62430539d2c25d420))
+* **deps:** update dependency gohugoio/hugo to v0.160.0 ([acb2ea0](https://github.com/aacebedo/hugo-deployer/commit/acb2ea05e084a1348e20d8e3e6efb895b81365b4))
+* **deps:** update dependency sass/dart-sass to v1.99.0 ([3551d92](https://github.com/aacebedo/hugo-deployer/commit/3551d92a4e594b60d7b97ab72995f77ea4ab3c7b))
+* **deps:** update jdx/mise-action action to v4 ([02c9a4d](https://github.com/aacebedo/hugo-deployer/commit/02c9a4d1bb135845f31b2a8922e4c4a48b330543))
+* **deps:** update smartsquaregmbh/delete-old-packages action to v1 ([519042f](https://github.com/aacebedo/hugo-deployer/commit/519042f37e9628c5bf60d0801fd1b5869a5669c4))
+
 ## [2.12.4](https://github.com/aacebedo/hugo-deployer/compare/v2.12.3...v2.12.4) (2026-04-04)
 
 
