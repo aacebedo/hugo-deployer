@@ -4,6 +4,7 @@ name: Prepare devcontainer image
 # yamllint disable-line rule:truthy
 on:
   workflow_call:
+permissions: {}
 jobs:
   prepare-devcontainer-image:
     runs-on: ubuntu-latest

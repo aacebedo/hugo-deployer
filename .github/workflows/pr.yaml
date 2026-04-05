@@ -7,7 +7,7 @@ on:
   pull_request:
     branches:
       - main
-
+permissions: {}
 jobs:
   prepare:
     uses: ./.github/workflows/prepare-devcontainer-image.yaml

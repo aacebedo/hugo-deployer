@@ -23,6 +23,16 @@
 		{
 			"customType": "regex",
 			"managerFilePatterns": [
+				"**/.mise/config.toml"
+			],
+			"matchStrings": [
+				"(?<depName>@[a-zA-Z0-9-]+(?:/[a-zA-Z0-9-]+)*)@(?<currentValue>[0-9][^\\s\\\\]*)"
+			],
+			"datasourceTemplate": "npm"
+		},
+		{
+			"customType": "regex",
+			"managerFilePatterns": [
 				"**/Dockerfile*"
 			],
 			"matchStrings": [
