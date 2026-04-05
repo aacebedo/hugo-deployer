@@ -1,5 +1,5 @@
 # renovate: datasource=docker depName=aacebedo/devcontainer-base versioning=docker
-ARG DEVCONTAINER_BASE_VERSION=1.12.2
+ARG DEVCONTAINER_BASE_VERSION=1.12.3
 
 # Stage 2: Final image
 FROM ghcr.io/aacebedo/devcontainer-base:${DEVCONTAINER_BASE_VERSION} AS final
@@ -18,9 +18,12 @@ RUN apk update && \
 
 COPY containers.conf /etc/containers/containers.conf
 
+RUN mise self-update && \
+		mise trust "/home/${DEVCONTAINER_USERNAME}/.config/mise"
 # hadolint ignore=DL3022
-COPY --from=workspace --chown=${DEVCONTAINER_USERNAME}:${DEVCONTAINER_USERNAME} .mise/config.toml \
+COPY --from=workspace --chown="${DEVCONTAINER_USERNAME}:${DEVCONTAINER_USERNAME}" .mise/config.toml \
 		"/home/${DEVCONTAINER_USERNAME}/.config/mise/config.toml"
+
 
 ENV MISE_NODE_MIRROR_URL="https://unofficial-builds.nodejs.org/download/release/" \
 		MISE_NODE_FLAVOR="musl" \
