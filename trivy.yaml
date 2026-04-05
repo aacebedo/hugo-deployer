@@ -16,6 +16,7 @@ scan:
     - "/opt/go/pkg/mod/**/Dockerfile"
     - "/usr/local/bin/caddy"
     - "/home/devcontaineruser/.local/share/pnpm/store/**"
+    - "/home/devcontaineruser/.cache/aube/**"
 license:
   forbidden: []
   notice:
