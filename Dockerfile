@@ -16,7 +16,7 @@ ARG CADDY_EXEC_VERSION=master
 # renovate: datasource=github-tags depName=sass/dart-sass extractVersion=^(?<version>.*)$
 ARG DART_SASS_VERSION=1.99.0
 # renovate: datasource=github-releases depName=cloudcannon/pagefind extractVersion=^v(?<version>.*)$
-ARG PAGEFIND_VERSION=1.4.0
+ARG PAGEFIND_VERSION=1.5.0
 ## renovate: datasource=node depName=nodejs/node
 ARG NODE_VERSION=24.14.0
 
