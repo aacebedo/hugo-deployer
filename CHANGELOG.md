@@ -1,3 +1,11 @@
+## [2.12.6](https://github.com/aacebedo/hugo-deployer/compare/v2.12.5...v2.12.6) (2026-04-11)
+
+
+### Bug Fixes
+
+* **deps:** update dependency cloudcannon/pagefind to v1.5.0 ([37bb4e0](https://github.com/aacebedo/hugo-deployer/commit/37bb4e0c5ba15cb429a4c914f2c24e161d7098b0))
+* **deps:** update dependency npm:renovate to v43.110.14 ([85f0f4d](https://github.com/aacebedo/hugo-deployer/commit/85f0f4db3e5756ea13b0efe93d3ee37d751e5929))
+
 ## [2.12.5](https://github.com/aacebedo/hugo-deployer/compare/v2.12.4...v2.12.5) (2026-04-04)
 
 
