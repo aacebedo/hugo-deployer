@@ -1,7 +1,6 @@
 queue_rules:
   - merge_method: merge
     name: default
-    autoqueue: true
     branch_protection_injection_mode: merge
     merge_conditions:
       - and:
@@ -18,3 +17,4 @@ merge_protections:
       - label = reviewed
 merge_protections_settings:
   reporting_method: check-runs
+  auto_merge: true
