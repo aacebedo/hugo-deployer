@@ -78,7 +78,7 @@ repos:
       - id: helmlint
 
   - repo: https://github.com/jtyr/kubeconform-helm
-    rev: v0.2.0
+    rev: v0.3.0
     hooks:
       - id: kubeconform-helm
 
