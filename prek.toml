@@ -1,0 +1,119 @@
+# Configuration file for `prek`, a git hook framework written in Rust.
+# See https://prek.j178.dev for more information.
+#:schema https://www.schemastore.org/prek.json
+
+[[repos]]
+repo = "https://github.com/hadolint/hadolint"
+rev = "v2.14.0"
+hooks = [{ id = "hadolint" }]
+
+[[repos]]
+repo = "https://github.com/adrienverge/yamllint"
+rev = "v1.38.0"
+
+[[repos.hooks]]
+id = "yamllint"
+exclude = '^.*templates/.*\.yaml'
+
+[[repos]]
+repo = "https://github.com/editorconfig-checker/editorconfig-checker"
+rev = "v3.6.0"
+hooks = [{ id = "editorconfig-checker" }]
+
+[[repos]]
+repo = "local"
+
+[[repos.hooks]]
+id = "trivy-fs"
+name = "Trivy filesystem scan"
+entry = "trivy"
+args = ["fs", "."]
+language = "system"
+pass_filenames = false
+
+[[repos]]
+repo = "https://github.com/commitizen-tools/commitizen"
+rev = "v4.13.0"
+hooks = [{ id = "commitizen" }]
+
+[[repos]]
+repo = "local"
+
+[[repos.hooks]]
+id = "vale sync"
+name = "Vale sync"
+entry = """
+bash -c '
+  lock=.vale/.sync.lock
+  [ -d .vale/Google ] && exit 0
+  mkdir -p .vale
+  (flock -n 200 || exit 0) 200>"$lock"
+  rm -rf .vale/Google 2>/dev/null || true;
+  vale sync
+  rm -f "$lock"
+'
+"""
+language = "system"
+pass_filenames = false
+always_run = true
+
+[[repos]]
+repo = "https://github.com/errata-ai/vale"
+rev = "v3.14.0"
+hooks = [{ id = "vale" }]
+
+[[repos]]
+repo = "local"
+
+[[repos.hooks]]
+id = "jsonlint"
+name = "JSON Lint"
+entry = "jsonlint -M json5"
+language = "system"
+files = '\.json$'
+
+[[repos]]
+repo = "local"
+
+[[repos.hooks]]
+id = "renovate-config-validator"
+name = "Validate Renovate Config"
+entry = "renovate-config-validator"
+language = "system"
+files = '(^|/).?renovate(?:rc)?(?:\.json5?)?$'
+
+[[repos]]
+repo = "https://github.com/DavidAnson/markdownlint-cli2"
+rev = "v0.21.0"
+hooks = [{ id = "markdownlint-cli2" }]
+
+[[repos]]
+repo = "https://github.com/shellcheck-py/shellcheck-py"
+rev = "v0.10.0.1"
+hooks = [{ id = "shellcheck" }]
+
+[[repos]]
+repo = "https://github.com/scop/pre-commit-shfmt"
+rev = "v3.12.0-2"
+hooks = [{ id = "shfmt" }]
+
+[[repos]]
+repo = "https://github.com/gruntwork-io/pre-commit"
+rev = "v0.1.30"
+hooks = [{ id = "helmlint" }]
+
+[[repos]]
+repo = "https://github.com/jtyr/kubeconform-helm"
+rev = "v0.2.0"
+hooks = [{ id = "kubeconform-helm" }]
+
+[[repos]]
+repo = "https://github.com/bridgecrewio/checkov.git"
+rev = "3.2.528"
+
+[[repos.hooks]]
+id = "checkov"
+files = '(\.yaml$|Dockerfile)'
+# the following args is to make the checkov generation
+args = ["--skip-check", "CKV_K8S_21"]
+
