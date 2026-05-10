@@ -12,6 +12,7 @@ metadata:
         {{- toYaml .Values.ingress.labels | nindent 4 }}
     {{- end }}
   name: '{{ .Release.Name }}'
+  namespace: '{{ .Release.Namespace }}'
 spec:
   rules:
   - host: '{{ tpl .Values.ingress.host $ }}'
