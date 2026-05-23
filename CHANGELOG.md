@@ -1,3 +1,16 @@
+## [2.13.1](https://github.com/aacebedo/hugo-deployer/compare/v2.13.0...v2.13.1) (2026-05-23)
+
+
+### Bug Fixes
+
+* **deps:** update aquasecurity/trivy-action action to v0.36.0 ([b2b7839](https://github.com/aacebedo/hugo-deployer/commit/b2b7839c5eaa313d12a7c30e6c6244df512a2c84))
+* **deps:** update dependency gohugoio/hugo to v0.161.1 ([aaef1bc](https://github.com/aacebedo/hugo-deployer/commit/aaef1bc54b299e7f741018ab1131b8fc81d26f9d))
+* **deps:** update dependency helm to v4.2.0 ([5066b26](https://github.com/aacebedo/hugo-deployer/commit/5066b26b4f462ae4b47b8038eee2717ab319be4e))
+* **deps:** update dependency npm:renovate to v43.150.0 ([8ba2edd](https://github.com/aacebedo/hugo-deployer/commit/8ba2eddc3f48cd2a7d58b4839e1767416f315fd8))
+* **deps:** update dependency prek to v0.4.1 ([9c13e74](https://github.com/aacebedo/hugo-deployer/commit/9c13e74fda9b0721ea1e54b9ca560124fb6dc500))
+* **deps:** update dependency trivy to v0.70.0 ([b366cb9](https://github.com/aacebedo/hugo-deployer/commit/b366cb974650ad0bc1bd9c474d6b28566a89561d))
+* **deps:** update node.js to v24.16.0 ([02e6993](https://github.com/aacebedo/hugo-deployer/commit/02e69939659b0a1ed52d0ad563aaa9b6ba248a5c))
+
 # [2.13.0](https://github.com/aacebedo/hugo-deployer/compare/v2.12.6...v2.13.0) (2026-05-23)
 
 
