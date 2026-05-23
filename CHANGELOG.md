@@ -1,3 +1,18 @@
+# [2.13.0](https://github.com/aacebedo/hugo-deployer/compare/v2.12.6...v2.13.0) (2026-05-23)
+
+
+### Bug Fixes
+
+* various cleanup ([c77bb40](https://github.com/aacebedo/hugo-deployer/commit/c77bb40b66b649996564796f4ab0349b62cff06b))
+
+
+### Features
+
+* lint helm template ([137ae08](https://github.com/aacebedo/hugo-deployer/commit/137ae0868fb2e1aadb3cadb8ecbfeb40855d1216))
+* remove mise helm and npm scripts ([9b533ba](https://github.com/aacebedo/hugo-deployer/commit/9b533ba585ddf87a4fe2bc94b37b40ae485a8b1d))
+* switch mise tasks to task files ([34dc767](https://github.com/aacebedo/hugo-deployer/commit/34dc76742378ad08576ec17ca2294400a5b19bd1))
+* switch to prek ([5e71c3b](https://github.com/aacebedo/hugo-deployer/commit/5e71c3bb3138fd532aa7860b1ff1469791499b76))
+
 ## [2.12.6](https://github.com/aacebedo/hugo-deployer/compare/v2.12.5...v2.12.6) (2026-04-11)
 
 
