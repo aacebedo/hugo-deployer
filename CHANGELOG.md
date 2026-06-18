@@ -1,3 +1,13 @@
+## [2.13.4](https://github.com/aacebedo/hugo-deployer/compare/v2.13.3...v2.13.4) (2026-06-18)
+
+
+### Bug Fixes
+
+* **deps:** update alpine docker tag to v3.24 ([ccbc731](https://github.com/aacebedo/hugo-deployer/commit/ccbc7310ed0a9c89a79f0aaac343f09da9f3470c))
+* **deps:** update dependency jujutsu to v0.42.0 ([1409971](https://github.com/aacebedo/hugo-deployer/commit/14099717022bc1b9f4544ce28b8949c69718c3a1))
+* **deps:** update dependency kubeconform to v0.8.0 ([b2bae0a](https://github.com/aacebedo/hugo-deployer/commit/b2bae0aeacdce24b278745c63513ad6a595bd334))
+* **deps:** update dependency pipx:podman-compose to v1.6.0 ([a2e4870](https://github.com/aacebedo/hugo-deployer/commit/a2e48701fe3e296d71e1667909f9da9b90901d46))
+
 ## [2.13.3](https://github.com/aacebedo/hugo-deployer/compare/v2.13.2...v2.13.3) (2026-06-18)
 
 
