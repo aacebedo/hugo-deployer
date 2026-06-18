@@ -1,3 +1,11 @@
+## [2.13.5](https://github.com/aacebedo/hugo-deployer/compare/v2.13.4...v2.13.5) (2026-06-18)
+
+
+### Bug Fixes
+
+* **deps:** update dependency sass/dart-sass to v1.101.0 ([3971af1](https://github.com/aacebedo/hugo-deployer/commit/3971af14756314909e929ce98032d48d26b750f9))
+* **deps:** update dependency vale to v3.15.1 ([a97989f](https://github.com/aacebedo/hugo-deployer/commit/a97989fdc9da1c32eaf587972286c29784830841))
+
 ## [2.13.4](https://github.com/aacebedo/hugo-deployer/compare/v2.13.3...v2.13.4) (2026-06-18)
 
 
