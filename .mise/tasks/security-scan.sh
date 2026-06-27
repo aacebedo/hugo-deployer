@@ -1,10 +1,10 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 #MISE description = "Run Trivy security scan on the built image"
 #MISE depends = ["build"]
 #MISE env = { DOCKER_TAG = "{{vars.docker_tag}}" }
 
-set -eu
+set -euxo pipefail
 TEMP_DIR=$(mktemp -d)
 trap 'rm -rf "$TEMP_DIR"' EXIT
 podman save "$DOCKER_TAG" | gzip >"$TEMP_DIR/image.tar.gz"
