@@ -11,6 +11,7 @@ AUBE_TRUST_POLICY = "off"
 uv = "0.11.1"
 aube = "1.26.0"
 shellcheck = "0.11.0"
+go = "1.26.4"
 "pipx:podman-compose" = "1.6.0"
 kube-linter = "0.8.1"
 kubeconform = "0.8.0"
@@ -20,8 +21,6 @@ editorconfig-checker = "3.8.0"
 hadolint = "2.14.0"
 taplo = "0.10.0"
 prek = "0.4.1"
-jujutsu = "0.43.0"
-jjui = "0.10.5"
 trivy = "0.72.0"
 vale = "3.15.1"
 yamllint = "1.38.0"
@@ -49,3 +48,20 @@ repo_owner = "aacebedo"
 repo_name = "hugo-deployer"
 repo_url = "https://github.com/{{vars.repo_owner}}/{{vars.repo_name}}"
 docker_tag = "ghcr.io/{{vars.repo_owner}}/{{vars.repo_name}}:latest"
+
+[bootstrap.packages]
+"apt:bash" = "latest"
+"apt:podman" = "latest"
+"apt:podman-docker" = "latest"
+"apt:fuse-overlayfs" = "latest"
+"apt:iptables" = "latest"
+"apt:build-essential" = "latest"
+"apt:curl" = "latest"
+"apt:git" = "latest"
+
+[hooks]
+enter = '''
+if ! mise bootstrap packages status --missing >/dev/null 2>&1; then
+  printf "\033[33mWARNING: Bootstrap packages are missing. Run 'mise bootstrap' to install them\033[0m\n"
+fi
+'''
