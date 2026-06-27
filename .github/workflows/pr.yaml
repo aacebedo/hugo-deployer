@@ -20,15 +20,11 @@ jobs:
     container:
       image: ghcr.io/${{ github.repository }}-devcontainer:${{ github.sha }}-${{github.run_id}}
       options: --user root --privileged
-    env:
-      MISE_CACHE_DIR: /home/devcontaineruser/.cache/mise
-      MISE_CONFIG_DIR: /home/devcontaineruser/.config/mise
-      MISE_STATE_DIR: /home/devcontaineruser/.local/state/mise
-      MISE_DATA_DIR: /home/devcontaineruser/.local/share/mise
     permissions:
       contents: read
       packages: read
       security-events: write
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7
