@@ -1,3 +1,14 @@
+## [2.13.6](https://github.com/aacebedo/hugo-deployer/compare/v2.13.5...v2.13.6) (2026-06-29)
+
+
+### Bug Fixes
+
+* **deps:** update actions/checkout action to v7 ([2cbb298](https://github.com/aacebedo/hugo-deployer/commit/2cbb29810d71e941b0852ca5dc1c5090faaa4061))
+* **deps:** update dependency aube to v1.25.1 ([96cbf1f](https://github.com/aacebedo/hugo-deployer/commit/96cbf1f7dd3d5956378b4b448797a9cbdbfa73d5))
+* **deps:** update dependency npm:renovate to v43.248.0 ([db1c834](https://github.com/aacebedo/hugo-deployer/commit/db1c8347f5228e4da60f7b9744f93d560fb0e884))
+* **deps:** update node.js to v24.18.0 ([74cde0a](https://github.com/aacebedo/hugo-deployer/commit/74cde0ac0b97532806238ee0eaff1ce774ef0745))
+* **deps:** update node.js to v24.18.0 ([0869bc5](https://github.com/aacebedo/hugo-deployer/commit/0869bc51465751e22c6f91b878909a70bdd726f4))
+
 ## [2.13.5](https://github.com/aacebedo/hugo-deployer/compare/v2.13.4...v2.13.5) (2026-06-18)
 
 
