@@ -1,3 +1,10 @@
+## [2.13.7](https://github.com/aacebedo/hugo-deployer/compare/v2.13.6...v2.13.7) (2026-06-29)
+
+
+### Bug Fixes
+
+* **deps:** update dependency editorconfig-checker to v3.8.0 ([3fb69bb](https://github.com/aacebedo/hugo-deployer/commit/3fb69bb1641b6220666c2de59bf2d7a7313e45e3))
+
 ## [2.13.6](https://github.com/aacebedo/hugo-deployer/compare/v2.13.5...v2.13.6) (2026-06-29)
 
 
