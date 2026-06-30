@@ -1,3 +1,11 @@
+## [2.13.8](https://github.com/aacebedo/hugo-deployer/compare/v2.13.7...v2.13.8) (2026-06-30)
+
+
+### Bug Fixes
+
+* **deps:** update dependency npm:renovate to v43.249.0 ([34a343a](https://github.com/aacebedo/hugo-deployer/commit/34a343aa0e47ce600fd8dd5f1153f639d31c12c2))
+* **deps:** update dependency pipx:checkov to v3.3.5 ([75c698e](https://github.com/aacebedo/hugo-deployer/commit/75c698e344deedae4ccc12d2d0f50dfaacdbf2f3))
+
 ## [2.13.7](https://github.com/aacebedo/hugo-deployer/compare/v2.13.6...v2.13.7) (2026-06-29)
 
 
