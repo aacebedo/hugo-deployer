@@ -29,10 +29,6 @@ jobs:
     env:
       DOCKER_USERNAME: ${{ github.actor }}
       DOCKER_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
-      MISE_CACHE_DIR: /home/devcontaineruser/.cache/mise
-      MISE_CONFIG_DIR: /home/devcontaineruser/.config/mise
-      MISE_STATE_DIR: /home/devcontaineruser/.local/state/mise
-      MISE_DATA_DIR: /home/devcontaineruser/.local/share/mise
     steps:
       - name: Generate a token
         id: generate-token

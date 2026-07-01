@@ -1,31 +1,29 @@
 # renovate: datasource=docker depName=aacebedo/devcontainer-base versioning=docker
-ARG DEVCONTAINER_BASE_VERSION=1.14.2
+ARG DEVCONTAINER_BASE_VERSION="1.16.0"
 
-# Stage 2: Final image
-FROM ghcr.io/aacebedo/devcontainer-base:${DEVCONTAINER_BASE_VERSION} AS final
+FROM ghcr.io/aacebedo/devcontainer-base:${DEVCONTAINER_BASE_VERSION}
+SHELL ["/bin/sh", "-euxo", "pipefail", "-c"]
 
 USER root
+COPY <<"EOF" /etc/containers/containers.conf
+[containers]
+netns="host"
+userns="host"
+ipcns="host"
+utsns="host"
+cgroupns="host"
+cgroups="disabled"
+log_driver = "k8s-file"
+[engine]
+cgroup_manager = "cgroupfs"
+events_logger="file"
+runtime="crun"
+EOF
 
-# Install base packages (including runtime environments)
-RUN apk update && \
-		apk upgrade && \
-		apk add --no-cache \
-		shadow \
-		podman \
-		podman-docker \
-		fuse-overlayfs \
-		iptables
+RUN <<EOF \
+echo "${DEVCONTAINER_USERNAME}:100000:64536" > /etc/subuid 
+echo "${DEVCONTAINER_USERNAME}:100000:64536" > /etc/subgid
+cat /etc/subuid
+EOF
 
-COPY containers.conf /etc/containers/containers.conf
-
-# hadolint ignore=DL3022
-COPY --from=workspace --chown="${DEVCONTAINER_USERNAME}:${DEVCONTAINER_USERNAME}" .mise/config.toml \
-		"/home/${DEVCONTAINER_USERNAME}/.config/mise/config.toml"
-
-USER ${DEVCONTAINER_USERNAME}
-# hadolint ignore=SC2155
-RUN --mount=type=secret,id=MISE_GITHUB_TOKEN,uid=${DEVCONTAINER_UID} \
-		export MISE_GITHUB_TOKEN="$(cat /run/secrets/MISE_GITHUB_TOKEN)" && \
-		mise trust "/home/${DEVCONTAINER_USERNAME}/.config/mise" && \
-		mise install
-
+USER ${DEVCONTAINER_UID}
