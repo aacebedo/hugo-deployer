@@ -1,3 +1,14 @@
+## [2.13.9](https://github.com/aacebedo/hugo-deployer/compare/v2.13.8...v2.13.9) (2026-07-11)
+
+
+### Bug Fixes
+
+* **deps:** update dependency aube to v1.26.0 ([5b45309](https://github.com/aacebedo/hugo-deployer/commit/5b453094c2b6408715840d8ac65358c25a5f9d3d))
+* **deps:** update dependency gohugoio/hugo to v0.164.0 ([23517ac](https://github.com/aacebedo/hugo-deployer/commit/23517ac7190e2df773b7f59136226d93ce602cf5))
+* **deps:** update dependency jujutsu to v0.43.0 ([3384393](https://github.com/aacebedo/hugo-deployer/commit/338439310e2f380ff74a957348314f0e75499ea0))
+* **deps:** update dependency npm:renovate to v43.257.9 ([f4f86b0](https://github.com/aacebedo/hugo-deployer/commit/f4f86b01a24b0c1ed44489c6ea12409e76b8e00b))
+* **deps:** update dependency trivy to v0.72.0 ([eb99c25](https://github.com/aacebedo/hugo-deployer/commit/eb99c2543823611216ce4de8c361b0ff4cfab4e0))
+
 ## [2.13.8](https://github.com/aacebedo/hugo-deployer/compare/v2.13.7...v2.13.8) (2026-06-30)
 
 
