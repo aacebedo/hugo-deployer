@@ -1,6 +1,6 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 #MISE description = "Apply linters"
 
-set -eu
+set -euxo pipefail
 prek run --all-files

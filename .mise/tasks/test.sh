@@ -1,9 +1,9 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 #MISE description = "Build and run the container image"
 #MISE depends = ["build"]
 
-set -eu
+set -euxo pipefail
 trap 'podman-compose down' EXIT
 export GIT_REPO_URL="github.com/aacebedo/hugo-deployer-example.git"
 export GIT_USERNAME=johndoe
