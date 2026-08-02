@@ -3,7 +3,13 @@
 #MISE description = "Build and run the container image"
 #MISE depends = ["build"]
 
-set -euxo pipefail
+set -euo pipefail
+
+if [ -z "${MISE_TASK_NAME:-}" ]; then
+	printf "\033[31mError: this script must be run via 'mise run <task>' (not executed directly).\033[0m\n" >&2
+	exit 1
+fi
+
 trap 'podman-compose down' EXIT
 export GIT_REPO_URL="github.com/aacebedo/hugo-deployer-example.git"
 export GIT_USERNAME=johndoe

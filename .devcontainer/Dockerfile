@@ -1,8 +1,8 @@
 # renovate: datasource=docker depName=aacebedo/devcontainer-base versioning=docker
-ARG DEVCONTAINER_BASE_VERSION="1.17.2"
+ARG DEVCONTAINER_BASE_VERSION="1.18.8"
 
 FROM ghcr.io/aacebedo/devcontainer-base:${DEVCONTAINER_BASE_VERSION}
-SHELL ["/bin/sh", "-euxo", "pipefail", "-c"]
+SHELL ["/bin/sh", "-euo", "pipefail", "-c"]
 
 USER root
 COPY <<"EOF" /etc/containers/containers.conf
