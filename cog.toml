@@ -34,4 +34,3 @@ template = "remote"
 remote = "github.com"
 owner = "aacebedo"
 repository = "hugo-deployer"
-

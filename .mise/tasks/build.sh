@@ -14,9 +14,14 @@ if [ -z "${MISE_TASK_NAME:-}" ]; then
 	exit 1
 fi
 
+export CONTAINER_HOST="unix://$(podman info --format '{{.Host.RemoteSocket.Path}}')"
+echo $CONTAINER_HOST
 podman build --format docker -t "${IMAGE_NAME}:${COMMIT_SHA}" \
 	--label "org.opencontainers.image.source=${REPO_URL}" \
 	--label "org.opencontainers.image.description=Development container base" \
 	--label "org.opencontainers.image.licenses=MIT" \
 	--label "org.opencontainers.image.title=${REPO_NAME}" \
 	--label "org.opencontainers.image.vendor=${REPO_OWNER}" .
+
+podman info --format '{{.Host.RemoteSocket.Path}}'
+podman images

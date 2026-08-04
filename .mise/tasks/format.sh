@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-#MISE description = "Apply linters"
+#MISE description = "Format all code in the repository"
 
 set -euo pipefail
 
@@ -9,7 +9,5 @@ if [ -z "${MISE_TASK_NAME:-}" ]; then
 	exit 1
 fi
 
-export CONTAINER_HOST="unix://$(podman info --format '{{.Host.RemoteSocket.Path}}')"
-echo $CONTAINER_HOST
-podman images
-prek run --all-files
+dprint fmt
+shfmt --write .

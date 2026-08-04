@@ -12,5 +12,9 @@ if [ -z "${MISE_TASK_NAME:-}" ]; then
 	exit 1
 fi
 
+export CONTAINER_HOST="unix://$(podman info --format '{{.Host.RemoteSocket.Path}}')"
+echo $CONTAINER_HOST
+podman images
 trivy image "${IMAGE_NAME}:${COMMIT_SHA}" --format sarif \
-	--skip-version-check --output /tmp/trivy-results.sarif
+	--image-src podman \
+	--skip-version-check --output /tmp/trivy-results.sarif -d

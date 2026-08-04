@@ -27,8 +27,8 @@ RUN <<EOF
 apk update
 apk upgrade
 apk add --no-cache \
-		ca-certificates \
-		libarchive-tools
+    ca-certificates \
+    libarchive-tools
 EOF
 
 RUN <<EOF
@@ -38,32 +38,32 @@ EOF
 RUN <<EOF
 # editorconfig-checker-disable-next-line
 wget -nv -O- "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.tar.gz" \
-	| bsdtar -xzf - -C /tmp
+  | bsdtar -xzf - -C /tmp
 EOF
 
 # Install Dart Sass
 RUN <<EOF
 # editorconfig-checker-disable-next-line
 wget -nv -O- "https://github.com/sass/dart-sass/releases/download/${DART_SASS_VERSION}/dart-sass-${DART_SASS_VERSION}-linux-x64.tar.gz" \
-	| bsdtar --strip-components=1 -xzf - -C /tmp
+  | bsdtar --strip-components=1 -xzf - -C /tmp
 EOF
 
 # Install Pagefind
 RUN <<EOF
 # editorconfig-checker-disable-next-line
 wget -nv -O- "https://github.com/cloudcannon/pagefind/releases/download/v${PAGEFIND_VERSION}/pagefind-v${PAGEFIND_VERSION}-x86_64-unknown-linux-musl.tar.gz" \
-	| bsdtar -xzf - -C /tmp
+  | bsdtar -xzf - -C /tmp
 EOF
 
 RUN <<EOF
 mkdir /tmp/node
 # editorconfig-checker-disable-next-line
 wget -nv -O- "https://unofficial-builds.nodejs.org/download/release/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64-musl.tar.gz" \
-	| bsdtar --strip-components=1 -xf - -C /tmp/node
+  | bsdtar --strip-components=1 -xf - -C /tmp/node
 EOF
 
 ENV GOPATH="/tmp/go" \
-		PATH="/tmp/go/bin:$PATH"
+    PATH="/tmp/go/bin:$PATH"
 
 # Install xcaddy
 RUN go install github.com/caddyserver/xcaddy/cmd/xcaddy@${XCADDY_VERSION}
@@ -80,14 +80,14 @@ RUN <<EOF
 apk update
 apk upgrade
 apk add --no-cache \
-		git \
-		ca-certificates \
-		curl \
-		bash \
-		gcompat \
-		libstdc++ \
-		libgcc \
-		libcap-setcap
+    git \
+    ca-certificates \
+    curl \
+    bash \
+    gcompat \
+    libstdc++ \
+    libgcc \
+    libcap-setcap
 EOF
 
 # Copy Hugo, Caddy, Go, Dart Sass, and Pagefind from builder
@@ -137,7 +137,7 @@ EXPOSE 80
 
 # Health check
 HEALTHCHECK --interval=60s --timeout=3s --start-period=5s --retries=5 \
-CMD curl -f http://localhost:80 || exit 1
+  CMD curl -f http://localhost:80 || exit 1
 
 # Start with startup script that then runs Caddy
 ENTRYPOINT ["/usr/local/bin/startup.sh"]
