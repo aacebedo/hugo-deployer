@@ -15,6 +15,7 @@ if [ -z "${MISE_TASK_NAME:-}" ]; then
 fi
 
 podman build --format docker -t "${IMAGE_NAME}:${COMMIT_SHA}" \
+	-f src/Dockerfile \
 	--label "org.opencontainers.image.source=${REPO_URL}" \
 	--label "org.opencontainers.image.description=Development container base" \
 	--label "org.opencontainers.image.licenses=MIT" \

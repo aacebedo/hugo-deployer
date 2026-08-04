@@ -1,6 +1,6 @@
 # Configuration file for `prek`, a git hook framework written in Rust.
 # See https://prek.j178.dev for more information.
-#:schema https://www.schemastore.org/prek.json
+# :schema https://www.schemastore.org/prek.json
 
 [[repos]]
 repo = "https://github.com/hadolint/hadolint"
@@ -19,6 +19,11 @@ exclude = '^.*templates/.*\.yaml'
 repo = "https://github.com/editorconfig-checker/editorconfig-checker"
 rev = "v3.6.0"
 hooks = [{ id = "editorconfig-checker" }]
+
+[[repos]]
+repo = "https://github.com/biomejs/pre-commit"
+rev = "v2.5.12"
+hooks = [{ id = "biome-lint" }]
 
 [[repos]]
 repo = "local"
@@ -118,3 +123,13 @@ args = ["check", "--from-latest-tag"]
 language = "system"
 pass_filenames = false
 stages = ["pre-push"]
+
+[[repos]]
+repo = "local"
+
+[[repos.hooks]]
+id = "dprint"
+name = "dprint check"
+entry = "dprint check"
+language = "system"
+files = '\.(json|jsonc|ya?ml|md|toml)$|(^|/)Dockerfile$|\.dockerfile$'

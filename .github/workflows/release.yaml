@@ -9,23 +9,16 @@ on:
       - main
 permissions: {}
 jobs:
-  prepare:
-    uses: ./.github/workflows/prepare-devcontainer-image.yaml
-    permissions:
-      contents: read
-      packages: write
-    if: "!contains(github.event.head_commit.message, '[skip ci]')"
-
   release:
-    needs: prepare
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
     permissions:
       contents: write
       packages: write
       actions: read
       security-events: write
     container:
-      image: ghcr.io/${{ github.repository }}-devcontainer:${{ github.sha }}-${{github.run_id}}
+      image: ghcr.io/aacebedo/devcontainer-base:1.18.8
       options: --user root --privileged
     steps:
       - name: Generate a token
@@ -47,6 +40,8 @@ jobs:
           token: ${{ steps.generate-token.outputs.token }}
           actor: ${{ github.actor }}
           repository: ${{ github.repository }}
+      - name: Bootstrap
+        run: mise run bootstrap
       - name: Perform release
         id: release
         run: |
@@ -60,11 +55,3 @@ jobs:
         uses: github/codeql-action/upload-sarif@v4
         with:
           sarif_file: ${{ steps.release.outputs.sarif }}
-  cleanup:
-    uses: ./.github/workflows/cleanup-devcontainer-image.yaml
-    needs:
-      - prepare
-      - release
-    permissions:
-      packages: write
-    if: always()
