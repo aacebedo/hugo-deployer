@@ -7,13 +7,18 @@ on:
 permissions: {}
 jobs:
   prepare-devcontainer-image:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     permissions:
       contents: read
       packages: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+          fetch-tags: true
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v4
       - name: Log in to container registry

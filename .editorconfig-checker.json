@@ -1,23 +1,23 @@
 {
-	"Verbose": false,
-	"Format": "",
-	"Debug": false,
-	"IgnoreDefaults": false,
-	"SpacesAfterTabs": false,
-	"NoColor": false,
-	"Exclude": [
-		"CHANGELOG\\.md",
-		"renovate\\.json",
-		"\\.mergify\\.yaml"
-	],
-	"AllowedContentTypes": [],
-	"PassedFiles": [],
-	"Disable": {
-		"EndOfLine": false,
-		"Indentation": false,
-		"InsertFinalNewline": false,
-		"TrimTrailingWhitespace": false,
-		"IndentSize": false,
-		"MaxLineLength": false
-	}
+  "Verbose": false,
+  "Format": "",
+  "Debug": false,
+  "IgnoreDefaults": false,
+  "SpacesAfterTabs": false,
+  "NoColor": false,
+  "Exclude": [
+    "CHANGELOG\\.md",
+    "renovate\\.json",
+    "\\.mergify\\.yaml"
+  ],
+  "AllowedContentTypes": [],
+  "PassedFiles": [],
+  "Disable": {
+    "EndOfLine": false,
+    "Indentation": false,
+    "InsertFinalNewline": false,
+    "TrimTrailingWhitespace": false,
+    "IndentSize": false,
+    "MaxLineLength": false
+  }
 }

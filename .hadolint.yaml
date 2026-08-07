@@ -1,5 +1,5 @@
 ---
 ignored:
-  - DL3018  # Pin versions in apk add (we want latest for system packages)
-  - DL3059  # Disable multiple consecutive RUN
-  - DL4006  # Issue with podman as SHELL is ignored
+  - DL3018 # Pin versions in apk add (we want latest for system packages)
+  - DL3059 # Disable multiple consecutive RUN
+  - DL4006 # Issue with podman as SHELL is ignored

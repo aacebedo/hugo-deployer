@@ -1,6 +1,6 @@
 # Configuration file for `prek`, a git hook framework written in Rust.
 # See https://prek.j178.dev for more information.
-#:schema https://www.schemastore.org/prek.json
+# :schema https://www.schemastore.org/prek.json
 
 [[repos]]
 repo = "https://github.com/hadolint/hadolint"
@@ -66,16 +66,6 @@ hooks = [{ id = "vale" }]
 repo = "local"
 
 [[repos.hooks]]
-id = "jsonlint"
-name = "JSON Lint"
-entry = "jsonlint -M json5"
-language = "system"
-files = '\.json$'
-
-[[repos]]
-repo = "local"
-
-[[repos.hooks]]
 id = "renovate-config-validator"
 name = "Validate Renovate Config"
 entry = "renovate-config-validator"
@@ -117,3 +107,24 @@ files = '(\.yaml$|Dockerfile)'
 # the following args is to make the checkov generation
 args = ["--skip-check", "CKV_K8S_21"]
 
+[[repos]]
+repo = "local"
+
+[[repos.hooks]]
+id = "cog-check"
+name = "cog check"
+entry = "cog"
+args = ["check", "--from-latest-tag"]
+language = "system"
+pass_filenames = false
+stages = ["pre-push"]
+
+[[repos]]
+repo = "local"
+
+[[repos.hooks]]
+id = "dprint"
+name = "dprint check"
+entry = "dprint check"
+language = "system"
+files = '\.(json|jsonc|ya?ml|md|toml)$|^Dockerfile$|\.dockerfile$'

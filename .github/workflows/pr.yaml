@@ -14,31 +14,28 @@ jobs:
     permissions:
       contents: read
       packages: write
+
   pr-checks:
     needs: prepare
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     container:
       image: ghcr.io/${{ github.repository }}-devcontainer:${{ github.sha }}-${{github.run_id}}
       options: --user root --privileged
-    env:
-      MISE_CACHE_DIR: /home/devcontaineruser/.cache/mise
-      MISE_CONFIG_DIR: /home/devcontaineruser/.config/mise
-      MISE_STATE_DIR: /home/devcontaineruser/.local/state/mise
-      MISE_DATA_DIR: /home/devcontaineruser/.local/share/mise
     permissions:
       contents: read
       packages: read
       security-events: write
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7
-      - name: Configure git
-        run: |
-          git config --global --add safe.directory '*'
-          git config --global user.email "${{ github.actor }}@users.noreply.github.com"
-          git config --global user.name "${{ github.actor }}"
-      - name: Setup mise
-        uses: jdx/mise-action@v4
+        with:
+          persist-credentials: false
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+          fetch-tags: true
+      - name: Setup
+        uses: ./.github/actions/setup
       - name: Lint
         run: mise lint
       - name: Test

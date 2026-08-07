@@ -1,37 +1,39 @@
 {
-	"name": "Hugo Deployer Container Development",
-	"build": {
-		"dockerfile": "Dockerfile",
-		"options": [
-			"--build-context=workspace=${localWorkspaceFolder}",
-			"--secret=id=MISE_GITHUB_TOKEN"
-		]
-	},
-	"privileged": true,
-	"customizations": {
-		"vscode": {
-			"extensions": [
-				"redhat.vscode-yaml",
-				"davidanson.vscode-markdownlint",
-				"exiasr.hadolint",
-				"formulahendry.github-actions",
-				"github.vscode-github-actions",
-				"ms-vscode.vscode-github-issues-prs",
-				"timonwong.shellcheck",
-				"ms-vscode.remote-containers",
-				"matthewpi.caddyfile-support",
-				"chrischinchilla.vale-vscode",
-				"jjk.jjk",
-				"streetsidesoftware.code-spell-checker",
-				"EditorConfig.EditorConfig",
-				"tberman.json-schema-validator",
-				"rioj7.vscode-json-validate"
-			]
-		}
-	},
-	"containerEnv": {
-		"MISE_TRUSTED_CONFIG_PATHS": "${containerWorkspaceFolder}"
-	},
-	"postCreateCommand": "git config --global --add safe.directory ${containerWorkspaceFolder}",
-	"remoteUser": "devcontaineruser"
+  "name": "Hugo deployer development container",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "options": [
+      "--format=docker",
+      "--build-context=workspace=${localWorkspaceFolder}",
+      "--secret=id=MISE_GITHUB_TOKEN,env=MISE_GITHUB_TOKEN",
+    ],
+  },
+  "privileged": true,
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "redhat.vscode-yaml",
+        "davidanson.vscode-markdownlint",
+        "exiasr.hadolint",
+        "formulahendry.github-actions",
+        "github.vscode-github-actions",
+        "ms-vscode.vscode-github-issues-prs",
+        "timonwong.shellcheck",
+        "ms-vscode.remote-containers",
+        "matthewpi.caddyfile-support",
+        "chrischinchilla.vale-vscode",
+        "jjk.jjk",
+        "streetsidesoftware.code-spell-checker",
+        "EditorConfig.EditorConfig",
+        "tberman.json-schema-validator",
+        "rioj7.vscode-json-validate",
+      ],
+    },
+  },
+  "containerEnv": {
+    "MISE_TRUSTED_CONFIG_PATHS": "${containerWorkspaceFolder}",
+    "MISE_GITHUB_TOKEN": "${localEnv:MISE_GITHUB_TOKEN}",
+  },
+  "postCreateCommand": "git config --global --add safe.directory ${containerWorkspaceFolder}",
+  "remoteUser": "devcontaineruser",
 }

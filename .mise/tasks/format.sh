@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-#MISE description = "Remove generated Vale configuration files"
+#MISE description = "Format all code in the repository"
 
 set -euo pipefail
 
@@ -9,4 +9,5 @@ if [ -z "${MISE_TASK_NAME:-}" ]; then
 	exit 1
 fi
 
-rm -rf .vale/.vale-config .vale/Google
+dprint fmt
+shfmt --write .

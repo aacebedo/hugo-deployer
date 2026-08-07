@@ -1,44 +1,78 @@
 {
-	"$schema": "https://docs.renovatebot.com/renovate-schema.json",
-	"extends": [
-		"config:recommended",
-		":enablePreCommit",
-		"schedule:automergeDaily",
-		":dependencyDashboard",
-		":semanticCommitTypeAll(fix)"
-	],
-	"configMigration": true,
-	"packageRules": [
-		{
-			"matchUpdateTypes": [
-				"patch"
-			],
-			"enabled": false
-		}
-	],
-	"baseBranchPatterns": [
-		"main"
-	],
-	"customManagers": [
-		{
-			"customType": "regex",
-			"managerFilePatterns": [
-				"**/.mise/config.toml"
-			],
-			"matchStrings": [
-				"(?<depName>@[a-zA-Z0-9-]+(?:/[a-zA-Z0-9-]+)*)@(?<currentValue>[0-9][^\\s\\\\]*)"
-			],
-			"datasourceTemplate": "npm"
-		},
-		{
-			"customType": "regex",
-			"managerFilePatterns": [
-				"**/Dockerfile*"
-			],
-			"matchStrings": [
-				"# renovate: datasource=(?<datasource>[^\\s]+) depName=(?<depName>[^\\s]+)(?:\\s+extractVersion=(?<extractVersion>[^\\s]+))?\\s*\\n(?:ARG|ENV)\\s+[^=]+_VERSION=(?<currentValue>[^\\s]+)"
-			],
-			"datasourceTemplate": "{{datasource}}"
-		}
-	]
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    ":enablePreCommit",
+    "schedule:automergeDaily",
+    ":dependencyDashboard",
+    ":semanticCommitTypeAll(fix)"
+  ],
+  "configMigration": true,
+  "packageRules": [
+    {
+      "matchUpdateTypes": [
+        "patch"
+      ],
+      "enabled": false
+    },
+    {
+      "matchDatasources": [
+        "github-releases"
+      ],
+      "matchPackagePatterns": [
+        "^dprint/dprint-plugin-",
+        "^g-plane/",
+        "^bartlomieju/"
+      ],
+      "extractVersion": "^v?(?<version>.+)$",
+      "versioning": "semver"
+    }
+  ],
+  "baseBranchPatterns": [
+    "main"
+  ],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "**/.mise/config.toml"
+      ],
+      "matchStrings": [
+        "(?<depName>@[a-zA-Z0-9-]+(?:/[a-zA-Z0-9-]+)*)@(?<currentValue>[0-9][^\\s\\\\]*)"
+      ],
+      "datasourceTemplate": "npm"
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "**/Dockerfile*"
+      ],
+      "matchStrings": [
+        "# renovate: datasource=(?<datasource>[^\\s]+) depName=(?<depName>[^\\s]+)(?:\\s+extractVersion=(?<extractVersion>[^\\s]+))?\\s*\\n(?:ARG|ENV)\\s+[^=]+_VERSION=(?<currentValue>[^\\s]+)"
+      ],
+      "datasourceTemplate": "{{datasource}}"
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "**/dprint.json"
+      ],
+      "matchStrings": [
+        "https://plugins\\.dprint\\.dev/(?<depName>[a-z]+)-(?<currentValue>[0-9][0-9.]*)\\.(?:wasm|json)"
+      ],
+      "depNameTemplate": "dprint/dprint-plugin-{{{depName}}}",
+      "datasourceTemplate": "github-releases"
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "**/dprint.json"
+      ],
+      "matchStrings": [
+        "https://plugins\\.dprint\\.dev/(?<org>[a-z0-9_-]+)/(?<name>[a-z_-]+)-v?(?<currentValue>[0-9][0-9.]*)\\.(?:wasm|json)"
+      ],
+      "depNameTemplate": "{{{org}}}/{{{name}}}",
+      "datasourceTemplate": "github-releases"
+    }
+  ]
 }
