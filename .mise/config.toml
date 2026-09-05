@@ -8,7 +8,7 @@ HELM_PLUGINS = { value = "{{ tools['http:helm-kubeconform'].path | default(value
 AUBE_TRUST_POLICY = "off"
 
 [tools]
-uv = "0.11.1"
+uv = "0.12.10"
 aube = "1.26.0"
 shellcheck = "0.11.0"
 "pipx:podman-compose" = "1.6.0"
