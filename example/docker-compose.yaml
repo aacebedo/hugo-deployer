@@ -3,10 +3,7 @@ version: "3.8"
 
 services:
   hugo-site:
-    build:
-      dockerfile: Dockerfile
-      args:
-        - format=docker
+    image: ${IMAGE_NAME}:${COMMIT_SHA}
     ports:
       - "${PORT}:80"
     environment:

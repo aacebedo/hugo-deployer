@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 #MISE description = "Build the container image"
+
 #MISE env = { REPO_URL = "{{vars.repo_url}}" }
 #MISE env = { REPO_NAME = "{{vars.repo_name}}" }
 #MISE env = { REPO_OWNER = "{{vars.repo_owner}}" }
@@ -15,9 +16,8 @@ if [ -z "${MISE_TASK_NAME:-}" ]; then
 fi
 
 podman build --format docker -t "${IMAGE_NAME}:${COMMIT_SHA}" \
-	-f src/Dockerfile \
 	--label "org.opencontainers.image.source=${REPO_URL}" \
 	--label "org.opencontainers.image.description=Development container base" \
 	--label "org.opencontainers.image.licenses=MIT" \
 	--label "org.opencontainers.image.title=${REPO_NAME}" \
-	--label "org.opencontainers.image.vendor=${REPO_OWNER}" .
+ 	--label "org.opencontainers.image.vendor=${REPO_OWNER}" ./src

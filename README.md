@@ -25,7 +25,7 @@ specific endpoint.
 3. **Run with Docker Compose:**
 
    ```bash
-   docker-compose up -d --env ./src/example/.env
+   docker-compose -f test/docker-compose.yaml up -d --env ./src/example/.env
    ```
 
 4. **Initial site update:**

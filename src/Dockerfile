@@ -15,8 +15,6 @@ ARG XCADDY_VERSION=v0.4.5
 ARG CADDY_EXEC_VERSION=master
 # renovate: datasource=github-tags depName=sass/dart-sass extractVersion=^(?<version>.*)$
 ARG DART_SASS_VERSION=1.101.0
-# renovate: datasource=github-releases depName=cloudcannon/pagefind extractVersion=^v(?<version>.*)$
-ARG PAGEFIND_VERSION=1.5.0
 ## renovate: datasource=node depName=nodejs/node
 ARG NODE_VERSION=24.18.0
 
@@ -27,43 +25,22 @@ RUN <<EOF
 apk update
 apk upgrade
 apk add --no-cache \
-		ca-certificates \
-		libarchive-tools
+    ca-certificates \
+    libarchive-tools
 EOF
 
 RUN <<EOF
 wget -nv -O- "https://golang.org/dl/go${GO_VERSION}.linux-amd64.tar.gz" | bsdtar -xzf - -C /tmp
-EOF
-
-RUN <<EOF
 # editorconfig-checker-disable-next-line
 wget -nv -O- "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.tar.gz" \
-	| bsdtar -xzf - -C /tmp
-EOF
-
-# Install Dart Sass
-RUN <<EOF
+  | bsdtar -xzf - -C /tmp
 # editorconfig-checker-disable-next-line
 wget -nv -O- "https://github.com/sass/dart-sass/releases/download/${DART_SASS_VERSION}/dart-sass-${DART_SASS_VERSION}-linux-x64.tar.gz" \
-	| bsdtar --strip-components=1 -xzf - -C /tmp
-EOF
-
-# Install Pagefind
-RUN <<EOF
-# editorconfig-checker-disable-next-line
-wget -nv -O- "https://github.com/cloudcannon/pagefind/releases/download/v${PAGEFIND_VERSION}/pagefind-v${PAGEFIND_VERSION}-x86_64-unknown-linux-musl.tar.gz" \
-	| bsdtar -xzf - -C /tmp
-EOF
-
-RUN <<EOF
-mkdir /tmp/node
-# editorconfig-checker-disable-next-line
-wget -nv -O- "https://unofficial-builds.nodejs.org/download/release/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64-musl.tar.gz" \
-	| bsdtar --strip-components=1 -xf - -C /tmp/node
+  | bsdtar --strip-components=1 -xzf - -C /tmp
 EOF
 
 ENV GOPATH="/tmp/go" \
-		PATH="/tmp/go/bin:$PATH"
+    PATH="/tmp/go/bin:$PATH"
 
 # Install xcaddy
 RUN go install github.com/caddyserver/xcaddy/cmd/xcaddy@${XCADDY_VERSION}
@@ -80,23 +57,21 @@ RUN <<EOF
 apk update
 apk upgrade
 apk add --no-cache \
-		git \
-		ca-certificates \
-		curl \
-		bash \
-		gcompat \
-		libstdc++ \
-		libgcc \
-		libcap-setcap
+    git \
+    ca-certificates \
+    curl \
+    bash \
+    gcompat \
+    libstdc++ \
+    libgcc \
+    libcap-setcap
 EOF
 
-# Copy Hugo, Caddy, Go, Dart Sass, and Pagefind from builder
+# Copy Hugo, Caddy, Go, Dart Sass
 COPY --from=builder --chmod=0755 /tmp/go /opt/go
 COPY --from=builder --chmod=0755 /tmp/hugo /usr/local/bin/hugo
 COPY --from=builder --chmod=0755 /caddy-build/caddy /usr/local/bin/caddy
 COPY --from=builder --chmod=0755 /tmp/sass /usr/local/bin/sass
-COPY --from=builder --chmod=0755 /tmp/pagefind /usr/local/bin/pagefind
-COPY --from=builder --chmod=0755 /tmp/node /opt/node
 
 RUN setcap 'cap_net_bind_service=+ep' /usr/local/bin/caddy
 
@@ -137,7 +112,7 @@ EXPOSE 80
 
 # Health check
 HEALTHCHECK --interval=60s --timeout=3s --start-period=5s --retries=5 \
-CMD curl -f http://localhost:80 || exit 1
+  CMD curl -f http://localhost:80 || exit 1
 
 # Start with startup script that then runs Caddy
 ENTRYPOINT ["/usr/local/bin/startup.sh"]
