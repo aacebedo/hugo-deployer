@@ -7,20 +7,22 @@ on:
   pull_request:
     branches:
       - main
+
 permissions: {}
+
 jobs:
   pr-checks:
-    runs-on: ubuntu-26.04
+    runs-on: ubuntu-26.10
     container:
-      image: ghcr.io/aacebedo/devcontainer-base:1.18.8
-      options: --user root --privileged
+      image: ghcr.io/aacebedo/devcontainer-base:1.21.1
+      options: --user root --cap-add SYS_ADMIN
     permissions:
       contents: read
-      security-events: write
+      packages: read
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v7
+        uses: actions/checkout@v7.0.1
         with:
           persist-credentials: false
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -28,11 +30,9 @@ jobs:
           fetch-tags: true
       - name: Setup
         uses: ./.github/actions/setup
-      - name: Bootstrap
-        run: mise run bootstrap
       - name: Lint
         run: mise lint
-      - name: Test
-        run: mise test
-      - name: Security scan
-        run: mise security-scan
+      - name: Run tests
+        run: mise run:tests
+      - name: Run security-scan
+        run: mise run:security-scan

@@ -21,9 +21,14 @@ rev = "v3.6.0"
 hooks = [{ id = "editorconfig-checker" }]
 
 [[repos]]
-repo = "https://github.com/biomejs/pre-commit"
-rev = "v2.5.12"
-hooks = [{ id = "biome-lint" }]
+repo = "local"
+
+[[repos.hooks]]
+id = "biome-lint"
+name = "biome lint"
+entry = "biome lint --write --files-ignore-unknown=true --no-errors-on-unmatched"
+language = "system"
+files = '\.(js|jsx|mjs|cjs|ts|tsx|json|jsonc|css|html)$'
 
 [[repos]]
 repo = "local"
@@ -71,16 +76,28 @@ hooks = [{ id = "vale" }]
 repo = "local"
 
 [[repos.hooks]]
-id = "renovate-config-validator"
-name = "Validate Renovate Config"
-entry = "renovate-config-validator"
+id = "updatecli-manifest-validate"
+name = "Validate Updatecli manifests"
+entry = "env"
+args = [
+  "UPDATECLI_GITHUB_TOKEN=validate-only",
+  "updatecli",
+  "manifest",
+  "validate",
+  "--experimental",
+  "--config",
+  ".updatecli/manifests",
+  "--values",
+  ".updatecli/values.yaml",
+]
 language = "system"
-files = '(^|/).?renovate(?:rc)?(?:\.json5?)?$'
+files = '^\.updatecli/(manifests/.*\.ya?ml|values\.yaml)$'
+pass_filenames = false
 
 [[repos]]
-repo = "https://github.com/DavidAnson/markdownlint-cli2"
-rev = "v0.21.0"
-hooks = [{ id = "markdownlint-cli2" }]
+repo = "https://github.com/rvben/rumdl-pre-commit"
+rev = "v0.2.69"
+hooks = [{ id = "rumdl-check" }]
 
 [[repos]]
 repo = "https://github.com/shellcheck-py/shellcheck-py"
@@ -133,3 +150,14 @@ name = "dprint check"
 entry = "dprint check"
 language = "system"
 files = '\.(json|jsonc|ya?ml|md|toml)$|(^|/)Dockerfile$|\.dockerfile$'
+pass_filenames = false
+
+[[repos]]
+repo = "local"
+
+[[repos.hooks]]
+id = "codebook"
+name = "codebook spell check"
+entry = "codebook-lsp lint"
+language = "system"
+files = '\.(md|toml|ya?ml|json|jsonc|sh)$|(^|/)Dockerfile$|\.dockerfile$'

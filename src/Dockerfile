@@ -1,22 +1,15 @@
-# renovate: datasource=docker depName=alpine versioning=docker
+# The build argument versions below are kept up to date by Updatecli,
+# see .updatecli/manifests/dockerfile.yaml for the upstream source of each one.
 ARG ALPINE_VERSION=3.24
 
 FROM alpine:${ALPINE_VERSION} AS builder
 
-# renovate: datasource=github-releases depName=golang/go extractVersion=^go(?<version>.*)$
 ARG GO_VERSION=1.23.2
-# renovate: datasource=github-releases depName=gohugoio/hugo extractVersion=^v(?<version>.*)$
-ARG HUGO_VERSION=0.164.0
-# renovate: datasource=github-releases depName=caddyserver/caddy extractVersion=^v(?<version>.*)$
+ARG HUGO_VERSION=0.165.0
 ARG CADDY_VERSION=2.11.1
-# renovate: datasource=github-releases depName=caddyserver/xcaddy extractVersion=^v(?<version>.*)$
 ARG XCADDY_VERSION=v0.4.5
-# renovate: datasource=git-refs depName=https://github.com/abiosoft/caddy-exec extractVersion=^(?<version>.*)$
 ARG CADDY_EXEC_VERSION=master
-# renovate: datasource=github-tags depName=sass/dart-sass extractVersion=^(?<version>.*)$
 ARG DART_SASS_VERSION=1.101.0
-## renovate: datasource=node depName=nodejs/node
-ARG NODE_VERSION=24.18.0
 
 SHELL ["/bin/sh", "-euxo", "pipefail", "-c"]
 

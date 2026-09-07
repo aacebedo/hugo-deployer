@@ -22,3 +22,9 @@ rules:
   # Allow comments at the end of lines
   comments:
     min-spaces-from-content: 1
+
+ignore: |
+  .updatecli/manifests/mise.yaml
+  .updatecli/manifests/prek.yaml
+  .updatecli/manifests/dprint.yaml
+  .updatecli/manifests/dockerfile.yaml

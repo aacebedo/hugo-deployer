@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 
 #MISE description = "Publish a release"
+
 #MISE depends = ["lint", "test", "security-scan"]
+
 #MISE env = { REGISTRY_USERNAME = { required = true } }
 #MISE env = { REGISTRY_PASSWORD = { required = true, redact = true } }
 #MISE env = { GITHUB_TOKEN = { required = true, redact = true } }

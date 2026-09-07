@@ -7,7 +7,6 @@
  	"NoColor": false,
  	"Exclude": [
  		"CHANGELOG\\.md",
-+		"renovate\\.json",
  		"\\.mergify\\.yaml"
  	],
  	"AllowedContentTypes": [],
