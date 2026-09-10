@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-#MISE description = "Bootsrap mise install"
+#MISE description = "Bootsrap mise"
 #MISE hide = true
 
 set -euo pipefail
@@ -8,6 +8,16 @@ set -euo pipefail
 if [ -z "${MISE_TASK_NAME:-}" ]; then
 	printf "\033[31mError: this script must be run via 'mise run <task>' (not executed directly).\033[0m\n" >&2
 	exit 1
+fi
+
+# This bootstrap only makes sense inside a devcontainer: it derives a
+# subuid/subgid range from the container's own (already remapped) user
+# namespace and overwrites /etc/subuid and /etc/subgid system-wide. On a
+# standard machine that would clobber the host's real rootless-podman/docker
+# ID mappings, so skip entirely when not containerized.
+if [ ! -f /.dockerenv ] && [ ! -f /run/.containerenv ]; then
+	printf "Skipping rootless podman subuid/subgid bootstrap: not running inside a container.\n"
+	exit 0
 fi
 
 as_root() {
@@ -30,11 +40,3 @@ subid_range() {
 
 as_root sh -c "printf '%s:%s\n' \"$(whoami)\" \"$(subid_range /proc/self/uid_map "$(($(id -u) + 1))")\" >/etc/subuid"
 as_root sh -c "printf '%s:%s\n' \"$(whoami)\" \"$(subid_range /proc/self/gid_map "$(($(id -g) + 1))")\" >/etc/subgid"
-
-if systemctl --user is-system-running >/dev/null 2>&1; then
-	systemctl --user enable --now podman.socket
-else
-	socket_path="$(podman info --format '{{.Host.RemoteSocket.Path}}')"
-	mkdir -p "$(dirname "${socket_path}")"
-	nohup podman system service --time=0 "unix://${socket_path}" >/dev/null 2>&1 &
-fi

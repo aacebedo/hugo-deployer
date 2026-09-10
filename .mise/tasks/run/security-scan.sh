@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 
-#MISE description = "Run Trivy security scan on the built image"
+#MISE description = "Run security scans"
+
 #MISE depends = ["build"]
+
 #MISE env = { IMAGE_NAME = "{{vars.image_name}}" }
 #MISE env = { COMMIT_SHA = "{{vars.commit_sha}}" }
 

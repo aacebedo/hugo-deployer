@@ -25,6 +25,10 @@
     ".vale/Google/**",
     "dist/**",
     "CHANGELOG.md",
-    "src/charts/**/templates/**"
+    "src/charts/**/templates/**",
+    ".updatecli/manifests/mise.yaml",
+    ".updatecli/manifests/prek.yaml",
+    ".updatecli/manifests/dprint.yaml",
+    ".updatecli/manifests/dockerfile.yaml"
   ]
 }

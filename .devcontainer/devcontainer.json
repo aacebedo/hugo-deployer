@@ -1,12 +1,12 @@
 {
   "name": "Hugo deployer development container",
-  "image": "ghcr.io/aacebedo/devcontainer-base:1.19.6",
-  "privileged": true,
+  "image": "ghcr.io/aacebedo/devcontainer-base:1.21.1",
+  "capAdd": ["SYS_ADMIN"],
   "customizations": {
     "vscode": {
       "extensions": [
         "redhat.vscode-yaml",
-        "davidanson.vscode-markdownlint",
+        "rvben.rumdl",
         "exiasr.hadolint",
         "formulahendry.github-actions",
         "github.vscode-github-actions",
@@ -29,7 +29,7 @@
   "remoteEnv": {
     "MISE_GITHUB_TOKEN": "${localEnv:MISE_GITHUB_TOKEN}"
   },
-  "postCreateCommand": "git config --global --add safe.directory ${containerWorkspaceFolder} && mise bootstrap -y",
+  "postCreateCommand": "git config --global --add safe.directory ${containerWorkspaceFolder} && mise bs -y",
   "waitFor": "postCreateCommand",
   "remoteUser": "devcontaineruser"
 }
