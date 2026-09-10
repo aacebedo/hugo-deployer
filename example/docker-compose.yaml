@@ -1,0 +1,11 @@
+---
+version: "3.8"
+
+services:
+  hugo-site:
+    image: ${IMAGE_NAME}:${COMMIT_SHA}
+    env_file:
+      - .env
+    ports:
+      - "${PORT}:80"
+    restart: unless-stopped

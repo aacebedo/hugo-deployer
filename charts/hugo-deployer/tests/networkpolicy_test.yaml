@@ -1,0 +1,39 @@
+---
+suite: networkpolicy
+templates:
+  - networkpolicy.yaml
+tests:
+  - it: renders a single NetworkPolicy named after the release
+    asserts:
+      - hasDocuments:
+          count: 1
+      - isKind:
+          of: NetworkPolicy
+      - equal:
+          path: metadata.name
+          value: RELEASE-NAME
+      - equal:
+          path: metadata.namespace
+          value: NAMESPACE
+
+  - it: selects the release pods via the selectorLabels helper
+    asserts:
+      - equal:
+          path: spec.podSelector.matchLabels
+          value:
+            app.kubernetes.io/name: hugo-deployer
+            app.kubernetes.io/instance: RELEASE-NAME
+
+  - it: allows ingress on port 80 and unrestricted egress
+    asserts:
+      - equal:
+          path: spec.policyTypes
+          value: [Ingress, Egress]
+      - equal:
+          path: spec.ingress[0].ports[0]
+          value:
+            port: 80
+            protocol: TCP
+      - equal:
+          path: spec.egress
+          value: [{}]

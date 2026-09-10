@@ -1,37 +1,35 @@
 {
-	"name": "Hugo Deployer Container Development",
-	"build": {
-		"dockerfile": "Dockerfile",
-		"options": [
-			"--build-context=workspace=${localWorkspaceFolder}",
-			"--secret=id=MISE_GITHUB_TOKEN"
-		]
-	},
-	"privileged": true,
-	"customizations": {
-		"vscode": {
-			"extensions": [
-				"redhat.vscode-yaml",
-				"davidanson.vscode-markdownlint",
-				"exiasr.hadolint",
-				"formulahendry.github-actions",
-				"github.vscode-github-actions",
-				"ms-vscode.vscode-github-issues-prs",
-				"timonwong.shellcheck",
-				"ms-vscode.remote-containers",
-				"matthewpi.caddyfile-support",
-				"chrischinchilla.vale-vscode",
-				"jjk.jjk",
-				"streetsidesoftware.code-spell-checker",
-				"EditorConfig.EditorConfig",
-				"tberman.json-schema-validator",
-				"rioj7.vscode-json-validate"
-			]
-		}
-	},
-	"containerEnv": {
-		"MISE_TRUSTED_CONFIG_PATHS": "${containerWorkspaceFolder}"
-	},
-	"postCreateCommand": "git config --global --add safe.directory ${containerWorkspaceFolder}",
-	"remoteUser": "devcontaineruser"
+  "name": "Hugo deployer development container",
+  "image": "ghcr.io/aacebedo/devcontainer-base:1.21.1",
+  "capAdd": ["SYS_ADMIN"],
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "redhat.vscode-yaml",
+        "rvben.rumdl",
+        "exiasr.hadolint",
+        "formulahendry.github-actions",
+        "github.vscode-github-actions",
+        "ms-vscode.vscode-github-issues-prs",
+        "timonwong.shellcheck",
+        "ms-vscode.remote-containers",
+        "matthewpi.caddyfile-support",
+        "chrischinchilla.vale-vscode",
+        "jjk.jjk",
+        "streetsidesoftware.code-spell-checker",
+        "EditorConfig.EditorConfig",
+        "tberman.json-schema-validator",
+        "rioj7.vscode-json-validate"
+      ],
+    },
+  },
+  "containerEnv": {
+    "MISE_TRUSTED_CONFIG_PATHS": "${containerWorkspaceFolder}"
+  },
+  "remoteEnv": {
+    "MISE_GITHUB_TOKEN": "${localEnv:MISE_GITHUB_TOKEN}"
+  },
+  "postCreateCommand": "git config --global --add safe.directory ${containerWorkspaceFolder} && mise bs -y",
+  "waitFor": "postCreateCommand",
+  "remoteUser": "devcontaineruser"
 }

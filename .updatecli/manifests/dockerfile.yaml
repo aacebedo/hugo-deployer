@@ -1,0 +1,69 @@
+{{- range $i, $dep := .dockerfileDeps }}
+{{- if $i }}
+---
+{{- end }}
+name: "Bump {{ $dep.slug }} version in src/Dockerfile"
+
+scms:
+  default:
+    kind: github
+    spec:
+      user: "{{ $.github.user }}"
+      email: "{{ $.github.email }}"
+      owner: "{{ $.github.owner }}"
+      repository: "{{ $.github.repository }}"
+      token: '{{ requiredEnv "UPDATECLI_GITHUB_TOKEN" }}'
+      username: "{{ $.github.username }}"
+      branch: "{{ $.github.branch }}"
+      commitusingapi: true
+      commitmessage:
+        type: fix
+        scope: deps
+
+sources:
+  {{ $dep.slug }}:
+    name: "Get latest {{ $dep.owner }}/{{ $dep.repo }} release"
+    kind: githubrelease
+    spec:
+      owner: {{ $dep.owner }}
+      repository: {{ $dep.repo }}
+      token: '{{ requiredEnv "UPDATECLI_GITHUB_TOKEN" }}'
+      versionfilter:
+        kind: semver
+  {{- if $dep.trimPrefix }}
+    transformers:
+      - trimprefix: "v"
+  {{- end }}
+
+targets:
+  {{ $dep.slug }}:
+    name: "Update {{ $dep.arg }} in src/Dockerfile"
+    kind: dockerfile
+    scmid: default
+    sourceid: {{ $dep.slug }}
+    spec:
+      file: src/Dockerfile
+      instruction:
+        keyword: ARG
+        matcher: {{ $dep.arg }}
+  {{- if eq $dep.slug "mise" }}
+  mise_setup_action:
+    name: "Update mise version in .github/actions/setup/action.yml"
+    kind: file
+    scmid: default
+    sourceid: mise
+    spec:
+      file: .github/actions/setup/action.yml
+      matchpattern: '(?m)^(\s*version:\s*).*$'
+      replacepattern: '${1}{{ "{{" }} source "mise" {{ "}}" }}'
+  {{- end }}
+
+actions:
+  default:
+    kind: github/pullrequest
+    scmid: default
+    title: 'fix(deps): bump {{ $dep.slug }} to {{ "{{" }} source "{{ $dep.slug }}" {{ "}}" }}'
+    spec:
+      labels:
+        - dependencies
+{{- end }}
