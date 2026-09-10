@@ -1,0 +1,53 @@
+---
+suite: configmap
+templates:
+  - configMap.yaml
+tests:
+  - it: renders a single ConfigMap named after the release siteconfig
+    asserts:
+      - hasDocuments:
+          count: 1
+      - isKind:
+          of: ConfigMap
+      - equal:
+          path: metadata.name
+          value: RELEASE-NAME-siteconfig
+      - equal:
+          path: metadata.namespace
+          value: NAMESPACE
+
+  - it: exposes the configured git repo URL and branch
+    set:
+      siteConfig:
+        gitRepoURL: https://example.com/repo.git
+        gitBranch: main
+    asserts:
+      - equal:
+          path: data.GIT_REPO_URL
+          value: https://example.com/repo.git
+      - equal:
+          path: data.GIT_BRANCH
+          value: main
+
+  - it: omits PATH_PREFIX when not configured
+    asserts:
+      - notExists:
+          path: data.PATH_PREFIX
+
+  - it: sets PATH_PREFIX when configured
+    set:
+      siteConfig:
+        pathPrefix: /blog
+    asserts:
+      - equal:
+          path: data.PATH_PREFIX
+          value: /blog
+
+  - it: merges additional env entries when provided
+    set:
+      env:
+        EXTRA_VAR: extra-value
+    asserts:
+      - equal:
+          path: data.EXTRA_VAR
+          value: extra-value

@@ -12,10 +12,10 @@ permissions: {}
 
 jobs:
   pr-checks:
-    runs-on: ubuntu-26.10
+    runs-on: ubuntu-26.04
     container:
       image: ghcr.io/aacebedo/devcontainer-base:1.21.1
-      options: --user root --cap-add SYS_ADMIN
+      options: --user root --cap-add SYS_ADMIN --security-opt apparmor=unconfined
     permissions:
       contents: read
       packages: read

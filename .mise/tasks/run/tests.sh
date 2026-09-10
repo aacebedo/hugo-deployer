@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 
 #MISE description = "Run tests"
+
 #MISE depends = ["build"]
+
 #MISE env = { IMAGE_NAME = "{{vars.image_name}}" }
 #MISE env = { COMMIT_SHA = "{{vars.commit_sha}}" }
 
@@ -12,10 +14,8 @@ if [ -z "${MISE_TASK_NAME:-}" ]; then
 	exit 1
 fi
 
-HELM_UNITTEST_VERSION="v1.1.2"
-
 if ! helm plugin list | grep -q '^unittest'; then
-	helm plugin install https://github.com/helm-unittest/helm-unittest --version "${HELM_UNITTEST_VERSION}" --verify=false
+	helm plugin install https://github.com/helm-unittest/helm-unittest --version v1.1.2 --verify=false
 fi
 
 helm unittest "${MISE_PROJECT_ROOT}/charts/hugo-deployer"

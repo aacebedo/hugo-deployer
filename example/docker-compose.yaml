@@ -4,12 +4,8 @@ version: "3.8"
 services:
   hugo-site:
     image: ${IMAGE_NAME}:${COMMIT_SHA}
+    env_file:
+      - .env
     ports:
       - "${PORT}:80"
-    environment:
-      - GIT_REPO_URL=${GIT_REPO_URL}
-      - GIT_USERNAME=${GIT_USERNAME}
-      - GIT_TOKEN=${GIT_TOKEN}
-      - GIT_BRANCH=${GIT_BRANCH}
-      - UPDATE_API_KEY=${UPDATE_API_KEY}
     restart: unless-stopped
