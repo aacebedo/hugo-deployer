@@ -12,12 +12,6 @@ if [ -z "${MISE_TASK_NAME:-}" ]; then
 	exit 1
 fi
 
-HELM_UNITTEST_VERSION="v1.1.2"
-
-if ! helm plugin list | grep -q '^unittest'; then
-	helm plugin install https://github.com/helm-unittest/helm-unittest --version "${HELM_UNITTEST_VERSION}" --verify=false
-fi
-
 helm unittest "${MISE_PROJECT_ROOT}/charts/hugo-deployer"
 
 trap 'podman-compose down' EXIT

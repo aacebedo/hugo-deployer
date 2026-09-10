@@ -4,7 +4,13 @@ experimental = true
 [[env]]
 CGO_ENABLED = 1
 MISE_GITHUB_TOKEN = { required = true, redact = true }
-HELM_PLUGINS = { value = "{{ tools['http:helm-kubeconform'].path | default(value=\"\") }}", tools = true }
+
+[env.HELM_PLUGINS]
+value = """\
+  {{ tools['http:helm-kubeconform'].path | default(value="") }}:\
+  {{ tools['http:helm-unittest'].path | default(value="") }}\
+  """
+tools = true
 
 [tools]
 uv = "0.11.1"
@@ -31,11 +37,20 @@ biome = "2.5.12"
 rumdl = "0.2.69"
 updatecli = "0.120.1"
 "github:blopker/codebook" = "0.3.42"
+shfmt = "3.14.1"
 
 [tools."http:helm-kubeconform"]
 version = "0.2.0"
-url = "https://github.com/jtyr/kubeconform-helm/archive/refs/tags/v{{version}}.tar.gz"
+url = "https://github.com/jtyr/kubeconform-helm/archive/refs/tags/v{{ version }}.tar.gz"
 depends = ["helm", "kubeconform"]
+
+[tools."http:helm-unittest"]
+version = "1.1.2"
+url = """\
+  https://github.com/helm-unittest/helm-unittest/releases/download/\
+  v{{ version }}/helm-unittest-{{ os() }}-{{ arch(x64="amd64") }}-{{ version }}.tgz\
+  """
+depends = ["helm"]
 
 [vars]
 repo_host = '''{{ exec(command="git remote get-url origin 2>/dev/null |
@@ -55,7 +70,6 @@ commit_sha = '''{{ exec(command="git rev-parse HEAD 2>/dev/null || echo ''") | t
 [bootstrap.packages]
 "apt:bash" = "latest"
 "apt:podman" = "latest"
-"apt:podman-docker" = "latest"
 "apt:iptables" = "latest"
 "apt:build-essential" = "latest"
 "apt:curl" = "latest"
