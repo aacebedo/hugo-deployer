@@ -20,43 +20,47 @@ ARG PAGEFIND_VERSION=1.5.0
 ## renovate: datasource=node depName=nodejs/node
 ARG NODE_VERSION=24.18.0
 
+SHELL ["/bin/sh", "-euxo", "pipefail", "-c"]
+
 # Install build dependencies
-RUN apk update && \
-		apk upgrade && \
-		apk add --no-cache \
-		wget \
+RUN <<EOF
+apk update
+apk upgrade
+apk add --no-cache \
 		ca-certificates \
-		libarchive-tools && \
-		update-ca-certificates
+		libarchive-tools
+EOF
 
-# Install Go manually
-RUN wget --progress=dot:giga -O- \
-		# editorconfig-checker-disable-next-line
-		"https://golang.org/dl/go${GO_VERSION}.linux-amd64.tar.gz" \
-		| bsdtar -xzf - -C /tmp
+RUN <<EOF
+wget -nv -O- "https://golang.org/dl/go${GO_VERSION}.linux-amd64.tar.gz" | bsdtar -xzf - -C /tmp
+EOF
 
-# Install Hugo - Use regular Linux version with glibc compatibility
-RUN wget --progress=dot:giga -O- hugo.tar.gz \
-		# editorconfig-checker-disable-next-line
-		"https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.tar.gz" \
-		| bsdtar -xzf - -C /tmp
+RUN <<EOF
+# editorconfig-checker-disable-next-line
+wget -nv -O- "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.tar.gz" \
+	| bsdtar -xzf - -C /tmp
+EOF
 
 # Install Dart Sass
-RUN wget --progress=dot:giga -O- dart-sass.tar.gz \
-		# editorconfig-checker-disable-next-line
-		"https://github.com/sass/dart-sass/releases/download/${DART_SASS_VERSION}/dart-sass-${DART_SASS_VERSION}-linux-x64.tar.gz" \
-		| bsdtar --strip-components=1 -xzf - -C /tmp
+RUN <<EOF
+# editorconfig-checker-disable-next-line
+wget -nv -O- "https://github.com/sass/dart-sass/releases/download/${DART_SASS_VERSION}/dart-sass-${DART_SASS_VERSION}-linux-x64.tar.gz" \
+	| bsdtar --strip-components=1 -xzf - -C /tmp
+EOF
 
 # Install Pagefind
-RUN wget --progress=dot:giga -O- pagefind.tar.gz \
-		# editorconfig-checker-disable-next-line
-		"https://github.com/cloudcannon/pagefind/releases/download/v${PAGEFIND_VERSION}/pagefind-v${PAGEFIND_VERSION}-x86_64-unknown-linux-musl.tar.gz" \
-		| bsdtar -xzf - -C /tmp
+RUN <<EOF
+# editorconfig-checker-disable-next-line
+wget -nv -O- "https://github.com/cloudcannon/pagefind/releases/download/v${PAGEFIND_VERSION}/pagefind-v${PAGEFIND_VERSION}-x86_64-unknown-linux-musl.tar.gz" \
+	| bsdtar -xzf - -C /tmp
+EOF
 
-RUN mkdir /tmp/node && \
-		wget --progress=dot:giga -O- \
-		"https://unofficial-builds.nodejs.org/download/release/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64-musl.tar.gz" \
-		| bsdtar --strip-components=1 -xf - -C /tmp/node
+RUN <<EOF
+mkdir /tmp/node
+# editorconfig-checker-disable-next-line
+wget -nv -O- "https://unofficial-builds.nodejs.org/download/release/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64-musl.tar.gz" \
+	| bsdtar --strip-components=1 -xf - -C /tmp/node
+EOF
 
 ENV GOPATH="/tmp/go" \
 		PATH="/tmp/go/bin:$PATH"
@@ -66,25 +70,25 @@ RUN go install github.com/caddyserver/xcaddy/cmd/xcaddy@${XCADDY_VERSION}
 
 # Build Caddy with caddy-exec plugin using xcaddy
 WORKDIR /caddy-build
-RUN CADDY_VERSION=v${CADDY_VERSION} xcaddy build \
-		--with github.com/abiosoft/caddy-exec@${CADDY_EXEC_VERSION}
+RUN CADDY_VERSION=v${CADDY_VERSION} xcaddy build --with github.com/abiosoft/caddy-exec@${CADDY_EXEC_VERSION}
 
 # Final runtime image
 FROM alpine:${ALPINE_VERSION}
 
 # Install runtime dependencies including full glibc for Hugo
-RUN apk update && \
-		apk upgrade && \
-		apk add --no-cache \
+RUN <<EOF
+apk update
+apk upgrade
+apk add --no-cache \
 		git \
 		ca-certificates \
 		curl \
 		bash \
-		libc6-compat \
+		gcompat \
 		libstdc++ \
 		libgcc \
-		libcap-setcap \
-		&& update-ca-certificates
+		libcap-setcap
+EOF
 
 # Copy Hugo, Caddy, Go, Dart Sass, and Pagefind from builder
 COPY --from=builder --chmod=0755 /tmp/go /opt/go
@@ -98,33 +102,26 @@ RUN setcap 'cap_net_bind_service=+ep' /usr/local/bin/caddy
 
 ENV PATH="/opt/go/bin:/opt/node/bin:${PATH}"
 
-# Test that Hugo works
-RUN hugo version
-
-# Create non-root user
-RUN addgroup -g 1000 appuser && \
-		adduser -u 1000 -G appuser -s /bin/bash -D appuser
-
-# Create directories
-RUN mkdir -p /app/site /app/config /app/builds /home/appuser/.ssh /go && \
-		chown -R appuser:appuser /app
-
-# Set ownership of directories to appuser
-RUN chown -R appuser:appuser /app /home/appuser
-
 # Create update script
-COPY update-site.sh /usr/local/bin/update-site.sh
-RUN chmod +x /usr/local/bin/update-site.sh
+COPY --chmod=0755 update-site.sh /usr/local/bin/update-site.sh
 
 # Create startup script
-COPY startup.sh /usr/local/bin/startup.sh
-RUN chmod +x /usr/local/bin/startup.sh
+COPY --chmod=0755 startup.sh /usr/local/bin/startup.sh
 
 # Copy Caddy configuration
 COPY Caddyfile /app/config/Caddyfile
 
-RUN chown -R appuser /app/config && \
-		caddy validate --config /app/config/Caddyfile
+# Create non-root user
+RUN <<EOF
+addgroup -g 1000 appuser
+adduser -u 1000 -G appuser -s /bin/bash -D appuser
+EOF
+
+RUN <<EOF
+mkdir -p /app/site /app/config /app/builds /home/appuser/.ssh /go
+chown -R appuser:appuser /app /home/appuser
+caddy validate --config /app/config/Caddyfile
+EOF
 
 # Switch to non-root user
 USER appuser
