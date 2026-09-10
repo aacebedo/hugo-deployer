@@ -5,9 +5,7 @@ queue_rules:
     merge_conditions:
       - and:
           - label = reviewed
-          - check-success = cleanup / cleanup-devcontainer-image
           - check-success = pr-checks
-          - check-success = prepare / prepare-devcontainer-image
 merge_protections:
   - name: Merge only if reviewed
     description: Merge only if the PR has been reviewed

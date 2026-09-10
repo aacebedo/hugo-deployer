@@ -1,0 +1,35 @@
+{
+  "name": "Hugo deployer development container",
+  "image": "ghcr.io/aacebedo/devcontainer-base:1.19.6",
+  "privileged": true,
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "redhat.vscode-yaml",
+        "davidanson.vscode-markdownlint",
+        "exiasr.hadolint",
+        "formulahendry.github-actions",
+        "github.vscode-github-actions",
+        "ms-vscode.vscode-github-issues-prs",
+        "timonwong.shellcheck",
+        "ms-vscode.remote-containers",
+        "matthewpi.caddyfile-support",
+        "chrischinchilla.vale-vscode",
+        "jjk.jjk",
+        "streetsidesoftware.code-spell-checker",
+        "EditorConfig.EditorConfig",
+        "tberman.json-schema-validator",
+        "rioj7.vscode-json-validate"
+      ],
+    },
+  },
+  "containerEnv": {
+    "MISE_TRUSTED_CONFIG_PATHS": "${containerWorkspaceFolder}"
+  },
+  "remoteEnv": {
+    "MISE_GITHUB_TOKEN": "${localEnv:MISE_GITHUB_TOKEN}"
+  },
+  "postCreateCommand": "git config --global --add safe.directory ${containerWorkspaceFolder} && mise bootstrap -y",
+  "waitFor": "postCreateCommand",
+  "remoteUser": "devcontaineruser"
+}
