@@ -1,0 +1,9 @@
+[global]
+disable = ["MD041"]
+exclude = ["CHANGELOG.md"]
+
+[MD013]
+line-length = 120
+
+[MD029]
+style = "one_or_ordered"

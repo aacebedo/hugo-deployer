@@ -1,0 +1,36 @@
+tag_prefix = "v"
+branch_whitelist = ["main"]
+ignore_merge_commits = true
+
+pre_bump_hooks = [
+  "sed -i \"s/^appVersion: .*/appVersion: {{version}}/\" charts/hugo-deployer/Chart.yaml",
+  "sed -i \"s/^  tag: .*/  tag: {{version}}/\" charts/hugo-deployer/values.yaml",
+  "git add charts/hugo-deployer/Chart.yaml charts/hugo-deployer/values.yaml",
+]
+
+post_bump_hooks = [
+  "git push",
+  "git push origin {{version_tag}}",
+  "cog changelog --at {{version_tag}} --template full_hash > /tmp/cog-release-notes-{{version}}.md",
+  "gh release create {{version_tag}} --title {{version_tag}} --notes-file /tmp/cog-release-notes-{{version}}.md",
+  "rm -f /tmp/cog-release-notes-{{version}}.md",
+  "podman tag ${IMAGE_NAME}:${COMMIT_SHA} ${IMAGE_NAME}:latest",
+  "podman tag ${IMAGE_NAME}:${COMMIT_SHA} ${IMAGE_NAME}:{{version}}",
+  "podman push ${IMAGE_NAME}:latest",
+  "podman push ${IMAGE_NAME}:{{version}}",
+]
+
+[commit_types.perf]
+bump_patch = true
+changelog_title = "Performance Improvements"
+
+[commit_types.revert]
+bump_patch = true
+changelog_title = "Reverts"
+
+[changelog]
+path = "CHANGELOG.md"
+template = "remote"
+remote = "github.com"
+owner = "aacebedo"
+repository = "hugo-deployer"

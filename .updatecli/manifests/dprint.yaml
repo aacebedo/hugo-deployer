@@ -1,0 +1,53 @@
+{{- range $i, $dep := .dprintPlugins }}
+{{- if $i }}
+---
+{{- end }}
+name: "Bump {{ $dep.slug }} dprint plugin version in .dprint.json"
+
+scms:
+  default:
+    kind: github
+    spec:
+      user: "{{ $.github.user }}"
+      email: "{{ $.github.email }}"
+      owner: "{{ $.github.owner }}"
+      repository: "{{ $.github.repository }}"
+      token: '{{ requiredEnv "UPDATECLI_GITHUB_TOKEN" }}'
+      username: "{{ $.github.username }}"
+      branch: "{{ $.github.branch }}"
+      commitusingapi: true
+      commitmessage:
+        type: fix
+        scope: deps
+
+sources:
+  {{ $dep.slug }}:
+    name: "Get latest {{ $dep.owner }}/{{ $dep.repo }} release"
+    kind: githubrelease
+    spec:
+      owner: {{ $dep.owner }}
+      repository: {{ $dep.repo }}
+      token: '{{ requiredEnv "UPDATECLI_GITHUB_TOKEN" }}'
+      versionfilter:
+        kind: semver
+
+targets:
+  {{ $dep.slug }}:
+    name: "Update {{ $dep.slug }} plugin in .dprint.json"
+    kind: file
+    scmid: default
+    sourceid: {{ $dep.slug }}
+    spec:
+      file: .dprint.json
+      matchpattern: '(plugins\.dprint\.dev/{{ $dep.urlPath }})v?[0-9.]+(\.wasm)'
+      replacepattern: '${1}{{ "{{" }} source "{{ $dep.slug }}" {{ "}}" }}${2}'
+
+actions:
+  default:
+    kind: github/pullrequest
+    scmid: default
+    title: 'fix(deps): bump {{ $dep.slug }} dprint plugin to {{ "{{" }} source "{{ $dep.slug }}" {{ "}}" }}'
+    spec:
+      labels:
+        - dependencies
+{{- end }}

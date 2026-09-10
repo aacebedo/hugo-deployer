@@ -1,0 +1,92 @@
+{{- range $i, $dep := .miseDeps }}
+{{- if $i }}
+---
+{{- end }}
+name: "Bump {{ $dep.slug }} version in .mise/config.toml"
+
+scms:
+  default:
+    kind: github
+    spec:
+      owner: '{{ $.github.owner }}'
+      repository: '{{ $.github.repository }}'
+      branch: '{{ $.github.branch }}'
+      user: '{{ $.github.user }}'
+      email: '{{ $.github.email }}'
+      token: '{{ requiredEnv $.github.token }}'
+      commitmessage:
+        type: fix
+        scope: deps
+
+actions:
+  default:
+    kind: github/pullrequest
+    scmid: default
+    spec:
+      title: 'fix(deps): bump {{ $dep.slug }} to {{ "{{" }} source "{{ $dep.slug }}" {{ "}}" }}'
+
+sources:
+  {{ $dep.slug }}:
+    name: "Get the latest {{ $dep.slug }} release"
+    kind: {{ $dep.kind }}
+    spec:
+  {{- if eq $dep.kind "githubrelease" }}
+      owner: {{ $dep.owner }}
+      repository: {{ $dep.repo }}
+      token: '{{ requiredEnv $.github.token }}'
+  {{- if $dep.comment }}
+      # {{ $dep.comment }}
+  {{- end }}
+      versionfilter:
+    {{- if $dep.versionfilterRegex }}
+        kind: regex/semver
+        regex: '{{ $dep.versionfilterRegex }}'
+        pattern: '*'
+    {{- else }}
+        kind: semver
+        pattern: '{{ if $dep.versionfilterPattern }}{{ $dep.versionfilterPattern }}{{ else }}*{{ end }}'
+    {{- end }}
+  {{- else if eq $dep.kind "pypi" }}
+      name: {{ $dep.name }}
+      versionfilter:
+        kind: semver
+        pattern: '*'
+  {{- else if eq $dep.kind "golang" }}
+      versionfilter:
+        kind: semver
+        pattern: '*'
+  {{- end }}
+  {{- if or $dep.versionfilterRegex $dep.trimPrefix }}
+    transformers:
+  {{- if $dep.versionfilterRegex }}
+      - findsubmatch:
+          pattern: '{{ $dep.versionfilterRegex }}'
+          captureindex: 1
+  {{- end }}
+  {{- if $dep.trimPrefix }}
+      - trimprefix: "v"
+  {{- end }}
+  {{- end }}
+
+targets:
+  {{ $dep.slug }}:
+  {{- if $dep.tomlSection }}
+    name: 'Bump {{ $dep.tomlKey }} in .mise/config.toml'
+    kind: file
+    scmid: default
+    sourceid: {{ $dep.slug }}
+    spec:
+      file: .mise/config.toml
+      matchpattern: '(\[tools\.{{ $dep.tomlKey }}\]\nversion = )"[^"]*"'
+      replacepattern: '${1}"{{ "{{" }} source "{{ $dep.slug }}" {{ "}}" }}"'
+  {{- else }}
+    name: 'Bump {{ $dep.tomlKey }} in .mise/config.toml'
+    kind: file
+    scmid: default
+    sourceid: {{ $dep.slug }}
+    spec:
+      file: .mise/config.toml
+      matchpattern: '(?m)^({{ $dep.tomlKey }} = )"[^"]*"$'
+      replacepattern: '${1}"{{ "{{" }} source "{{ $dep.slug }}" {{ "}}" }}"'
+  {{- end }}
+{{- end }}

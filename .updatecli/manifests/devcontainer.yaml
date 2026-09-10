@@ -1,0 +1,72 @@
+---
+name: Bump the development container image
+
+scms:
+  default:
+    kind: github
+    spec:
+      owner: "{{ .github.owner }}"
+      repository: "{{ .github.repository }}"
+      branch: "{{ .github.branch }}"
+      user: "{{ .github.user }}"
+      email: "{{ .github.email }}"
+      token: "{{ requiredEnv .github.token }}"
+      commitmessage:
+        type: fix
+        scope: deps
+
+actions:
+  default:
+    kind: github/pullrequest
+    scmid: default
+    spec:
+      title: "fix(deps): bump the development container image"
+
+sources:
+  devcontainerBase:
+    name: Get the latest devcontainer-base image tag
+    kind: dockerimage
+    spec:
+      image: ghcr.io/aacebedo/devcontainer-base
+      tagfilter: '^\d+\.\d+\.\d+$'
+      versionfilter:
+        kind: semver
+        pattern: "*"
+
+targets:
+  devcontainer:
+    name: Bump the image in .devcontainer.json
+    kind: file
+    sourceid: devcontainerBase
+    scmid: default
+    spec:
+      file: .devcontainer/devcontainer.json
+      matchpattern: '(ghcr\.io/aacebedo/devcontainer-base:)\d+\.\d+\.\d+'
+      replacepattern: '${1}{{ source "devcontainerBase" }}'
+  devcontainer_pr_workflow:
+    name: Bump the image in .github/workflows/pr.yaml
+    kind: file
+    sourceid: devcontainerBase
+    scmid: default
+    spec:
+      file: .github/workflows/pr.yaml
+      matchpattern: '(ghcr\.io/aacebedo/devcontainer-base:)\d+\.\d+\.\d+'
+      replacepattern: '${1}{{ source "devcontainerBase" }}'
+  devcontainer_release_workflow:
+    name: Bump the image in .github/workflows/release.yaml
+    kind: file
+    sourceid: devcontainerBase
+    scmid: default
+    spec:
+      file: .github/workflows/release.yaml
+      matchpattern: '(ghcr\.io/aacebedo/devcontainer-base:)\d+\.\d+\.\d+'
+      replacepattern: '${1}{{ source "devcontainerBase" }}'
+  devcontainer_update_deps_workflow:
+    name: Bump the image in .github/workflows/update-deps.yaml
+    kind: file
+    sourceid: devcontainerBase
+    scmid: default
+    spec:
+      file: .github/workflows/update-deps.yaml
+      matchpattern: '(ghcr\.io/aacebedo/devcontainer-base:)\d+\.\d+\.\d+'
+      replacepattern: '${1}{{ source "devcontainerBase" }}'
