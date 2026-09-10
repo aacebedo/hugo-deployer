@@ -4,7 +4,7 @@ ARG ALPINE_VERSION=3.24
 
 FROM alpine:${ALPINE_VERSION} AS builder
 
-ARG GO_VERSION=1.23.2
+ARG GO_VERSION=1.26.8
 ARG HUGO_VERSION=0.165.0
 ARG CADDY_VERSION=2.11.1
 ARG XCADDY_VERSION=v0.4.5
@@ -32,8 +32,8 @@ wget -nv -O- "https://github.com/sass/dart-sass/releases/download/${DART_SASS_VE
   | bsdtar --strip-components=1 -xzf - -C /tmp
 EOF
 
-ENV GOPATH="/tmp/go" \
-    PATH="/tmp/go/bin:$PATH"
+ENV GOPATH="/tmp/gopath" \
+    PATH="/tmp/go/bin:/tmp/gopath/bin:$PATH"
 
 # Install xcaddy
 RUN go install github.com/caddyserver/xcaddy/cmd/xcaddy@${XCADDY_VERSION}

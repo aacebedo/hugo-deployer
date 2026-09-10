@@ -2,6 +2,7 @@
   "name": "Hugo deployer development container",
   "image": "ghcr.io/aacebedo/devcontainer-base:1.21.1",
   "capAdd": ["SYS_ADMIN"],
+  "runArgs": ["--security-opt", "apparmor=unconfined", "--device", "/dev/fuse", "--device", "/dev/net/tun"],
   "customizations": {
     "vscode": {
       "extensions": [

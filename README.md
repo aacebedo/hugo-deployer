@@ -25,7 +25,7 @@ specific endpoint.
 3. **Run with Docker Compose:**
 
    ```bash
-   docker-compose -f test/docker-compose.yaml up -d --env ./src/example/.env
+   docker-compose -f example/docker-compose.yaml up -d --env ./example/.env
    ```
 
 4. **Initial site update:**
@@ -46,15 +46,15 @@ specific endpoint.
 
 ### Optional
 
-- `PORT` - Port to serve on (default: random)
-- `GIT_BRANCH` - Git branch to use (default: main)
-- `PATH_PREFIX` - Subdirectory path within the repository where the Hugo project is located (for example "docs" or
-  "website"). If not set, the Hugo project is expected at the repository root.
+- `PORT` - Port to serve on; defaults to a random port
+- `GIT_BRANCH` - Git branch to use; defaults to main
+- `PATH_PREFIX` - Subdirectory path within the repository that holds the Hugo project, for example "docs" or "website."
+  If unset, the tool expects the Hugo project at the repository root.
 
 ## Hooks
 
 You can add custom hooks that run before and after the Hugo build by creating a `hooks` directory in your Hugo project
-(or at the repository root if `PATH_PREFIX` is not set):
+(or at the repository root if `PATH_PREFIX` isn't set):
 
 ```bash
 your-hugo-site/
@@ -70,24 +70,24 @@ your-hugo-site/
 
 ### Pre-build hooks
 
-Scripts in `hooks/pre-build/` run after the repository is cloned/updated but before the Hugo build. These hooks have
-access to the following environment variables:
+Scripts in `hooks/pre-build/` run after the deployer clones or updates the repository but before the Hugo build. These
+hooks have access to the following environment variables:
 
-- `BUILD_DIR` - Directory where the build output will be stored
+- `BUILD_DIR` - Directory that stores the build output
 - `BUILD_DATE` - Timestamp of the current build
 - `SITE_SOURCE_DIR` - Path to the repository root
 - `HUGO_PROJECT_DIR` - Path to the Hugo project directory
 - `PATH_PREFIX` - The configured path prefix
 - `GIT_REPO_URL` - Git repository URL
-- `BRANCH` - Git branch being built
+- `BRANCH` - Git branch that the build uses
 
-Hook scripts must have a `.sh` extension and will be executed using bash (no need to set executable permissions). If a
-pre-build hook fails, the build is aborted.
+Hook scripts must have a `.sh` extension. Bash executes them, so you don't need to set executable permissions. If a
+pre-build hook fails, the build stops.
 
 ### Post-build hooks
 
 Scripts in `hooks/post-build/` run after the Hugo build completes successfully. They have access to the same environment
-variables as pre-build hooks. Post-build hook failures are logged as warnings but do not abort the build.
+variables as pre-build hooks. Post-build hook failures log as warnings but don't stop the build.
 
 ### Example hook
 
@@ -132,15 +132,15 @@ curl -H "Authorization: Bearer your_api_key" \
 
 ### Devcontainer
 
-The dev container is designed for developing the Docker container itself, not for Hugo site development:
+The dev container targets development of the Docker container itself, not Hugo site development:
 
 **With VS Code:**
 
 1. Install the "Dev Containers" extension
 2. Open the project in VS Code
 3. Click "Reopen in Container" when prompted
-4. Wait for the image to be pulled and bootstrapped (first time only)
+4. Wait for VS Code to pull and bootstrap the image; this happens only on the first run
 
 ## License
 
-MIT
+Massachusetts Institute of Technology (MIT) License
