@@ -1,10 +1,12 @@
 ---
-version: '3.8'
+version: "3.8"
 
 services:
   hugo-site:
     build:
       dockerfile: Dockerfile
+      args:
+        - format=docker
     ports:
       - "${PORT}:80"
     environment:
