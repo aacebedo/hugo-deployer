@@ -1,6 +1,6 @@
 ---
 queue_rules:
-  - merge_method: merge
+  - merge_method: rebase
     name: default
     branch_protection_injection_mode: merge
     merge_conditions:
