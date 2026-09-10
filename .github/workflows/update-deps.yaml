@@ -33,6 +33,6 @@ jobs:
       - name: Setup
         uses: ./.github/actions/setup
       - name: Apply update policies
-        run: mise run update-deps --apply
+        run: mise update-deps --apply
         env:
           UPDATECLI_GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}

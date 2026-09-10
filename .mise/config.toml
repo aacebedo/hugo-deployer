@@ -4,7 +4,6 @@ experimental = true
 [[env]]
 CGO_ENABLED = 1
 MISE_GITHUB_TOKEN = { required = true, redact = true }
-HELM_PLUGINS = { value = "{{ tools['http:helm-kubeconform'].path | default(value=\"\") }}", tools = true }
 
 [tools]
 uv = "0.11.1"
@@ -13,14 +12,12 @@ go = "1.26.4"
 "pipx:podman-compose" = "1.6.0"
 kube-linter = "0.8.1"
 kubeconform = "0.8.0"
-helm = "4.2.0"
 "pipx:checkov" = "3.3.5"
 editorconfig-checker = "3.8.0"
 hadolint = "2.14.0"
 tombi = "1.5.2"
 prek = "0.4.1"
 trivy = "0.72.0"
-vale = "3.15.1"
 yamllint = "1.38.0"
 node = "24.18.0"
 python = "3.14.2"
@@ -31,11 +28,26 @@ biome = "2.5.12"
 rumdl = "0.2.69"
 updatecli = "0.120.1"
 "github:blopker/codebook" = "0.3.42"
+shfmt = "3.14.1"
 
-[tools."http:helm-kubeconform"]
-version = "0.2.0"
-url = "https://github.com/jtyr/kubeconform-helm/archive/refs/tags/v{{version}}.tar.gz"
-depends = ["helm", "kubeconform"]
+[tools.helm]
+version = "4.2.0"
+postinstall = '''
+install_plugin() {
+  name="$1"; url="$2"; version="$3"
+  installed="$(helm plugin list | awk -v n="$name" '$1 == n { print $2 }')"
+  if [ "$installed" != "$version" ]; then
+    [ -n "$installed" ] && helm plugin uninstall "$name"
+    helm plugin install "$url" --version "$version" --verify=false
+  fi
+}
+install_plugin kubeconform https://github.com/jtyr/kubeconform-helm 0.2.0
+install_plugin unittest https://github.com/helm-unittest/helm-unittest 1.1.2
+'''
+
+[tools.vale]
+version = "3.15.1"
+postinstall = "vale sync"
 
 [vars]
 repo_host = '''{{ exec(command="git remote get-url origin 2>/dev/null |
@@ -55,8 +67,11 @@ commit_sha = '''{{ exec(command="git rev-parse HEAD 2>/dev/null || echo ''") | t
 [bootstrap.packages]
 "apt:bash" = "latest"
 "apt:podman" = "latest"
-"apt:podman-docker" = "latest"
+"apt:passt" = "latest"
+"apt:fuse-overlayfs" = "latest"
 "apt:iptables" = "latest"
+"apt:nftables" = "latest"
+"apt:aardvark-dns" = "latest"
 "apt:build-essential" = "latest"
 "apt:curl" = "latest"
 "apt:git" = "latest"

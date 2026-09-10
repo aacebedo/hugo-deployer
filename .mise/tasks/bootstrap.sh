@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 #MISE description = "Bootsrap mise"
+
 #MISE hide = true
 
 set -euo pipefail

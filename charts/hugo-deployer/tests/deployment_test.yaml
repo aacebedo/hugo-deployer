@@ -1,0 +1,187 @@
+---
+suite: deployment
+templates:
+  - deployment.yaml
+tests:
+  - it: renders a single Deployment named after the release
+    asserts:
+      - hasDocuments:
+          count: 1
+      - isKind:
+          of: Deployment
+      - equal:
+          path: metadata.name
+          value: RELEASE-NAME
+      - equal:
+          path: metadata.namespace
+          value: NAMESPACE
+
+  - it: uses the configured image repository, tag and pull policy
+    set:
+      image:
+        repository: registry.example.com/hugo-deployer
+        tag: 9.9.9
+        pullPolicy: IfNotPresent
+    asserts:
+      - equal:
+          path: spec.template.spec.containers[0].image
+          value: registry.example.com/hugo-deployer:9.9.9
+      - equal:
+          path: spec.template.spec.containers[0].imagePullPolicy
+          value: IfNotPresent
+
+  - it: wires the container envFrom to the release siteconfig ConfigMap and Secret
+    asserts:
+      - equal:
+          path: spec.template.spec.containers[0].envFrom[0].configMapRef.name
+          value: RELEASE-NAME-siteconfig
+      - equal:
+          path: spec.template.spec.containers[0].envFrom[1].secretRef.name
+          value: RELEASE-NAME-siteconfig
+
+  - it: matches pod and selector labels to the selectorLabels helper
+    asserts:
+      - equal:
+          path: spec.selector.matchLabels
+          value:
+            app.kubernetes.io/name: hugo-deployer
+            app.kubernetes.io/instance: RELEASE-NAME
+      - equal:
+          path: spec.template.metadata.labels
+          value:
+            app.kubernetes.io/name: hugo-deployer
+            app.kubernetes.io/instance: RELEASE-NAME
+
+  - it: enforces a hardened, non-root pod and container security context
+    asserts:
+      - equal:
+          path: spec.template.spec.automountServiceAccountToken
+          value: false
+      - equal:
+          path: spec.template.spec.securityContext.runAsNonRoot
+          value: true
+      - equal:
+          path: spec.template.spec.securityContext.runAsUser
+          value: 1000
+      - equal:
+          path: spec.template.spec.containers[0].securityContext.readOnlyRootFilesystem
+          value: true
+      - equal:
+          path: spec.template.spec.containers[0].securityContext.allowPrivilegeEscalation
+          value: false
+      - equal:
+          path: spec.template.spec.containers[0].securityContext.capabilities.drop
+          value: [ALL]
+
+  - it: exposes port 80 with liveness and readiness probes
+    asserts:
+      - equal:
+          path: spec.template.spec.containers[0].ports[0]
+          value:
+            containerPort: 80
+            name: http
+      - equal:
+          path: spec.template.spec.containers[0].livenessProbe.httpGet.port
+          value: 80
+      - equal:
+          path: spec.template.spec.containers[0].readinessProbe.httpGet.port
+          value: 80
+
+  - it: mounts a writable tmp volume and the app/user-home volumes read-write from emptyDir
+    asserts:
+      - equal:
+          path: spec.template.spec.volumes
+          value:
+            - name: tmp-volume
+              emptyDir: {}
+            - name: app-volume
+              emptyDir: {}
+            - name: user-home
+              emptyDir: {}
+      - contains:
+          path: spec.template.spec.containers[0].volumeMounts
+          content:
+            mountPath: /tmp
+            name: tmp-volume
+
+  - it: applies the default resource requests and limits from values.yaml
+    asserts:
+      - equal:
+          path: spec.template.spec.containers[0].resources
+          value:
+            limits:
+              cpu: 1500m
+              memory: 2400Mi
+            requests:
+              cpu: 75m
+              memory: 200Mi
+
+  - it: renders custom resources without producing a duplicate resources key
+    set:
+      resources:
+        limits:
+          cpu: 500m
+        requests:
+          cpu: 100m
+    asserts:
+      - equal:
+          path: spec.template.spec.containers[0].resources
+          value:
+            limits:
+              cpu: 500m
+              memory: 2400Mi
+            requests:
+              cpu: 100m
+              memory: 200Mi
+
+  - it: omits nodeSelector by default
+    asserts:
+      - notExists:
+          path: spec.template.spec.nodeSelector
+
+  - it: sets nodeSelector when provided
+    set:
+      nodeSelector:
+        disktype: ssd
+    asserts:
+      - equal:
+          path: spec.template.spec.nodeSelector
+          value:
+            disktype: ssd
+
+  - it: omits dnsPolicy and leaves dnsConfig empty by default
+    asserts:
+      - notExists:
+          path: spec.template.spec.dnsPolicy
+      - equal:
+          path: spec.template.spec.dnsConfig
+          value: null
+
+  - it: renders dnsPolicy, nameservers, searches and options when configured
+    set:
+      dnsConfig:
+        dnsPolicy: None
+        nameservers:
+          - 1.1.1.1
+        searches:
+          - example.com
+        options:
+          - name: ndots
+            value: "2"
+          - name: single-request-reopen
+    asserts:
+      - equal:
+          path: spec.template.spec.dnsPolicy
+          value: None
+      - equal:
+          path: spec.template.spec.dnsConfig.nameservers
+          value: ["1.1.1.1"]
+      - equal:
+          path: spec.template.spec.dnsConfig.searches
+          value: ["example.com"]
+      - equal:
+          path: spec.template.spec.dnsConfig.options
+          value:
+            - name: ndots
+              value: "2"
+            - name: single-request-reopen

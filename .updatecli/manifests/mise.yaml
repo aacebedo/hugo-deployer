@@ -70,7 +70,16 @@ sources:
 
 targets:
   {{ $dep.slug }}:
-  {{- if $dep.tomlSection }}
+  {{- if $dep.matchpattern }}
+    name: 'Bump {{ $dep.tomlKey }} in .mise/config.toml'
+    kind: file
+    scmid: default
+    sourceid: {{ $dep.slug }}
+    spec:
+      file: .mise/config.toml
+      matchpattern: '{{ $dep.matchpattern }}'
+      replacepattern: '{{ $dep.replacepattern }}'
+  {{- else if $dep.tomlSection }}
     name: 'Bump {{ $dep.tomlKey }} in .mise/config.toml'
     kind: file
     scmid: default

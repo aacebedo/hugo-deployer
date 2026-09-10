@@ -69,6 +69,7 @@ miseDeps:
     trimPrefix: true
   - slug: helm
     tomlKey: helm
+    tomlSection: true
     kind: githubrelease
     owner: helm
     repo: helm
@@ -167,13 +168,22 @@ miseDeps:
     owner: updatecli
     repo: updatecli
     trimPrefix: true
-  - slug: helmKubeconform
-    tomlKey: '"http:helm-kubeconform"'
-    tomlSection: true
+  - slug: helmKubeconformPlugin
+    tomlKey: kubeconform
     kind: githubrelease
     owner: jtyr
     repo: kubeconform-helm
     trimPrefix: true
+    matchpattern: '(install_plugin kubeconform https://github\.com/jtyr/kubeconform-helm )\S+'
+    replacepattern: '${1}{{ source "helmKubeconformPlugin" }}'
+  - slug: helmUnittestPlugin
+    tomlKey: unittest
+    kind: githubrelease
+    owner: helm-unittest
+    repo: helm-unittest
+    trimPrefix: true
+    matchpattern: '(install_plugin unittest https://github\.com/helm-unittest/helm-unittest )\S+'
+    replacepattern: '${1}{{ source "helmUnittestPlugin" }}'
 
 prekHooks:
   - slug: hadolint
