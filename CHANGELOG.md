@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## [v2.14.2](https://github.com/aacebedo/hugo-deployer/compare/09a42b0175d0938e784d48d0b1839fce6458ef1a..v2.14.2) - 2026-09-11
+#### Bug Fixes
+- add an execution path allowed in order to run binaries - ([09a42b0](https://github.com/aacebedo/hugo-deployer/commit/09a42b0175d0938e784d48d0b1839fce6458ef1a)) - Alexandre ACEBEDO
+
+- - -
+
 ## [v2.14.1](https://github.com/aacebedo/hugo-deployer/compare/8f2960e4eabe534eff7bd1153a84af595cf85e11..v2.14.1) - 2026-09-11
 #### Bug Fixes
 - fix git clone safe directory - ([8f2960e](https://github.com/aacebedo/hugo-deployer/commit/8f2960e4eabe534eff7bd1153a84af595cf85e11)) - Alexandre ACEBEDO
