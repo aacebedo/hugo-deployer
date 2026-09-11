@@ -75,6 +75,10 @@ fi
 # Set branch (default to main)
 BRANCH=${GIT_BRANCH:-main}
 
+# Let a project's pre-build hooks install their own build tools here, so they're on PATH for the Hugo build
+# step further down.
+export PATH="${HOME}/.local/bin:${PATH}"
+
 git config --global --add safe.directory /app/site
 
 # Check if site directory exists
