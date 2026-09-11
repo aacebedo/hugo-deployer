@@ -20,4 +20,4 @@ podman save "${IMAGE_NAME}:${COMMIT_SHA}" -o "${image_tar}"
 
 trivy image --format sarif \
 	--input "${image_tar}" \
-	--skip-version-check --output /tmp/trivy-results.sarif -d
+	--skip-version-check --output /tmp/trivy-results.sarif

@@ -42,6 +42,17 @@ jobs:
           token: ${{ steps.generate-token.outputs.token }}
           actor: ${{ github.actor }}
           repository: ${{ github.repository }}
+      - name: Configure git remote and user info
+        shell: bash
+        run: |
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+          git remote set-url origin \
+            "https://${REPO_OWNER}:${TOKEN}@github.com/${REPO}.git"
+        env:
+          REPO_OWNER: ${{ github.repository_owner }}
+          TOKEN: ${{ steps.generate-token.outputs.token }}
+          REPO: ${{ github.repository }}
       - name: Perform release
         id: release
         run: |

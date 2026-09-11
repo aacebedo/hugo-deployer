@@ -2,7 +2,7 @@
 
 #MISE description = "Publish a release"
 
-#MISE depends = ["lint", "test", "security-scan"]
+#MISE depends = ["lint", "run:tests", "run:security-scan"]
 
 #MISE env = { REGISTRY_USERNAME = { required = true } }
 #MISE env = { REGISTRY_PASSWORD = { required = true, redact = true } }
