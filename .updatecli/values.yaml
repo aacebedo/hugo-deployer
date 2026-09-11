@@ -1,0 +1,238 @@
+---
+github:
+  owner: aacebedo
+  repository: hugo-deployer
+  branch: main
+  user: "github-actions[bot]"
+  email: "41898282+github-actions[bot]@users.noreply.github.com"
+  token: UPDATECLI_GITHUB_TOKEN
+
+dockerfileDeps:
+  - slug: go
+    arg: GO_VERSION
+    kind: golang
+  - slug: hugo
+    arg: HUGO_VERSION
+    kind: githubrelease
+    owner: gohugoio
+    repo: hugo
+    trimPrefix: true
+  - slug: caddy
+    arg: CADDY_VERSION
+    kind: githubrelease
+    owner: caddyserver
+    repo: caddy
+    trimPrefix: true
+  - slug: xcaddy
+    arg: XCADDY_VERSION
+    kind: githubrelease
+    owner: caddyserver
+    repo: xcaddy
+    trimPrefix: false
+  - slug: dartSass
+    arg: DART_SASS_VERSION
+    kind: githubrelease
+    owner: sass
+    repo: dart-sass
+    trimPrefix: false
+
+miseDeps:
+  - slug: uv
+    tomlKey: uv
+    kind: githubrelease
+    owner: astral-sh
+    repo: uv
+  - slug: shellcheck
+    tomlKey: shellcheck
+    kind: githubrelease
+    owner: koalaman
+    repo: shellcheck
+    trimPrefix: true
+  - slug: go
+    tomlKey: go
+    kind: golang
+  - slug: podmanCompose
+    tomlKey: '"pipx:podman-compose"'
+    kind: pypi
+    name: podman-compose
+  - slug: kubeLinter
+    tomlKey: kube-linter
+    kind: githubrelease
+    owner: stackrox
+    repo: kube-linter
+    trimPrefix: true
+  - slug: kubeconform
+    tomlKey: kubeconform
+    kind: githubrelease
+    owner: yannh
+    repo: kubeconform
+    trimPrefix: true
+  - slug: helm
+    tomlKey: helm
+    tomlSection: true
+    kind: githubrelease
+    owner: helm
+    repo: helm
+    trimPrefix: true
+  - slug: checkov
+    tomlKey: '"pipx:checkov"'
+    kind: pypi
+    name: checkov
+  - slug: editorconfigChecker
+    tomlKey: editorconfig-checker
+    kind: githubrelease
+    owner: editorconfig-checker
+    repo: editorconfig-checker
+    trimPrefix: true
+  - slug: hadolint
+    tomlKey: hadolint
+    kind: githubrelease
+    owner: hadolint
+    repo: hadolint
+    trimPrefix: true
+  - slug: tombi
+    tomlKey: tombi
+    kind: githubrelease
+    owner: tombi-toml
+    repo: tombi
+    trimPrefix: true
+  - slug: prek
+    tomlKey: prek
+    kind: githubrelease
+    owner: j178
+    repo: prek
+    trimPrefix: true
+  - slug: trivy
+    tomlKey: trivy
+    kind: githubrelease
+    owner: aquasecurity
+    repo: trivy
+    trimPrefix: true
+  - slug: vale
+    tomlKey: vale
+    kind: githubrelease
+    owner: errata-ai
+    repo: vale
+    trimPrefix: true
+  - slug: yamllint
+    tomlKey: yamllint
+    kind: pypi
+    name: yamllint
+  - slug: node
+    tomlKey: node
+    kind: githubrelease
+    owner: nodejs
+    repo: node
+    trimPrefix: true
+    versionfilterPattern: "~24"
+    comment: Pinned to the current LTS line; only even Node.js majors reach LTS.
+  - slug: python
+    tomlKey: python
+    kind: githubrelease
+    owner: python
+    repo: cpython
+    versionfilterRegex: '^v(\d+\.\d+\.\d+)$'
+    comment: CPython has no GitHub release; Updatecli falls back to git tags, which also carry alpha/beta/rc suffixes.
+  - slug: cocogitto
+    tomlKey: '"github:cocogitto/cocogitto"'
+    kind: githubrelease
+    owner: cocogitto
+    repo: cocogitto
+  - slug: gh
+    tomlKey: gh
+    kind: githubrelease
+    owner: cli
+    repo: cli
+    trimPrefix: true
+  - slug: dprint
+    tomlKey: dprint
+    kind: githubrelease
+    owner: dprint
+    repo: dprint
+  - slug: rumdl
+    tomlKey: rumdl
+    kind: githubrelease
+    owner: rvben
+    repo: rumdl
+    trimPrefix: true
+  - slug: biome
+    tomlKey: biome
+    kind: githubrelease
+    owner: biomejs
+    repo: biome
+    versionfilterRegex: '^@biomejs/biome@(\d+\.\d+\.\d+)$'
+    comment: Biome is a monorepo tagging releases as "@biomejs/biome@x.y.z".
+  - slug: updatecli
+    tomlKey: updatecli
+    kind: githubrelease
+    owner: updatecli
+    repo: updatecli
+    trimPrefix: true
+  - slug: helmKubeconformPlugin
+    tomlKey: kubeconform
+    kind: githubrelease
+    owner: jtyr
+    repo: kubeconform-helm
+    trimPrefix: true
+    matchpattern: '(install_plugin kubeconform https://github\.com/jtyr/kubeconform-helm )\S+'
+    replacepattern: '${1}{{ source "helmKubeconformPlugin" }}'
+  - slug: helmUnittestPlugin
+    tomlKey: unittest
+    kind: githubrelease
+    owner: helm-unittest
+    repo: helm-unittest
+    trimPrefix: true
+    matchpattern: '(install_plugin unittest https://github\.com/helm-unittest/helm-unittest )\S+'
+    replacepattern: '${1}{{ source "helmUnittestPlugin" }}'
+
+prekHooks:
+  - slug: hadolint
+    repoUrlPattern: 'https://github\.com/hadolint/hadolint'
+    owner: hadolint
+    repo: hadolint
+  - slug: yamllint
+    repoUrlPattern: 'https://github\.com/adrienverge/yamllint'
+    owner: adrienverge
+    repo: yamllint
+  - slug: editorconfigChecker
+    repoUrlPattern: 'https://github\.com/editorconfig-checker/editorconfig-checker'
+    owner: editorconfig-checker
+    repo: editorconfig-checker
+  - slug: commitizen
+    repoUrlPattern: 'https://github\.com/commitizen-tools/commitizen'
+    owner: commitizen-tools
+    repo: commitizen
+  - slug: vale
+    repoUrlPattern: 'https://github\.com/errata-ai/vale'
+    owner: errata-ai
+    repo: vale
+  - slug: rumdlPreCommit
+    repoUrlPattern: 'https://github\.com/rvben/rumdl-pre-commit'
+    owner: rvben
+    repo: rumdl-pre-commit
+  - slug: shellcheckPy
+    repoUrlPattern: 'https://github\.com/shellcheck-py/shellcheck-py'
+    owner: shellcheck-py
+    repo: shellcheck-py
+    versionfilterKind: regex
+    versionfilterPattern: '^v\d+\.\d+\.\d+\.\d+$'
+    comment: shellcheck-py tags as "vMAJOR.MINOR.PATCH.WRAPPER", a 4 component scheme that plain semver can't parse.
+  - slug: shfmt
+    repoUrlPattern: 'https://github\.com/scop/pre-commit-shfmt'
+    owner: scop
+    repo: pre-commit-shfmt
+    versionfilterKind: semver
+    versionfilterPattern: ">=0.0.0-0"
+    comment: Masterminds semver treats the suffix as a pre-release; opt back in explicitly.
+  - slug: gruntworkPreCommit
+    repoUrlPattern: 'https://github\.com/gruntwork-io/pre-commit'
+    owner: gruntwork-io
+    repo: pre-commit
+  - slug: kubeconformHelm
+    repoUrlPattern: 'https://github\.com/jtyr/kubeconform-helm'
+    owner: jtyr
+    repo: kubeconform-helm
+  - slug: checkov
+    repoUrlPattern: 'https://github\.com/bridgecrewio/checkov\.git'
+    owner: bridgecrewio
+    repo: checkov

@@ -1,10 +1,8 @@
 ---
 exit-code: 1
-severity: "CRITICAL"
+severity: ["CRITICAL"]
 skip-update: false
 ignore-unfixed: true
-output:
-  clean-scan-result: true
 scan:
   scanners:
     - vuln

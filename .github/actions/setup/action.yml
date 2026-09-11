@@ -1,0 +1,25 @@
+---
+name: Setup
+description: Sets up mise and configures git
+inputs:
+  token:
+    description: GitHub token for setting the remote URL
+    required: false
+  actor:
+    description: GitHub username
+    required: false
+  repository:
+    description: GitHub repository in format owner/repo
+    required: false
+runs:
+  using: composite
+  steps:
+    - name: Setup mise
+      uses: jdx/mise-action@v4.3.0
+      with:
+        bootstrap: true
+        cache: false
+    - name: Configure git safe directory
+      shell: bash
+      run: |
+        git config --global --add safe.directory '*'

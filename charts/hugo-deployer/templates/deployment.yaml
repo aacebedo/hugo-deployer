@@ -60,20 +60,11 @@ spec:
               path: /
               port: 80
               scheme: HTTP
-          resources:
-            limits:
-              cpu: 1500m
-              memory: 2400Mi
-            requests:
-              cpu: 75m
-              memory: 200Mi
           ports:
             - containerPort: 80
               name: http
-          {{- if and .Values.resources (gt (len .Values.resources) 0) }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-          {{- end }}
           volumeMounts:
             - mountPath: /tmp
               name: tmp-volume

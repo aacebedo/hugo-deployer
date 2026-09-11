@@ -41,6 +41,9 @@
 
 	# Protected update endpoint
 	route /update {
+		# Never let this trigger endpoint be cached by an intermediary
+		header Cache-Control "no-store"
+
 		@authorized header Authorization "Bearer {$UPDATE_API_KEY}"
 		exec @authorized update-site.sh {
 			timeout 300s

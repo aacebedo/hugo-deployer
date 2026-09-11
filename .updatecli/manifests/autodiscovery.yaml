@@ -1,0 +1,43 @@
+---
+name: "Autodiscover GitHub Actions and Dockerfile base image updates"
+
+scms:
+  default:
+    kind: github
+    spec:
+      user: "{{ .github.user }}"
+      email: "{{ .github.email }}"
+      owner: "{{ .github.owner }}"
+      repository: "{{ .github.repository }}"
+      token: '{{ requiredEnv "UPDATECLI_GITHUB_TOKEN" }}'
+      username: "{{ .github.username }}"
+      branch: "{{ .github.branch }}"
+      commitusingapi: true
+      commitmessage:
+        type: fix
+        scope: deps
+
+autodiscovery:
+  scmid: default
+  actionid: default
+  groupby: individual
+  crawlers:
+    github/action:
+      rootdir: ".github"
+      digest: false
+      credentials:
+        "github.com":
+          kind: github
+          token: '{{ requiredEnv "UPDATECLI_GITHUB_TOKEN" }}'
+    dockerfile:
+      digest: false
+      filematch:
+        - "Dockerfile"
+
+actions:
+  default:
+    kind: github/pullrequest
+    scmid: default
+    spec:
+      labels:
+        - dependencies
