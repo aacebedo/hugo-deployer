@@ -34,7 +34,3 @@ jobs:
         run: mise lint
       - name: Run tests
         run: mise run:tests
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Run security-scan
-        run: mise run:security-scan

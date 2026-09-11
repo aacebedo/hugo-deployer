@@ -2,11 +2,10 @@
 
 #MISE description = "Run tests"
 
-#MISE depends = ["build"]
+#MISE depends = ["build", "run:security-scan"]
 
 #MISE env = { IMAGE_NAME = "{{vars.image_name}}" }
 #MISE env = { COMMIT_SHA = "{{vars.commit_sha}}" }
-#MISE env = { GITHUB_TOKEN = { required = true, redact = true } }
 
 set -euo pipefail
 
@@ -23,11 +22,7 @@ set -a
 source .env
 set +a
 
-override_file="$(mktemp)"
-trap 'rm -f "${override_file}"; podman-compose down' EXIT
-cat >"${override_file}" <<JSON
-{"services":{"hugo-site":{"environment":{"GIT_USERNAME":"x-access-token","GIT_TOKEN":"${GITHUB_TOKEN}"}}}}
-JSON
+trap 'podman-compose down' EXIT
 
-podman-compose -f docker-compose.yaml -f "${override_file}" up -d
+podman-compose -f docker-compose.yaml up -d
 curl --retry 5 --retry-delay 5 --retry-all-errors "localhost:${PORT}" >/dev/null
