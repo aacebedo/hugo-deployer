@@ -75,6 +75,8 @@ fi
 # Set branch (default to main)
 BRANCH=${GIT_BRANCH:-main}
 
+git config --global --add safe.directory /app/site
+
 # Check if site directory exists
 if [ ! -d "/app/site/.git" ]; then
 	# Create credentials for HTTPS authentication

@@ -5,7 +5,10 @@ ignore_merge_commits = true
 pre_bump_hooks = [
   "sed -i \"s/^appVersion: .*/appVersion: {{version}}/\" charts/hugo-deployer/Chart.yaml",
   "sed -i \"s/^  tag: .*/  tag: {{version}}/\" charts/hugo-deployer/values.yaml",
-  "git add charts/hugo-deployer/Chart.yaml charts/hugo-deployer/values.yaml",
+  '''sed -i "s#app.kubernetes.io/app-version: \"[^\"]*\"#app.kubernetes.io/app-version: \"{{version}}\"#" \
+  charts/hugo-deployer/tests/service_test.yaml''',
+  '''git add charts/hugo-deployer/Chart.yaml charts/hugo-deployer/values.yaml \
+  charts/hugo-deployer/tests/service_test.yaml''',
 ]
 
 post_bump_hooks = [
