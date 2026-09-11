@@ -24,7 +24,7 @@ tests:
             app.kubernetes.io/name: hugo-deployer
             app.kubernetes.io/instance: RELEASE-NAME
             app.kubernetes.io/chart-version: 0.1.0
-            app.kubernetes.io/app-version: "2.14.0"
+            app.kubernetes.io/app-version: "2.14.1"
 
   - it: exposes port 80 targeting the http container port and selects the app pods
     asserts:

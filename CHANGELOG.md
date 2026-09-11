@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## [v2.14.1](https://github.com/aacebedo/hugo-deployer/compare/8f2960e4eabe534eff7bd1153a84af595cf85e11..v2.14.1) - 2026-09-11
+#### Bug Fixes
+- fix git clone safe directory - ([8f2960e](https://github.com/aacebedo/hugo-deployer/commit/8f2960e4eabe534eff7bd1153a84af595cf85e11)) - Alexandre ACEBEDO
+
+- - -
+
 ## [v2.14.0](https://github.com/aacebedo/hugo-deployer/compare/f4071045d156afb4a4c0a5d7153ab42decfad81d..v2.14.0) - 2026-09-11
 #### Features
 - add tests for helm charts - ([e9fd488](https://github.com/aacebedo/hugo-deployer/commit/e9fd4882b27692ff306788f8168b92cf2b5f977f)) - Alexandre ACEBEDO
