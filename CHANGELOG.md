@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## [v2.14.5](https://github.com/aacebedo/hugo-deployer/compare/6090b1d1f348b135022ef793b481fa374156ba45..v2.14.5) - 2026-09-12
+#### Bug Fixes
+- fix logic for docker entrypoint - ([6090b1d](https://github.com/aacebedo/hugo-deployer/commit/6090b1d1f348b135022ef793b481fa374156ba45)) - Alexandre ACEBEDO
+
+- - -
+
 ## [v2.14.4](https://github.com/aacebedo/hugo-deployer/compare/711b51153eb0bdbc4f4e5645c162a7be8f1a5d44..v2.14.4) - 2026-09-12
 #### Bug Fixes
 - correct Caddyfile indentation to silence caddy fmt warning - ([711b511](https://github.com/aacebedo/hugo-deployer/commit/711b51153eb0bdbc4f4e5645c162a7be8f1a5d44)) - Alexandre Acebedo
