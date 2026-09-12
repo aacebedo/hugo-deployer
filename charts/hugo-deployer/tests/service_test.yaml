@@ -19,12 +19,19 @@ tests:
   - it: labels the service using the labels helper
     asserts:
       - equal:
-          path: metadata.labels
-          value:
-            app.kubernetes.io/name: hugo-deployer
-            app.kubernetes.io/instance: RELEASE-NAME
-            app.kubernetes.io/chart-version: 0.1.0
-            app.kubernetes.io/app-version: "2.14.2"
+          path: metadata.labels['app.kubernetes.io/name']
+          value: hugo-deployer
+      - equal:
+          path: metadata.labels['app.kubernetes.io/instance']
+          value: RELEASE-NAME
+      # chart-version and app-version are cog-managed and move together on every
+      # release, so assert their shape rather than pinning an exact value here.
+      - matchRegex:
+          path: metadata.labels['app.kubernetes.io/chart-version']
+          pattern: '^\d+\.\d+\.\d+$'
+      - matchRegex:
+          path: metadata.labels['app.kubernetes.io/app-version']
+          pattern: '^\d+\.\d+\.\d+$'
 
   - it: exposes port 80 targeting the http container port and selects the app pods
     asserts:
