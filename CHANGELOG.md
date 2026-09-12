@@ -2,6 +2,13 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## [v2.14.3](https://github.com/aacebedo/hugo-deployer/compare/3dbf2cf8bd86ea50b76fdc308382e5e17d38c2b6..v2.14.3) - 2026-09-12
+#### Bug Fixes
+- stop pinning exact chart/app version in service label test - ([0946f5a](https://github.com/aacebedo/hugo-deployer/commit/0946f5af7a2cbfe51963ca533279ff16a9dbc448)) - Alexandre Acebedo
+- change default caddy port to prevent permission error - ([3dbf2cf](https://github.com/aacebedo/hugo-deployer/commit/3dbf2cf8bd86ea50b76fdc308382e5e17d38c2b6)) - Alexandre ACEBEDO
+
+- - -
+
 ## [v2.14.2](https://github.com/aacebedo/hugo-deployer/compare/09a42b0175d0938e784d48d0b1839fce6458ef1a..v2.14.2) - 2026-09-11
 #### Bug Fixes
 - add an execution path allowed in order to run binaries - ([09a42b0](https://github.com/aacebedo/hugo-deployer/commit/09a42b0175d0938e784d48d0b1839fce6458ef1a)) - Alexandre ACEBEDO
