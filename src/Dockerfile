@@ -94,9 +94,6 @@ USER appuser
 # Set working directory
 WORKDIR /app
 
-# Note: GIT_TOKEN and API_KEY should be provided at runtime via docker-compose or kubernetes
-# for security reasons, not baked into the image
-
 # Expose port
 EXPOSE 8080
 
@@ -104,6 +101,4 @@ EXPOSE 8080
 HEALTHCHECK --interval=60s --timeout=3s --start-period=5s --retries=5 \
   CMD curl -f http://localhost:8080 || exit 1
 
-# Start with startup script that then runs Caddy
 ENTRYPOINT ["/usr/local/bin/startup.sh"]
-CMD ["caddy", "run", "--config", "/app/config/Caddyfile"]
