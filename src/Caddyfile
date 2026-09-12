@@ -1,5 +1,7 @@
 # HTTP only configuration for reverse proxy setup
-:80 {
+# Listens on an unprivileged port since the container runs as non-root with
+# all Linux capabilities dropped (no CAP_NET_BIND_SERVICE for port 80).
+:8080 {
 	# Enable file server for Hugo built site
 	root * /app/builds/current
 	file_server

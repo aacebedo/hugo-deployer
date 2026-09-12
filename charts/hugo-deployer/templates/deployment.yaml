@@ -48,7 +48,7 @@ spec:
           livenessProbe:
             httpGet:
               path: /
-              port: 80
+              port: 8080
               scheme: HTTP
             initialDelaySeconds: 12
             timeoutSeconds: 5
@@ -58,10 +58,10 @@ spec:
           readinessProbe:
             httpGet:
               path: /
-              port: 80
+              port: 8080
               scheme: HTTP
           ports:
-            - containerPort: 80
+            - containerPort: 8080
               name: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}

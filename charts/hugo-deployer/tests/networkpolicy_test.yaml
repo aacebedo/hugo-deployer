@@ -24,7 +24,7 @@ tests:
             app.kubernetes.io/name: hugo-deployer
             app.kubernetes.io/instance: RELEASE-NAME
 
-  - it: allows ingress on port 80 and unrestricted egress
+  - it: allows ingress on port 8080 and unrestricted egress
     asserts:
       - equal:
           path: spec.policyTypes
@@ -32,7 +32,7 @@ tests:
       - equal:
           path: spec.ingress[0].ports[0]
           value:
-            port: 80
+            port: 8080
             protocol: TCP
       - equal:
           path: spec.egress

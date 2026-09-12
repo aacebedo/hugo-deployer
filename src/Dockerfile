@@ -56,8 +56,7 @@ apk add --no-cache \
     bash \
     gcompat \
     libstdc++ \
-    libgcc \
-    libcap-setcap
+    libgcc
 EOF
 
 # Copy Hugo, Caddy, Go, Dart Sass
@@ -65,8 +64,6 @@ COPY --from=builder --chmod=0755 /tmp/go /opt/go
 COPY --from=builder --chmod=0755 /tmp/hugo /usr/local/bin/hugo
 COPY --from=builder --chmod=0755 /caddy-build/caddy /usr/local/bin/caddy
 COPY --from=builder --chmod=0755 /tmp/sass /usr/local/bin/sass
-
-RUN setcap 'cap_net_bind_service=+ep' /usr/local/bin/caddy
 
 ENV PATH="/opt/go/bin:/opt/node/bin:${PATH}"
 
@@ -101,11 +98,11 @@ WORKDIR /app
 # for security reasons, not baked into the image
 
 # Expose port
-EXPOSE 80
+EXPOSE 8080
 
 # Health check
 HEALTHCHECK --interval=60s --timeout=3s --start-period=5s --retries=5 \
-  CMD curl -f http://localhost:80 || exit 1
+  CMD curl -f http://localhost:8080 || exit 1
 
 # Start with startup script that then runs Caddy
 ENTRYPOINT ["/usr/local/bin/startup.sh"]

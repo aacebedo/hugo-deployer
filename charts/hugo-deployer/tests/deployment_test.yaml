@@ -73,19 +73,19 @@ tests:
           path: spec.template.spec.containers[0].securityContext.capabilities.drop
           value: [ALL]
 
-  - it: exposes port 80 with liveness and readiness probes
+  - it: exposes port 8080 with liveness and readiness probes
     asserts:
       - equal:
           path: spec.template.spec.containers[0].ports[0]
           value:
-            containerPort: 80
+            containerPort: 8080
             name: http
       - equal:
           path: spec.template.spec.containers[0].livenessProbe.httpGet.port
-          value: 80
+          value: 8080
       - equal:
           path: spec.template.spec.containers[0].readinessProbe.httpGet.port
-          value: 80
+          value: 8080
 
   - it: mounts a writable tmp volume and the app/user-home volumes read-write from emptyDir
     asserts:
