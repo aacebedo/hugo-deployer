@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## [v2.14.4](https://github.com/aacebedo/hugo-deployer/compare/711b51153eb0bdbc4f4e5645c162a7be8f1a5d44..v2.14.4) - 2026-09-12
+#### Bug Fixes
+- correct Caddyfile indentation to silence caddy fmt warning - ([711b511](https://github.com/aacebedo/hugo-deployer/commit/711b51153eb0bdbc4f4e5645c162a7be8f1a5d44)) - Alexandre Acebedo
+
+- - -
+
 ## [v2.14.3](https://github.com/aacebedo/hugo-deployer/compare/3dbf2cf8bd86ea50b76fdc308382e5e17d38c2b6..v2.14.3) - 2026-09-12
 #### Bug Fixes
 - stop pinning exact chart/app version in service label test - ([0946f5a](https://github.com/aacebedo/hugo-deployer/commit/0946f5af7a2cbfe51963ca533279ff16a9dbc448)) - Alexandre Acebedo
