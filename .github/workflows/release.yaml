@@ -20,7 +20,7 @@ jobs:
       actions: read
       security-events: write
     container:
-      image: ghcr.io/aacebedo/devcontainer-base:1.21.1
+      image: ghcr.io/aacebedo/devcontainer-base:1.22.0
       options: --user root --privileged --cgroupns=host --security-opt apparmor=unconfined --device /dev/fuse
     steps:
       - name: Generate a token
