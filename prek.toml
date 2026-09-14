@@ -85,7 +85,7 @@ hooks = [{ id = "shellcheck" }]
 
 [[repos]]
 repo = "https://github.com/scop/pre-commit-shfmt"
-rev = "v3.12.0-2"
+rev = "v3.14.1-1"
 hooks = [{ id = "shfmt" }]
 
 [[repos]]
