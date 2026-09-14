@@ -100,7 +100,7 @@ hooks = [{ id = "kubeconform-helm" }]
 
 [[repos]]
 repo = "https://github.com/bridgecrewio/checkov.git"
-rev = "3.2.528"
+rev = "3.3.17"
 
 [[repos.hooks]]
 id = "checkov"
