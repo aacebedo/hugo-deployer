@@ -41,7 +41,7 @@ install_plugin() {
     helm plugin install "$url" --version "$version" --verify=false
   fi
 }
-install_plugin kubeconform https://github.com/jtyr/kubeconform-helm 0.2.0
+install_plugin kubeconform https://github.com/jtyr/kubeconform-helm 0.3.0
 install_plugin unittest https://github.com/helm-unittest/helm-unittest 1.1.2
 '''
 
