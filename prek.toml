@@ -48,7 +48,7 @@ hooks = [{ id = "commitizen" }]
 
 [[repos]]
 repo = "https://github.com/errata-ai/vale"
-rev = "v3.14.0"
+rev = "v3.21.0"
 hooks = [{ id = "vale" }]
 
 [[repos]]
