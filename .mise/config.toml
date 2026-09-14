@@ -31,7 +31,7 @@ updatecli = "0.120.1"
 shfmt = "3.14.1"
 
 [tools.helm]
-version = "4.2.0"
+version = "4.3.0"
 postinstall = '''
 install_plugin() {
   name="$1"; url="$2"; version="$3"
