@@ -6,7 +6,7 @@ CGO_ENABLED = 1
 MISE_GITHUB_TOKEN = { required = true, redact = true }
 
 [tools]
-uv = "0.11.1"
+uv = "0.12.13"
 shellcheck = "0.11.0"
 go = "1.26.4"
 "pipx:podman-compose" = "1.6.0"
