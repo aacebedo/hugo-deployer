@@ -8,7 +8,7 @@ MISE_GITHUB_TOKEN = { required = true, redact = true }
 [tools]
 uv = "0.11.1"
 shellcheck = "0.11.0"
-go = "1.26.4"
+go = "1.27.1"
 "pipx:podman-compose" = "1.6.0"
 kube-linter = "0.8.1"
 kubeconform = "0.8.0"
