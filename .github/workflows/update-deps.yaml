@@ -13,7 +13,7 @@ jobs:
     permissions:
       contents: read
     container:
-      image: ghcr.io/aacebedo/devcontainer-base:1.22.0
+      image: ghcr.io/aacebedo/devcontainer-base:1.23.0
       options: --user root --privileged
 
     steps:
