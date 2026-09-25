@@ -15,7 +15,7 @@ gh_version: 2.101.0
 github_owner: aacebedo
 hadolint_version: 2.15.1
 helm_unittest_version: 1.1.2
-helm_version: 4.3.0
+helm_version: '4.3.0'
 layers: container,helmcharts
 license: MIT
 prek_version: 0.5.3
