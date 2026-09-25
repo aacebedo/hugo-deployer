@@ -1,34 +1,19 @@
 {
+  "$schema": "https://dprint.dev/schemas/v0.json",
   "lineWidth": 120,
   "indentWidth": 2,
   "useTabs": false,
   "newLineKind": "lf",
-  "yaml": {
-    "printWidth": 120
-  },
-  "markdown": {
-    "textWrap": "always"
-  },
-  "plugins": [
-    "https://plugins.dprint.dev/json-0.23.0.wasm",
-    "https://plugins.dprint.dev/g-plane/pretty_yaml-v0.6.0.wasm",
-    "https://plugins.dprint.dev/markdown-0.22.1.wasm",
-    "https://plugins.dprint.dev/toml-0.7.0.wasm",
-    "https://plugins.dprint.dev/dockerfile-0.4.1.wasm"
-  ],
-  "includes": [
-    "**/*.{json,jsonc,yaml,yml,md,toml}",
-    "**/Dockerfile",
-    "**/*.dockerfile"
-  ],
   "excludes": [
-    ".vale/Google/**",
-    "dist/**",
-    "CHANGELOG.md",
-    "charts/**/templates/**",
-    ".updatecli/manifests/mise.yaml",
-    ".updatecli/manifests/prek.yaml",
-    ".updatecli/manifests/dprint.yaml",
-    ".updatecli/manifests/dockerfile.yaml"
+    "**/node_modules",
+    "**/*-lock.json",
+    ".boilerplate-answers.yaml",
+    ".updatecli/manifests/**",
+    "CHANGELOG.md"
+  ],
+  "extends": [
+    "https://raw.githubusercontent.com/aacebedo/boilerplate-templates/v0.3.2/static_files/dprint/container.json",
+    "https://raw.githubusercontent.com/aacebedo/boilerplate-templates/v0.3.2/static_files/dprint/helmcharts.json",
+    "https://raw.githubusercontent.com/aacebedo/boilerplate-templates/v0.3.2/static_files/dprint/base.json"
   ]
 }

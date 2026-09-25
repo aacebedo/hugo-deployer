@@ -1,5 +1,9 @@
 ---
 ignored:
-  - DL3018 # Pin versions in apk add (we want latest for system packages)
-  - DL3059 # Disable multiple consecutive RUN
-  - DL4006 # Issue with podman as SHELL is ignored
+  # Pinning versions in `apk add` is left to the base image.
+  - DL3018
+  # Consecutive RUN instructions are allowed.
+  - DL3059
+  # podman ignores the SHELL instruction for the Docker image format, so the "set SHELL -o pipefail" advice from
+  # hadolint can't be followed there.
+  - DL4006

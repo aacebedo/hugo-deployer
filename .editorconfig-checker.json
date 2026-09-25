@@ -5,10 +5,7 @@
   "IgnoreDefaults": false,
   "SpacesAfterTabs": false,
   "NoColor": false,
-  "Exclude": [
-    "CHANGELOG\\.md",
-    "\\.mergify\\.yaml"
-  ],
+  "Exclude": ["CHANGELOG\\.md", "(?i)(^|/)licen[cs]es?(/|\\.|$)"],
   "AllowedContentTypes": [],
   "PassedFiles": [],
   "Disable": {

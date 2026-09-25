@@ -1,21 +1,22 @@
-# http://editorconfig.org
 root = true
 
 [*]
-indent_style = tab
-indent_size = 2
-end_of_line = lf
 charset = utf-8
-trim_trailing_whitespace = true
+end_of_line = lf
 insert_final_newline = true
+trim_trailing_whitespace = true
+indent_style = space
+indent_size = 2
 max_line_length = 120
 
-[*.{yaml,yml,json,jsonc,toml,ini,tpl}]
-indent_style = space
+[*.sh]
+indent_style = tab
+
+[Caddyfile]
+indent_style = tab
 
 [*.md]
 indent_style = space
 indent_size = 1
-
-[Dockerfile]
-indent_style = space
+trim_trailing_whitespace = false
+max_line_length = off

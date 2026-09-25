@@ -1,0 +1,5 @@
+[tools]
+helm = "4.3.0"
+
+[vars]
+helm_unittest_version = "1.1.2"

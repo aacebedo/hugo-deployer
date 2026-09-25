@@ -1,0 +1,10 @@
+[tools]
+hadolint = "2.15.1"
+
+[vars]
+image_name = "ghcr.io/{{vars.repo_owner}}/{{vars.repo_name}}"
+image_description = "Docker image deploying a Hugo website, with automatic updates when a specific endpoint is called"
+image_licenses = "MIT"
+
+[env]
+IMAGE_NAME = "{{vars.image_name}}"

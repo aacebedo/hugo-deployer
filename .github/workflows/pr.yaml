@@ -12,25 +12,15 @@ permissions: {}
 
 jobs:
   pr-checks:
-    runs-on: ubuntu-26.04
-    container:
-      image: ghcr.io/aacebedo/devcontainer-base:1.21.1
-      options: --user root --privileged --cgroupns=host --security-opt apparmor=unconfined --device /dev/fuse
+    uses: aacebedo/boilerplate-templates/.github/workflows/reusable-pr.yaml@v0.3.2
     permissions:
       contents: read
       packages: read
+    with:
+      container-image: ghcr.io/aacebedo/devcontainer-base:1.23.0
+      container-options: >-
+        --user root
+        --privileged --cgroupns=host --security-opt apparmor=unconfined --device /dev/fuse
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v7.0.1
-        with:
-          persist-credentials: false
-          token: ${{ secrets.GITHUB_TOKEN }}
-          fetch-depth: 0
-          fetch-tags: true
-      - name: Setup
-        uses: ./.github/actions/setup
-      - name: Lint
-        run: mise lint
-      - name: Run tests
-        run: mise run:tests
+      extra-tasks: >-
+        container:security-scan
