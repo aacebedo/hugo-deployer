@@ -6,7 +6,7 @@ template_ref: v0.3.3
 biome_version: 2.5.14
 boilerplate_version: 0.16.0
 cocogitto_version: 7.0.0
-codebook_version: 0.3.43
+codebook_version: '0.3.42'
 devcontainer: true
 devcontainer_image_version: 1.23.0
 dprint_version: 0.57.4
