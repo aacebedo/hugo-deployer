@@ -10,7 +10,7 @@ codebook_version: 0.3.43
 devcontainer: true
 devcontainer_image_version: 1.23.0
 dprint_version: 0.57.4
-editorconfig_checker_version: 4.0.2
+editorconfig_checker_version: '4.0.2'
 gh_version: 2.101.0
 github_owner: aacebedo
 hadolint_version: 2.15.1
