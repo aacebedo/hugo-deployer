@@ -2,6 +2,14 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## [v2.15.0](https://github.com/aacebedo/hugo-deployer/compare/203bd833f7aa8ae73491d6653f4d43a00d0b63a1..v2.15.0) - 2026-09-25
+#### Features
+- apply boilerplate templates - ([203bd83](https://github.com/aacebedo/hugo-deployer/commit/203bd833f7aa8ae73491d6653f4d43a00d0b63a1)) - Alexandre ACEBEDO
+#### Miscellaneous Chores
+- update templates to v0.3.3 - ([fe50e43](https://github.com/aacebedo/hugo-deployer/commit/fe50e430170d1fcd146d3715b6b7d9292b276260)) - Alexandre ACEBEDO
+
+- - -
+
 ## [v2.14.5](https://github.com/aacebedo/hugo-deployer/compare/6090b1d1f348b135022ef793b481fa374156ba45..v2.14.5) - 2026-09-12
 #### Bug Fixes
 - fix logic for docker entrypoint - ([6090b1d](https://github.com/aacebedo/hugo-deployer/commit/6090b1d1f348b135022ef793b481fa374156ba45)) - Alexandre ACEBEDO
