@@ -1,11 +1,11 @@
 # The build argument versions below are kept up to date by Updatecli,
-# see .updatecli/manifests/dockerfile.yaml for the upstream source of each one.
+# see .updatecli/values.d/hugo-deployer.yaml for the upstream source of each one.
 ARG ALPINE_VERSION=3.24
 
 FROM alpine:${ALPINE_VERSION} AS builder
 
 ARG GO_VERSION=1.26.8
-ARG HUGO_VERSION=0.165.0
+ARG HUGO_VERSION=0.166.0
 ARG CADDY_VERSION=2.11.1
 ARG XCADDY_VERSION=v0.4.5
 ARG CADDY_EXEC_VERSION=master
@@ -89,6 +89,7 @@ caddy validate --config /app/config/Caddyfile
 EOF
 
 # Switch to non-root user
+# hadolint ignore=DL3066
 USER appuser
 
 # Set working directory
@@ -98,6 +99,7 @@ WORKDIR /app
 EXPOSE 8080
 
 # Health check
+# hadolint ignore=DL3025
 HEALTHCHECK --interval=60s --timeout=3s --start-period=5s --retries=5 \
   CMD curl -f http://localhost:8080 || exit 1
 

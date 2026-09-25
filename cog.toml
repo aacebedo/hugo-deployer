@@ -13,16 +13,22 @@ pre_bump_hooks = [
 ]
 
 post_bump_hooks = [
+  "mise run container:security-scan",
+  'printenv CONTAINER_REGISTRY_TOKEN | podman login "${IMAGE_NAME%%/*}" --username "$GITHUB_ACTOR" --password-stdin',
+  'podman tag "$IMAGE_NAME:$(git rev-parse HEAD)" "$IMAGE_NAME:{{version}}"',
+  'podman tag "$IMAGE_NAME:$(git rev-parse HEAD)" "$IMAGE_NAME:latest"',
+  'podman push "$IMAGE_NAME:{{version}}"',
+  'podman push "$IMAGE_NAME:latest"',
   "git push",
   "git push origin {{version_tag}}",
   "cog changelog --at {{version_tag}} --template full_hash > /tmp/cog-release-notes-{{version}}.md",
   "gh release create {{version_tag}} --title {{version_tag}} --notes-file /tmp/cog-release-notes-{{version}}.md",
   "rm -f /tmp/cog-release-notes-{{version}}.md",
-  "podman tag ${IMAGE_NAME}:${COMMIT_SHA} ${IMAGE_NAME}:latest",
-  "podman tag ${IMAGE_NAME}:${COMMIT_SHA} ${IMAGE_NAME}:{{version}}",
-  "podman push ${IMAGE_NAME}:latest",
-  "podman push ${IMAGE_NAME}:{{version}}",
 ]
+
+[commit_types.chore]
+bump_patch = true
+changelog_title = "Miscellaneous Chores"
 
 [commit_types.perf]
 bump_patch = true

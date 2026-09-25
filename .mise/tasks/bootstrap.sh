@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-#MISE description = "Bootsrap mise"
+#MISE description = "Bootstrap mise"
 
 #MISE hide = true
 

@@ -1,0 +1,36 @@
+---
+dockerfileDeps:
+  - slug: go
+    arg: GO_VERSION
+    file: src/Dockerfile
+    kind: dockerimage
+    image: golang
+    tagfilter: '^\d+\.\d+\.\d+$'
+  - slug: hugo
+    arg: HUGO_VERSION
+    file: src/Dockerfile
+    kind: githubrelease
+    owner: gohugoio
+    repo: hugo
+    trimPrefix: true
+  - slug: caddy
+    arg: CADDY_VERSION
+    file: src/Dockerfile
+    kind: githubrelease
+    owner: caddyserver
+    repo: caddy
+    trimPrefix: true
+  - slug: xcaddy
+    arg: XCADDY_VERSION
+    file: src/Dockerfile
+    kind: githubrelease
+    owner: caddyserver
+    repo: xcaddy
+    trimPrefix: false
+  - slug: dartSass
+    arg: DART_SASS_VERSION
+    file: src/Dockerfile
+    kind: githubrelease
+    owner: sass
+    repo: dart-sass
+    trimPrefix: false
