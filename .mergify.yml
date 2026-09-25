@@ -3,17 +3,31 @@ queue_rules:
   - merge_method: rebase
     name: default
     branch_protection_injection_mode: merge
-    merge_conditions:
-      - and:
+    queue_conditions:
+      - or:
           - label = reviewed
-          - check-success = pr-checks
+          - label = dependencies
+      - check-success = pr-checks
+    merge_conditions:
+      - or:
+          - label = reviewed
+          - label = dependencies
+      - check-success = pr-checks
 merge_protections:
   - name: Merge only if reviewed
-    description: Merge only if the PR has been reviewed
+    description: Merge only if the PR has been reviewed or is a dependency update
     if:
       - base = main
     success_conditions:
-      - label = reviewed
+      - or:
+          - label = reviewed
+          - label = dependencies
 merge_protections_settings:
   reporting_method: check-runs
   auto_merge_conditions: true
+pull_request_rules:
+  - name: Delete head branch after merge
+    conditions:
+      - merged
+    actions:
+      delete_head_branch:

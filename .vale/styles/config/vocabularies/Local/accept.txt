@@ -1,3 +1,0 @@
-[Dd]evcontainer
-[Dd]ev
-deployer

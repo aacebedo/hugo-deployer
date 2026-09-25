@@ -1,4 +1,5 @@
-.vale/styles/Google
-.vale/styles/.vale-config
-.vale/Google/
-github_conf/
+.rumdl_cache/
+
+# Helm charts
+.build/
+charts/*/charts/

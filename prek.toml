@@ -1,24 +1,22 @@
-# Configuration file for `prek`, a git hook framework written in Rust.
-# See https://prek.j178.dev for more information.
-# :schema https://www.schemastore.org/prek.json
-
 [[repos]]
-repo = "https://github.com/hadolint/hadolint"
-rev = "v2.14.0"
-hooks = [{ id = "hadolint" }]
-
-[[repos]]
-repo = "https://github.com/adrienverge/yamllint"
-rev = "v1.38.0"
+repo = "local"
 
 [[repos.hooks]]
-id = "yamllint"
-exclude = '^.*templates/.*\.yaml'
+id = "ryl"
+name = "ryl"
+entry = "ryl --config-file .ryl.toml"
+language = "system"
+types = ["yaml"]
+exclude = '^\.updatecli/manifests/'
 
 [[repos]]
-repo = "https://github.com/editorconfig-checker/editorconfig-checker"
-rev = "v3.6.0"
-hooks = [{ id = "editorconfig-checker" }]
+repo = "local"
+
+[[repos.hooks]]
+id = "editorconfig-checker"
+name = "editorconfig-checker"
+entry = "editorconfig-checker"
+language = "system"
 
 [[repos]]
 repo = "local"
@@ -35,78 +33,131 @@ repo = "local"
 
 [[repos.hooks]]
 id = "trivy-fs"
-name = "Trivy filesystem scan"
+name = "trivy filesystem scan"
 entry = "trivy"
-args = ["fs", "."]
+args = [
+  "fs",
+  "--scanners",
+  "vuln,secret,misconfig,license",
+  "--exit-code",
+  "1",
+  "--severity",
+  "CRITICAL",
+  "--skip-version-check",
+  ".",
+]
 language = "system"
 pass_filenames = false
 
 [[repos]]
-repo = "https://github.com/commitizen-tools/commitizen"
-rev = "v4.13.0"
-hooks = [{ id = "commitizen" }]
+repo = "local"
+
+[[repos.hooks]]
+id = "dprint"
+name = "dprint fmt"
+entry = "dprint fmt --config-discovery=ignore-descendants --allow-no-files"
+language = "system"
 
 [[repos]]
-repo = "https://github.com/errata-ai/vale"
-rev = "v3.14.0"
-hooks = [{ id = "vale" }]
+repo = "local"
+
+[[repos.hooks]]
+id = "tombi-lint"
+name = "tombi lint"
+entry = "tombi lint --offline"
+language = "system"
+types = ["toml"]
+
+[[repos]]
+repo = "local"
+
+[[repos.hooks]]
+id = "reuse"
+name = "reuse lint"
+entry = "reuse lint"
+language = "system"
+pass_filenames = false
+
+[[repos]]
+repo = "local"
+
+[[repos.hooks]]
+id = "codebook"
+name = "codebook spell check"
+entry = "codebook-lsp lint"
+language = "system"
+files = '\.(md|toml|ya?ml|json|jsonc|sh)$|(^|/)Dockerfile$|\.dockerfile$'
+
+[[repos]]
+repo = "local"
+
+[[repos.hooks]]
+id = "check-templates"
+name = "check the templates are applied"
+entry = "mise run --quiet check-templates"
+language = "system"
+pass_filenames = false
+always_run = true
 
 [[repos]]
 repo = "local"
 
 [[repos.hooks]]
 id = "updatecli-manifest-validate"
-name = "Validate Updatecli manifests"
+name = "validate updatecli manifests"
 entry = "env"
 args = [
   "UPDATECLI_GITHUB_TOKEN=validate-only",
-  "updatecli",
-  "manifest",
-  "validate",
-  "--experimental",
-  "--config",
-  ".updatecli/manifests",
-  "--values",
-  ".updatecli/values.yaml",
+  "mise",
+  "run",
+  "--quiet",
+  "update-deps",
+  "--validate",
 ]
 language = "system"
-files = '^\.updatecli/(manifests/.*\.ya?ml|values\.yaml)$'
+files = '^\.updatecli/'
 pass_filenames = false
 
 [[repos]]
-repo = "https://github.com/rvben/rumdl-pre-commit"
-rev = "v0.2.69"
-hooks = [{ id = "rumdl-check" }]
-
-[[repos]]
-repo = "https://github.com/shellcheck-py/shellcheck-py"
-rev = "v0.10.0.1"
-hooks = [{ id = "shellcheck" }]
-
-[[repos]]
-repo = "https://github.com/scop/pre-commit-shfmt"
-rev = "v3.12.0-2"
-hooks = [{ id = "shfmt" }]
-
-[[repos]]
-repo = "https://github.com/gruntwork-io/pre-commit"
-rev = "v0.1.30"
-hooks = [{ id = "helmlint" }]
-
-[[repos]]
-repo = "https://github.com/jtyr/kubeconform-helm"
-rev = "v0.2.0"
-hooks = [{ id = "kubeconform-helm" }]
-
-[[repos]]
-repo = "https://github.com/bridgecrewio/checkov.git"
-rev = "3.2.528"
+repo = "local"
 
 [[repos.hooks]]
-id = "checkov"
-files = '(\.yaml$|Dockerfile)'
-# the following args is to make the checkov generation
-args = ["--skip-check", "CKV_K8S_21"]
+id = "rumdl-check"
+name = "rumdl check"
+entry = "rumdl check"
+language = "system"
+types = ["markdown"]
+require_serial = true
+
+[[repos]]
+repo = "local"
+
+[[repos.hooks]]
+id = "shellcheck"
+name = "shellcheck"
+entry = "shellcheck"
+args = [
+  "-x",
+  "--source-path=SCRIPTDIR/../..",
+  "--exclude=SC1091",
+]
+language = "system"
+types = ["shell"]
+exclude_types = ["zsh"]
+require_serial = true
+
+[[repos]]
+repo = "local"
+
+[[repos.hooks]]
+id = "shfmt"
+name = "shfmt"
+entry = "shfmt"
+args = ["--write"]
+language = "system"
+types = ["shell"]
+exclude_types = ["csh", "tcsh"]
+stages = ["pre-commit", "pre-merge-commit", "pre-push", "manual"]
 
 [[repos]]
 repo = "local"
@@ -124,19 +175,19 @@ stages = ["pre-push"]
 repo = "local"
 
 [[repos.hooks]]
-id = "dprint"
-name = "dprint check"
-entry = "dprint check"
+id = "hadolint"
+name = "hadolint"
+entry = "hadolint"
 language = "system"
-files = '\.(json|jsonc|ya?ml|md|toml)$|(^|/)Dockerfile$|\.dockerfile$'
-pass_filenames = false
+types = ["dockerfile"]
 
 [[repos]]
 repo = "local"
 
 [[repos.hooks]]
-id = "codebook"
-name = "codebook spell check"
-entry = "codebook-lsp lint"
+id = "helm-lint"
+name = "helm lint"
+entry = "mise run --quiet helmcharts:lint"
 language = "system"
-files = '\.(md|toml|ya?ml|json|jsonc|sh)$|(^|/)Dockerfile$|\.dockerfile$'
+files = "^charts/"
+pass_filenames = false
