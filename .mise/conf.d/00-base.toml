@@ -36,8 +36,8 @@ commit_sha = '''{{ exec(command="git rev-parse HEAD 2>/dev/null || echo ''") | t
 
 [task_config]
 includes = [
-  "git::https://github.com/aacebedo/boilerplate-templates.git//static_files/mise/tasks/base?ref=v0.3.2",
-  "git::https://github.com/aacebedo/boilerplate-templates.git//static_files/mise/tasks/container?ref=v0.3.2",
-  "git::https://github.com/aacebedo/boilerplate-templates.git//static_files/mise/tasks/helmcharts?ref=v0.3.2",
+  "git::https://github.com/aacebedo/boilerplate-templates.git//static_files/mise/tasks/base?ref=v0.3.3",
+  "git::https://github.com/aacebedo/boilerplate-templates.git//static_files/mise/tasks/container?ref=v0.3.3",
+  "git::https://github.com/aacebedo/boilerplate-templates.git//static_files/mise/tasks/helmcharts?ref=v0.3.3",
   ".mise/tasks",
 ]

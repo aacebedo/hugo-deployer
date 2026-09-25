@@ -11,7 +11,7 @@ permissions: {}
 
 jobs:
   update-deps:
-    uses: aacebedo/boilerplate-templates/.github/workflows/reusable-update-deps.yaml@v0.3.2
+    uses: aacebedo/boilerplate-templates/.github/workflows/reusable-update-deps.yaml@v0.3.3
     permissions:
       contents: read
     secrets: inherit
