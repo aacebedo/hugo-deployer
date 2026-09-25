@@ -1,6 +1,6 @@
 {
   "name": "hugo-deployer development container",
-  "image": "ghcr.io/aacebedo/devcontainer-base:1.23.0",
+  "image": "ghcr.io/aacebedo/devcontainer-base:1.24.1",
   "capAdd": ["SYS_ADMIN"],
   "runArgs": ["--security-opt", "apparmor=unconfined", "--device", "/dev/fuse", "--device", "/dev/net/tun"],
   "containerEnv": {

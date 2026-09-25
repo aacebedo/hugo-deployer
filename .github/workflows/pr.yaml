@@ -17,7 +17,7 @@ jobs:
       contents: read
       packages: read
     with:
-      container-image: ghcr.io/aacebedo/devcontainer-base:1.23.0
+      container-image: ghcr.io/aacebedo/devcontainer-base:1.24.1
       container-options: >-
         --user root
         --privileged --cgroupns=host --security-opt apparmor=unconfined --device /dev/fuse
