@@ -23,7 +23,7 @@ project_description: Docker image deploying a Hugo website, with automatic updat
 project_name: hugo-deployer
 project_slug: hugo-deployer
 reuse_version: 6.2.0
-rumdl_version: 0.2.76
+rumdl_version: '0.2.77'
 ryl_version: 0.22.0
 shellcheck_version: 0.11.0
 shfmt_version: 3.14.1
