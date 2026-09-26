@@ -34,3 +34,9 @@ dockerfileDeps:
     owner: sass
     repo: dart-sass
     trimPrefix: false
+
+miseDeps:
+  - slug: podman-compose
+    tomlKey: '"pipx:podman-compose"'
+    kind: pypi
+    name: podman-compose

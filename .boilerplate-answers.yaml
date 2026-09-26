@@ -2,33 +2,11 @@
 # version they were rendered from. Rewritten by "mise run update-templates".
 ---
 template_url: https://github.com/aacebedo/boilerplate-templates.git
-template_ref: v0.4.4
-biome_version: 2.5.14
-boilerplate_version: 0.16.0
-cocogitto_version: 7.0.0
-codebook_version: 0.3.43
+template_ref: v0.5.0
 devcontainer: true
-devcontainer_image_version: 1.23.0
-dprint_version: 0.57.4
-editorconfig_checker_version: 4.0.2
-gh_version: 2.101.0
 github_owner: aacebedo
-hadolint_version: 2.15.1
-helm_unittest_version: 1.1.2
-helm_version: 4.3.0
 layers: container,helmcharts
 license: MIT
-prek_version: 0.5.3
 project_description: Docker image deploying a Hugo website, with automatic updates when a specific endpoint is called
 project_name: hugo-deployer
 project_slug: hugo-deployer
-reuse_version: 6.2.0
-rumdl_version: 0.2.76
-ryl_version: 0.22.0
-shellcheck_version: 0.11.0
-shfmt_version: 3.14.1
-tombi_version: 1.5.5
-trivy_version: 0.74.0
-updatecli_version: 0.121.0
-uv_version: 0.12.18
-yq_version: 4.53.6

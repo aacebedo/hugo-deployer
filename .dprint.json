@@ -12,8 +12,8 @@
     "CHANGELOG.md"
   ],
   "extends": [
-    "https://raw.githubusercontent.com/aacebedo/boilerplate-templates/v0.4.4/static/dprint/container.json",
-    "https://raw.githubusercontent.com/aacebedo/boilerplate-templates/v0.4.4/static/dprint/helmcharts.json",
-    "https://raw.githubusercontent.com/aacebedo/boilerplate-templates/v0.4.4/static/dprint/base.json"
+    "https://raw.githubusercontent.com/aacebedo/boilerplate-templates/v0.5.0/static/dprint/container.json",
+    "https://raw.githubusercontent.com/aacebedo/boilerplate-templates/v0.5.0/static/dprint/helmcharts.json",
+    "https://raw.githubusercontent.com/aacebedo/boilerplate-templates/v0.5.0/static/dprint/base.json"
   ]
 }
