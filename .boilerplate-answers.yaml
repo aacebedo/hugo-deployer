@@ -2,7 +2,7 @@
 # version they were rendered from. Rewritten by "mise run update-templates".
 ---
 template_url: https://github.com/aacebedo/boilerplate-templates.git
-template_ref: v0.3.3
+template_ref: v0.4.4
 biome_version: 2.5.14
 boilerplate_version: 0.16.0
 cocogitto_version: 7.0.0

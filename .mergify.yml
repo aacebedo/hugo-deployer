@@ -7,12 +7,12 @@ queue_rules:
       - or:
           - label = reviewed
           - label = dependencies
-      - check-success = pr-checks
+      - check-success = pr-checks / pr-checks
     merge_conditions:
       - or:
           - label = reviewed
           - label = dependencies
-      - check-success = pr-checks
+      - check-success = pr-checks / pr-checks
 merge_protections:
   - name: Merge only if reviewed
     description: Merge only if the PR has been reviewed or is a dependency update
