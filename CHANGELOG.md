@@ -2,6 +2,17 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## [v2.15.1](https://github.com/aacebedo/hugo-deployer/compare/237cdfc819d89c48ee09c2542b70d482274dfc74..v2.15.1) - 2026-09-26
+#### Build system
+- apply the templates at v0.5.0 - ([be19214](https://github.com/aacebedo/hugo-deployer/commit/be1921424c779a08eb9fda7a4b25466e8e14b844)) - Alexandre ACEBEDO
+#### Miscellaneous Chores
+- (**deps**) Update DART_SASS_VERSION in src/Dockerfile - ([bb10cc4](https://github.com/aacebedo/hugo-deployer/commit/bb10cc47cee8064df2cd1ab662a042bf78d4565e)) - ci-actions-dep-updater[bot]
+- (**deps**) Update CADDY_VERSION in src/Dockerfile - ([f2d5c8d](https://github.com/aacebedo/hugo-deployer/commit/f2d5c8d443cef6083b812aeefba356019806826e)) - ci-actions-dep-updater[bot]
+- (**deps**) Update GO_VERSION in src/Dockerfile - ([51f334d](https://github.com/aacebedo/hugo-deployer/commit/51f334dace34f8c4471473c9161f52c46c057d0a)) - ci-actions-dep-updater[bot]
+- update templates to v0.4.4 - ([237cdfc](https://github.com/aacebedo/hugo-deployer/commit/237cdfc819d89c48ee09c2542b70d482274dfc74)) - Alexandre ACEBEDO
+
+- - -
+
 ## [v2.15.0](https://github.com/aacebedo/hugo-deployer/compare/203bd833f7aa8ae73491d6653f4d43a00d0b63a1..v2.15.0) - 2026-09-25
 #### Features
 - apply boilerplate templates - ([203bd83](https://github.com/aacebedo/hugo-deployer/commit/203bd833f7aa8ae73491d6653f4d43a00d0b63a1)) - Alexandre ACEBEDO
