@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## [v2.15.2](https://github.com/aacebedo/hugo-deployer/compare/2c8a4e3c95e888357495356162d57990a152e8d2..v2.15.2) - 2026-09-26
+#### Miscellaneous Chores
+- (**deps**) Update XCADDY_VERSION in src/Dockerfile - ([2c8a4e3](https://github.com/aacebedo/hugo-deployer/commit/2c8a4e3c95e888357495356162d57990a152e8d2)) - ci-actions-dep-updater[bot]
+
+- - -
+
 ## [v2.15.1](https://github.com/aacebedo/hugo-deployer/compare/237cdfc819d89c48ee09c2542b70d482274dfc74..v2.15.1) - 2026-09-26
 #### Build system
 - apply the templates at v0.5.0 - ([be19214](https://github.com/aacebedo/hugo-deployer/commit/be1921424c779a08eb9fda7a4b25466e8e14b844)) - Alexandre ACEBEDO

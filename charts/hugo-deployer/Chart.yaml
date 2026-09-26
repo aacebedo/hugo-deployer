@@ -2,7 +2,7 @@
 name: hugo-deployer
 apiVersion: v2
 
-version: 2.15.1
+version: 2.15.2
 
-appVersion: 2.15.1
+appVersion: 2.15.2
 description: A Helm chart for hugo-deployer
