@@ -1,0 +1,10 @@
+---
+compact: true
+directory:
+  - charts
+framework:
+  - helm
+  - secrets
+quiet: true
+skip-check:
+  - CKV_K8S_21
