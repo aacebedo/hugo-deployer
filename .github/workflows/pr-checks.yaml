@@ -12,7 +12,7 @@ permissions: {}
 
 jobs:
   pr-checks:
-    uses: aacebedo/boilerplate-templates/.github/workflows/reusable-pr-checks.yaml@v0.5.0
+    uses: aacebedo/boilerplate-templates/.github/workflows/reusable-pr-checks.yaml@v0.5.1
     permissions:
       contents: read
       packages: read
