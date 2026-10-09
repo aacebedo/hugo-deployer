@@ -12,12 +12,12 @@ permissions: {}
 
 jobs:
   pr-checks:
-    uses: aacebedo/boilerplate-templates/.github/workflows/reusable-pr-checks.yaml@v0.6.0
+    uses: aacebedo/boilerplate-templates/.github/workflows/reusable-pr-checks.yaml@v0.8.0
     permissions:
       contents: read
       packages: read
     with:
-      container-image: ghcr.io/aacebedo/devcontainer-base:1.24.4
+      container-image: ghcr.io/aacebedo/devcontainer-base:1.25.0
       container-options: >-
         --user root
         --privileged --cgroupns=host --security-opt apparmor=unconfined --device /dev/fuse

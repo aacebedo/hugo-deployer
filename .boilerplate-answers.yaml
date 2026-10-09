@@ -2,7 +2,7 @@
 # version they were rendered from. Rewritten by "mise run update-templates".
 ---
 template_url: https://github.com/aacebedo/boilerplate-templates.git
-template_ref: v0.6.0
+template_ref: v0.8.0
 devcontainer: true
 github_owner: aacebedo
 layers: container,helmcharts

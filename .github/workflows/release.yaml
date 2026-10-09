@@ -11,14 +11,14 @@ permissions: {}
 
 jobs:
   release:
-    uses: aacebedo/boilerplate-templates/.github/workflows/reusable-release.yaml@v0.6.0
+    uses: aacebedo/boilerplate-templates/.github/workflows/reusable-release.yaml@v0.8.0
     secrets: inherit
     permissions:
       contents: write
       packages: write
 
     with:
-      container-image: ghcr.io/aacebedo/devcontainer-base:1.24.4
+      container-image: ghcr.io/aacebedo/devcontainer-base:1.25.0
       container-options: >-
         --user root
         --privileged --cgroupns=host --security-opt apparmor=unconfined --device /dev/fuse
