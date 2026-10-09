@@ -1,3 +1,18 @@
+min_version = "2026.10.6"
+include = [
+  "git::https://github.com/aacebedo/boilerplate-templates.git//static/mise/config/base.toml?ref=v0.8.0",
+  "git::https://github.com/aacebedo/boilerplate-templates.git//static/mise/config/container.toml?ref=v0.8.0",
+  "git::https://github.com/aacebedo/boilerplate-templates.git//static/mise/config/helmcharts.toml?ref=v0.8.0",
+]
+
+[task_config]
+includes = [
+  "git::https://github.com/aacebedo/boilerplate-templates.git//static/mise/tasks/base?ref=v0.8.0",
+  "git::https://github.com/aacebedo/boilerplate-templates.git//static/mise/tasks/container?ref=v0.8.0",
+  "git::https://github.com/aacebedo/boilerplate-templates.git//static/mise/tasks/helmcharts?ref=v0.8.0",
+  ".mise/tasks",
+]
+
 [settings]
 experimental = true
 
@@ -5,8 +20,6 @@ experimental = true
 "pipx:podman-compose" = "1.6.0"
 
 [bootstrap.packages]
-"apt:bash" = "latest"
-"apt:podman" = "latest"
 "apt:passt" = "latest"
 "apt:fuse-overlayfs" = "latest"
 "apt:iptables" = "latest"
@@ -14,5 +27,4 @@ experimental = true
 "apt:aardvark-dns" = "latest"
 "apt:build-essential" = "latest"
 "apt:curl" = "latest"
-"apt:git" = "latest"
 "apt:uidmap" = "latest"
