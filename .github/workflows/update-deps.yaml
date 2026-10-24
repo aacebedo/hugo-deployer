@@ -6,12 +6,15 @@ on:
   workflow_dispatch:
   schedule:
     - cron: "0 6 * * 1"
+  push:
+    branches:
+      - main
 
 permissions: {}
 
 jobs:
   update-deps:
-    uses: aacebedo/boilerplate-templates/.github/workflows/reusable-update-deps.yaml@v0.8.0
+    uses: aacebedo/boilerplate-templates/.github/workflows/reusable-update-deps.yaml@v0.9.0
     permissions:
       contents: read
     secrets: inherit
