@@ -2,6 +2,17 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## [v2.16.0](https://github.com/aacebedo/hugo-deployer/compare/0284af43209af7e59e0af86c2718152ada655899..v2.16.0) - 2026-10-24
+#### Features
+- update templates - ([0284af4](https://github.com/aacebedo/hugo-deployer/commit/0284af43209af7e59e0af86c2718152ada655899)) - Alexandre ACEBEDO
+#### Bug Fixes
+- ignore CVE-2026-111943 until hugo ships a go 1.27.3 build - ([ee46f23](https://github.com/aacebedo/hugo-deployer/commit/ee46f2357212ad5b955ac6f0227a3a90a0bf2dbc)) - Alexandre Acebedo, Claude Opus 5.5
+#### Miscellaneous Chores
+- (**deps**) Update DART_SASS_VERSION in src/Dockerfile - ([8862acf](https://github.com/aacebedo/hugo-deployer/commit/8862acf48b51b87c6862f2195b7484d2c9c13e23)) - ci-actions-dep-updater[bot]
+- (**deps**) Update GO_VERSION in src/Dockerfile - ([c87a46f](https://github.com/aacebedo/hugo-deployer/commit/c87a46fbe02fdcee904df928673d9fd901016880)) - ci-actions-dep-updater[bot]
+
+- - -
+
 ## [v2.15.8](https://github.com/aacebedo/hugo-deployer/compare/be0af72f3aada8e20a6b7c4d7b88fd28649b1b6f..v2.15.8) - 2026-10-19
 #### Miscellaneous Chores
 - (**deps**) Update DART_SASS_VERSION in src/Dockerfile - ([be0af72](https://github.com/aacebedo/hugo-deployer/commit/be0af72f3aada8e20a6b7c4d7b88fd28649b1b6f)) - ci-actions-dep-updater[bot]
