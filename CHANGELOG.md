@@ -2,6 +2,16 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## [v2.16.2](https://github.com/aacebedo/hugo-deployer/compare/c2ec29072eb3d8cc219e6d322e36fcbda2b756a2..v2.16.2) - 2026-11-16
+#### Miscellaneous Chores
+- (**deps**) Update DART_SASS_VERSION in src/Dockerfile - ([5c6706c](https://github.com/aacebedo/hugo-deployer/commit/5c6706c26047211fabe2b45abc63010359e39044)) - ci-actions-dep-updater[bot]
+- (**deps**) Update GO_VERSION in src/Dockerfile - ([7f7d6ed](https://github.com/aacebedo/hugo-deployer/commit/7f7d6edcd60beb50d91274f7a95c8d259f1cfdd0)) - ci-actions-dep-updater[bot]
+- (**deps**) Apply the templates at the latest release - ([d43fb9b](https://github.com/aacebedo/hugo-deployer/commit/d43fb9b4815c28612e17a00684f7b5713fb3c454)) - ci-actions-dep-updater[bot]
+- (**deps**) Update CADDY_VERSION in src/Dockerfile - ([7b95ec4](https://github.com/aacebedo/hugo-deployer/commit/7b95ec40156e1a45171b3e76bcb0f5dfe7d39e1f)) - ci-actions-dep-updater[bot]
+- (**deps**) Update HUGO_VERSION in src/Dockerfile - ([c2ec290](https://github.com/aacebedo/hugo-deployer/commit/c2ec29072eb3d8cc219e6d322e36fcbda2b756a2)) - ci-actions-dep-updater[bot]
+
+- - -
+
 ## [v2.16.1](https://github.com/aacebedo/hugo-deployer/compare/3293c3b4df56f2ef66fc497b1cf8c96e51ecbdd3..v2.16.1) - 2026-11-02
 #### Miscellaneous Chores
 - (**deps**) Update DART_SASS_VERSION in src/Dockerfile - ([9ab68f7](https://github.com/aacebedo/hugo-deployer/commit/9ab68f7832f5d9d0a9e8b6f37a16a106aba60d5d)) - ci-actions-dep-updater[bot]
