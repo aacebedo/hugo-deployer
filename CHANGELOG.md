@@ -2,6 +2,13 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## [v2.16.3](https://github.com/aacebedo/hugo-deployer/compare/5df82300665a86f8572deeaa8d469efb7953f9e0..v2.16.3) - 2026-11-23
+#### Miscellaneous Chores
+- (**deps**) Apply the templates at the latest release - ([6b71615](https://github.com/aacebedo/hugo-deployer/commit/6b716152ef8b135b346d03bd78296dabcea64434)) - ci-actions-dep-updater[bot]
+- (**deps**) Update HUGO_VERSION in src/Dockerfile - ([5df8230](https://github.com/aacebedo/hugo-deployer/commit/5df82300665a86f8572deeaa8d469efb7953f9e0)) - ci-actions-dep-updater[bot]
+
+- - -
+
 ## [v2.16.2](https://github.com/aacebedo/hugo-deployer/compare/c2ec29072eb3d8cc219e6d322e36fcbda2b756a2..v2.16.2) - 2026-11-16
 #### Miscellaneous Chores
 - (**deps**) Update DART_SASS_VERSION in src/Dockerfile - ([5c6706c](https://github.com/aacebedo/hugo-deployer/commit/5c6706c26047211fabe2b45abc63010359e39044)) - ci-actions-dep-updater[bot]
